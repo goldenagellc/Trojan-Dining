@@ -29,21 +29,37 @@ class TableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
         for meal in menu {
             for hall in meal.locations {
                 for sect in hall.sections {
-                    for food in sect.foods {
+                    for _ in sect.foods {
                         count += 1
                     }
                 }
             }
         }
         return count
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    // Set the spacing between sections
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 9
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 9
+    }
+    
+    // Make the background color show through
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,7 +75,7 @@ class TableViewController: UITableViewController {
             for hall in meal.locations {
                 for sect in hall.sections {
                     for food in sect.foods {
-                        if count == indexPath.row {
+                        if count == indexPath.section {
 //                            print(food.name)
                             hallToDisplay = hall
                             foodToDisplay = food
@@ -74,6 +90,10 @@ class TableViewController: UITableViewController {
         cell.foodLabel.text = foodToDisplay!.name
         cell.HallLabel.text = hallToDisplay!.name
 
+        cell.contentView.layer.masksToBounds = true
+        let radius = cell.contentView.layer.cornerRadius
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+        
         return cell
     }
 
