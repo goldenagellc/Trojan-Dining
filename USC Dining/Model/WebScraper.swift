@@ -17,7 +17,7 @@ class WebScraper {
     
     public init(_ delegate: TableViewController) {
         parent = delegate
-        address = "https://hospitality.usc.edu/residential-dining-menus/?menu_date=October+22%2C+2018"
+        address = "https://hospitality.usc.edu/residential-dining-menus/?menu_date=October+26%2C+2018"
         url = URL(string: address)!
         menuBuilder = MenuBuilder()
         

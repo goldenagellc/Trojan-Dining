@@ -12,6 +12,7 @@ class TableViewController: UITableViewController {
     
     //MARK: Properties
     private var menu = [MenuBuilder.Meal]()
+    private var cellIsOpen = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,17 +30,17 @@ class TableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        var count = 0
-        for meal in menu {
-            for hall in meal.locations {
-                for sect in hall.sections {
-                    for _ in sect.foods {
-                        count += 1
-                    }
-                }
-            }
-        }
-        return count
+//        var count = 0
+//        for meal in menu {
+//            for hall in meal.locations {
+//                for sect in hall.sections {
+//                    for _ in sect.foods {
+//                        count += 1
+//                    }
+//                }
+//            }
+//        }
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -64,37 +65,57 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
-        
-//        print(indexPath.row)
-//        print("")
-        
-        var hallToDisplay: MenuBuilder.DiningHall? = nil
-        var foodToDisplay: MenuBuilder.Food? = nil
-        var count = 0
-        for meal in menu {
-            for hall in meal.locations {
-                for sect in hall.sections {
-                    for food in sect.foods {
-                        if count == indexPath.section {
-//                            print(food.name)
-                            hallToDisplay = hall
-                            foodToDisplay = food
-                        }
-                        count += 1
-                    }
-                }
-            }
-        }
 
         // Configure the cell...
-        cell.foodLabel.text = foodToDisplay!.name
-        cell.HallLabel.text = hallToDisplay!.name
+        print(menu.count)
+        if menu.count > 0 {
+            let rawMealName: String = menu[indexPath.section].name
+            let firstSpace = rawMealName.firstIndex(of: " ") ?? rawMealName.endIndex
+            
+            //let trimmedName: [String] = rawMealName.components(separatedBy: " ")
+            let trimmedName: String = String(rawMealName[..<firstSpace])
+            let secondSpace = rawMealName.index(firstSpace, offsetBy: 5)
+            let date: String = String(rawMealName[secondSpace...])
+            print(date)
+            
+            
+            cell.mealView.windowTitle.text = trimmedName
+            cell.mealView.windowSubtitle.text = date
+        }
+        
+        if indexPath.section == 0 {
+            cell.mealView.contentViewImage.image = UIImage(named: "Breakfast")
+        }
 
-        cell.contentView.layer.masksToBounds = true
-        let radius = cell.contentView.layer.cornerRadius
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+//        cell.mealView.shadowView.masksToBounds = true
+        let radius = cell.mealView.shadowView.layer.cornerRadius
+        let bounds = cell.mealView.shadowView.layer.bounds
+        cell.mealView.shadowView.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: radius).cgPath
         
         return cell
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell = tableView.cellForRow(at: indexPath) as! TableViewCell
+        
+        tableView.isUserInteractionEnabled = false
+        cellIsOpen = true
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            selectedCell.mealView.windowToContentView.frame = selectedCell.mealView.windowToContentView.frame.insetBy(dx: -20, dy: -20)
+            selectedCell.mealView.windowToContentView.layer.cornerRadius = 0
+            self.setNeedsStatusBarAppearanceUpdate()
+        })
+    }
+    
+    
+    override var prefersStatusBarHidden: Bool {
+        return cellIsOpen
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return UIStatusBarAnimation.fade
     }
 
     /*

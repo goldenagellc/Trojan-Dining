@@ -11,44 +11,42 @@ import UIKit
 class TableViewCell: UITableViewCell {
     
     //MARK: Properties
-    @IBOutlet weak var foodLabel: UILabel!
-    @IBOutlet weak var HallLabel: UILabel!
+    @IBOutlet weak var mealView: Meal!
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
-        // Make sure background doesn't interfere with anything
+        // get all the built-in views out the way
         self.backgroundColor = UIColor.clear
+        self.contentView.backgroundColor = UIColor.clear
+        self.contentView.clipsToBounds = false
         
-        self.layer.masksToBounds = false
-        // Enable shadows
-        self.layer.shadowOpacity = 0.15
-        self.layer.shadowRadius = 8
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: 0, height: 0)
-        // Enable rounded corners
-        self.contentView.backgroundColor = UIColor.white
-        self.contentView.layer.cornerRadius = 16
         
-        // Configure background view so it doesn't interfere with anything
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.lightGray
-        backgroundView.layer.cornerRadius = 16
-        self.selectedBackgroundView = backgroundView
+        // enlarge meal canvas to fill cell
+        self.mealView.contentView.frame = self.frame
+        // add rounded corners
+        self.mealView.windowToContentView.layer.cornerRadius = 16
+        self.mealView.shadowView.layer.cornerRadius = 16
+        // add shadow
+        self.mealView.shadowView.layer.masksToBounds = false
+        self.mealView.shadowView.layer.shadowOpacity = 0.15
+        self.mealView.shadowView.layer.shadowRadius = 8
+        self.mealView.shadowView.layer.shadowColor = UIColor.black.cgColor
+        self.mealView.shadowView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        // attach meal view to cell
+        self.addSubview(mealView)
+        
+        
+        // make sure the cell doesn't change colors when tapped
+        let selectedColor = UIView()
+        selectedColor.backgroundColor = UIColor.clear
+        self.selectedBackgroundView = selectedColor
     }
 
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
-        
+        // configure the view for the selected state
     }
-    
-    override var frame: CGRect {
-        get {return super.frame}
-        set (newFrame) {super.frame = newFrame.insetBy(dx: 18, dy: 0)}
-    }
-
 }

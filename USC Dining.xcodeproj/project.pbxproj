@@ -15,6 +15,8 @@
 		C46E0F6B217DB0B2007F5452 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F6A217DB0B2007F5452 /* TableViewCell.swift */; };
 		C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F6E217DB97B007F5452 /* WebScraper.swift */; };
 		C46E0F71217DB989007F5452 /* MenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F70217DB989007F5452 /* MenuBuilder.swift */; };
+		C4C4AE3B218431F300388F6E /* Meal.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C4AE3A218431F300388F6E /* Meal.xib */; };
+		C4C4AE3D2184557700388F6E /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C4AE3C2184557700388F6E /* Meal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		C46E0F6A217DB0B2007F5452 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		C46E0F6E217DB97B007F5452 /* WebScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebScraper.swift; sourceTree = "<group>"; };
 		C46E0F70217DB989007F5452 /* MenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBuilder.swift; sourceTree = "<group>"; };
+		C4C4AE3A218431F300388F6E /* Meal.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Meal.xib; sourceTree = "<group>"; };
+		C4C4AE3C2184557700388F6E /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,8 @@
 			children = (
 				C46E0F57217DAFEA007F5452 /* Main.storyboard */,
 				C46E0F5C217DAFEB007F5452 /* LaunchScreen.storyboard */,
+				C4C4AE3A218431F300388F6E /* Meal.xib */,
+				C4C4AE3C2184557700388F6E /* Meal.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -155,6 +161,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4C4AE3B218431F300388F6E /* Meal.xib in Resources */,
 				C46E0F5E217DAFEB007F5452 /* LaunchScreen.storyboard in Resources */,
 				C46E0F5B217DAFEB007F5452 /* Assets.xcassets in Resources */,
 				C46E0F59217DAFEA007F5452 /* Main.storyboard in Resources */,
@@ -172,6 +179,7 @@
 				C46E0F71217DB989007F5452 /* MenuBuilder.swift in Sources */,
 				C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */,
 				C46E0F54217DAFEA007F5452 /* AppDelegate.swift in Sources */,
+				C4C4AE3D2184557700388F6E /* Meal.swift in Sources */,
 				C46E0F69217DB07C007F5452 /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
