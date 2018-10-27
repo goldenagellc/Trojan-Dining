@@ -9,13 +9,13 @@
 import Foundation
 
 class WebScraper {
-    private let parent: TableViewController
+    private let parent: Today
     private let address: String
     private let url: URL
     private let menuBuilder: MenuBuilder
     private var task: URLSessionDataTask? = nil
     
-    public init(_ delegate: TableViewController) {
+    public init(_ delegate: Today) {
         parent = delegate
         address = "https://hospitality.usc.edu/residential-dining-menus/?menu_date=October+22%2C+2018"
         url = URL(string: address)!
@@ -84,7 +84,7 @@ class WebScraper {
             print("")
         }
         
-        parent.updateMenu(with: menu)
+//        parent.updateMenu(with: menu)
     }
     
     public func resume() {

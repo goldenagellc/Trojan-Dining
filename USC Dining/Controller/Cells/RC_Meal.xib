@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RC_Meal" id="gTV-IL-0wX" customClass="RC_Meal" customModule="USC_Dining" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="330" height="358"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="330" height="358"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIk-6i-Wm1">
+                        <rect key="frame" x="0.0" y="0.0" width="330" height="358"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lc0-oe-rT9">
+                                <rect key="frame" x="0.0" y="0.0" width="330" height="358"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IG8-gv-dRf">
+                                <rect key="frame" x="0.0" y="0.0" width="330" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOURS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KR2-YL-tMO">
+                                        <rect key="frame" x="8" y="8" width="314" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="7Ie-jX-2T3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbY-A3-VbZ">
+                                        <rect key="frame" x="8" y="27" width="314" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="Ure-pS-6av"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="KR2-YL-tMO" secondAttribute="trailing" constant="8" id="6im-es-lnY"/>
+                                    <constraint firstAttribute="trailing" secondItem="fbY-A3-VbZ" secondAttribute="trailing" constant="8" id="PLP-sM-LgR"/>
+                                    <constraint firstItem="fbY-A3-VbZ" firstAttribute="leading" secondItem="IG8-gv-dRf" secondAttribute="leading" constant="8" id="RhH-sM-0Ml"/>
+                                    <constraint firstItem="KR2-YL-tMO" firstAttribute="top" secondItem="IG8-gv-dRf" secondAttribute="top" constant="8" id="XSS-4k-VY6"/>
+                                    <constraint firstAttribute="bottom" secondItem="fbY-A3-VbZ" secondAttribute="bottom" constant="8" id="aTb-d6-V2P"/>
+                                    <constraint firstItem="KR2-YL-tMO" firstAttribute="leading" secondItem="IG8-gv-dRf" secondAttribute="leading" constant="8" id="f5d-E2-67e"/>
+                                    <constraint firstAttribute="height" constant="60" id="feI-71-vni"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lc0-oe-rT9" firstAttribute="top" secondItem="JIk-6i-Wm1" secondAttribute="top" id="FUH-a0-aHM"/>
+                            <constraint firstItem="IG8-gv-dRf" firstAttribute="leading" secondItem="JIk-6i-Wm1" secondAttribute="leading" id="Q81-b3-eLC"/>
+                            <constraint firstItem="lc0-oe-rT9" firstAttribute="leading" secondItem="JIk-6i-Wm1" secondAttribute="leading" id="QCv-Tf-7Lt"/>
+                            <constraint firstAttribute="trailing" secondItem="lc0-oe-rT9" secondAttribute="trailing" id="VjU-B5-ZWx"/>
+                            <constraint firstItem="IG8-gv-dRf" firstAttribute="top" secondItem="JIk-6i-Wm1" secondAttribute="top" id="hdw-eF-DFw"/>
+                            <constraint firstAttribute="bottom" secondItem="lc0-oe-rT9" secondAttribute="bottom" id="iVH-C5-xtp"/>
+                            <constraint firstAttribute="trailing" secondItem="IG8-gv-dRf" secondAttribute="trailing" id="v71-At-mQS"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="JIk-6i-Wm1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="5CV-fL-sxb"/>
+                <constraint firstAttribute="trailing" secondItem="JIk-6i-Wm1" secondAttribute="trailing" id="5Zp-WN-mh3"/>
+                <constraint firstAttribute="bottom" secondItem="JIk-6i-Wm1" secondAttribute="bottom" id="8wW-Sc-agW"/>
+                <constraint firstItem="JIk-6i-Wm1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Hva-ez-sh3"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="hours" destination="KR2-YL-tMO" id="WLp-bR-72r"/>
+                <outlet property="imageView" destination="lc0-oe-rT9" id="mjV-3D-Zxa"/>
+                <outlet property="mealName" destination="fbY-A3-VbZ" id="qYO-Ah-Rvt"/>
+                <outlet property="overlayView" destination="IG8-gv-dRf" id="w8Z-dh-xgN"/>
+                <outlet property="roundedView" destination="JIk-6i-Wm1" id="5sI-aA-rxX"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="109.74512743628186"/>
+        </collectionViewCell>
+    </objects>
+</document>
