@@ -55,5 +55,29 @@ class Meal: UIView {
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
+    
+    // MARK: - convenience functions
+    
+    func roundCorners(toRadius radius: CGFloat = 16.0) {
+        windowToContentView.layer.cornerRadius = radius
+        shadowView.layer.cornerRadius = radius
+    }
+    
+    func enableShadow(withOpacity opacity: Float = 0.15, withWidth radius: CGFloat = 8.0) {
+        shadowView.layer.masksToBounds = false
+        shadowView.layer.shadowOpacity = opacity
+        shadowView.layer.shadowRadius = radius
+        shadowView.layer.shadowColor = UIColor.black.cgColor
+        shadowView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        shadowView.isHidden = false
+    }
+    
+    func disableShadow() {
+        shadowView.isHidden = true
+    }
+    
+    func attachContentTo(_ frame: CGRect) {
+        contentView.frame = frame
+    }
 
 }

@@ -19,27 +19,11 @@ class TableViewController: UITableViewController {
         
         let webScraper = WebScraper(self)
         webScraper.resume()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-//        var count = 0
-//        for meal in menu {
-//            for hall in meal.locations {
-//                for sect in hall.sections {
-//                    for _ in sect.foods {
-//                        count += 1
-//                    }
-//                }
-//            }
-//        }
         return 4
     }
 
@@ -105,6 +89,7 @@ class TableViewController: UITableViewController {
         UIView.animate(withDuration: 0.2, animations: {
             selectedCell.mealView.windowToContentView.frame = selectedCell.mealView.windowToContentView.frame.insetBy(dx: -20, dy: -20)
             selectedCell.mealView.windowToContentView.layer.cornerRadius = 0
+            selectedCell.mealView.disableShadow()
             self.setNeedsStatusBarAppearanceUpdate()
         })
     }

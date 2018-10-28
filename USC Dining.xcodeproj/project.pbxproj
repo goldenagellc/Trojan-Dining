@@ -64,25 +64,25 @@
 		C46E0F52217DAFEA007F5452 /* USC Dining */ = {
 			isa = PBXGroup;
 			children = (
-				C46E0F67217DB003007F5452 /* Controller */,
-				C46E0F66217DAFFE007F5452 /* View */,
-				C46E0F65217DAFF7007F5452 /* Model */,
+				C46E0F67217DB003007F5452 /* Controllers */,
+				C46E0F66217DAFFE007F5452 /* Views */,
+				C46E0F65217DAFF7007F5452 /* Models */,
 				C46E0F5A217DAFEB007F5452 /* Assets.xcassets */,
 				C46E0F5F217DAFEB007F5452 /* Info.plist */,
 			);
 			path = "USC Dining";
 			sourceTree = "<group>";
 		};
-		C46E0F65217DAFF7007F5452 /* Model */ = {
+		C46E0F65217DAFF7007F5452 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				C46E0F6E217DB97B007F5452 /* WebScraper.swift */,
 				C46E0F70217DB989007F5452 /* MenuBuilder.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		C46E0F66217DAFFE007F5452 /* View */ = {
+		C46E0F66217DAFFE007F5452 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				C46E0F57217DAFEA007F5452 /* Main.storyboard */,
@@ -90,17 +90,17 @@
 				C4C4AE3A218431F300388F6E /* Meal.xib */,
 				C4C4AE3C2184557700388F6E /* Meal.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		C46E0F67217DB003007F5452 /* Controller */ = {
+		C46E0F67217DB003007F5452 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				C46E0F68217DB07C007F5452 /* TableViewController.swift */,
 				C46E0F6A217DB0B2007F5452 /* TableViewCell.swift */,
 				C46E0F53217DAFEA007F5452 /* AppDelegate.swift */,
 			);
-			path = Controller;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
