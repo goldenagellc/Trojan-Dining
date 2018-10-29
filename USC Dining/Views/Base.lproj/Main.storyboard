@@ -5,23 +5,22 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Table Controller Meals-->
         <scene sceneID="vWX-Y8-hfm">
             <objects>
-                <tableViewController id="y0I-gX-JfP" customClass="TableViewController" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="y0I-gX-JfP" customClass="TableController_Meals" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="400" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="BkX-tu-bit">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="400" id="ZOc-8v-XeH" customClass="TableViewCell" customModule="USC_Dining" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="400" id="ZOc-8v-XeH" customClass="TableCell_Meal" customModule="USC_Dining" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="400"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZOc-8v-XeH" id="bCO-sF-qRq" customClass="Meal" customModule="USC_Dining" customModuleProvider="target">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZOc-8v-XeH" id="bCO-sF-qRq" customClass="View_MealCondensed" customModule="USC_Dining" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
@@ -35,25 +34,30 @@
                             <outlet property="delegate" destination="y0I-gX-JfP" id="qfB-rQ-8kU"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="rIm-1J-luS" kind="presentation" identifier="ExpandMeal" id="rSn-UU-iUW"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKP-x2-15c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="141.59999999999999" y="145.27736131934034"/>
         </scene>
-        <!--View Controller-->
+        <!--Controller Meal-->
         <scene sceneID="ky1-V7-mCr">
             <objects>
-                <viewController id="rIm-1J-luS" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0e8-CM-epl">
+                <viewController id="rIm-1J-luS" customClass="Controller_Meal" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0e8-CM-epl" customClass="View_MealExpanded" customModule="USC_Dining" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="xIg-xC-9hp"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <connections>
+                        <outlet property="mealView" destination="0e8-CM-epl" id="KhQ-xE-B2K"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqA-eV-vEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="911" y="144"/>
+            <point key="canvasLocation" x="913" y="145"/>
         </scene>
     </scenes>
 </document>

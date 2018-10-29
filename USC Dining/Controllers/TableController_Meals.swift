@@ -8,11 +8,12 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class TableController_Meals: UITableViewController {
     
     //MARK: Properties
     private var menu = [MenuBuilder.Meal]()
-    private var cellIsOpen = false
+    
+    private var selectedCell: TableCell_Meal? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,7 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableCell_Meal
 
         // Configure the cell...
         print(menu.count)
@@ -71,7 +72,7 @@ class TableViewController: UITableViewController {
             cell.mealView.contentViewImage.image = UIImage(named: "Breakfast")
         }
 
-//        cell.mealView.shadowView.masksToBounds = true
+//        cell.mealView.shadowView.layer.masksToBounds = true
         let radius = cell.mealView.shadowView.layer.cornerRadius
         let bounds = cell.mealView.shadowView.layer.bounds
         cell.mealView.shadowView.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: radius).cgPath
@@ -80,28 +81,8 @@ class TableViewController: UITableViewController {
     }
     
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell = tableView.cellForRow(at: indexPath) as! TableViewCell
-        
-        tableView.isUserInteractionEnabled = false
-        cellIsOpen = true
-        
-        UIView.animate(withDuration: 0.2, animations: {
-            selectedCell.mealView.windowToContentView.frame = selectedCell.mealView.windowToContentView.frame.insetBy(dx: -20, dy: -20)
-            selectedCell.mealView.windowToContentView.layer.cornerRadius = 0
-            selectedCell.mealView.disableShadow()
-            self.setNeedsStatusBarAppearanceUpdate()
-        })
-    }
     
     
-    override var prefersStatusBarHidden: Bool {
-        return cellIsOpen
-    }
-    
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return UIStatusBarAnimation.fade
-    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -138,20 +119,39 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-    //MARK: Private Mathods
+    
     public func updateMenu(with newMenu: [MenuBuilder.Meal]) {
         menu = newMenu
         DispatchQueue.main.async {self.tableView.reloadData()}
     }
+    
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        super.prepare(for: segue, sender: sender)
+        
+        if let toVC = segue.destination as? Controller_Meal {
+            print("Did set transitionDelegate")
+            toVC.transitioningDelegate = self
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.selectedCell = self.tableView(self.tableView, cellForRowAt: indexPath) as! TableCell_Meal
+        
+        print("Did try to perform segue")
+        performSegue(withIdentifier: "ExpandMeal", sender: nil)
+    }
 
+}
+
+extension TableController_Meals: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        print("Did return animator")
+        return AnimateMealExpand(originCell: self.selectedCell!)
+    }
 }

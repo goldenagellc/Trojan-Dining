@@ -9,13 +9,13 @@
 import Foundation
 
 class WebScraper {
-    private let parent: TableViewController
+    private let parent: TableController_Meals
     private let address: String
     private let url: URL
     private let menuBuilder: MenuBuilder
     private var task: URLSessionDataTask? = nil
     
-    public init(_ delegate: TableViewController) {
+    public init(_ delegate: TableController_Meals) {
         parent = delegate
         address = "https://hospitality.usc.edu/residential-dining-menus/?menu_date=October+26%2C+2018"
         url = URL(string: address)!
@@ -23,7 +23,7 @@ class WebScraper {
         
         task = URLSession.shared.dataTask(with: url) { data, response, error in
             // error handling part 1
-            if let error = error {return}
+            guard let error = error else {return}
             // error handling part 2
             guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {return}
             // success

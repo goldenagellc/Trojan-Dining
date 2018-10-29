@@ -8,7 +8,13 @@
 
 import UIKit
 
-class Meal: UIView {
+class View_MealCondensed: UIView {
+    
+    static let DEFAULT_CORNER_RADIUS: CGFloat = 16.0
+    static let DEFAULT_SHADOW_OPACITY: Float = 0.15
+    static let DEFAULT_SHADOW_WIDTH: CGFloat = 8.0
+    
+    
     // CANVAS
     @IBOutlet var contentView: UIView!// constant size, no clipping, and clear
     // SCENE PAINTED ON CANVAS
@@ -24,6 +30,14 @@ class Meal: UIView {
     
     // SHADOWS AROUND WINDOW
     @IBOutlet weak var shadowView: UIView!
+    
+    
+    // CONSTRAINTS
+    @IBOutlet weak var windowToContentLeft: NSLayoutConstraint!
+    @IBOutlet weak var windowToContentRight: NSLayoutConstraint!
+    @IBOutlet weak var windowToContentTop: NSLayoutConstraint!
+    @IBOutlet weak var windowToContentBottom: NSLayoutConstraint!
+    
     
     
     /*
@@ -48,7 +62,7 @@ class Meal: UIView {
     
     // code to run regardless of initialization method
     private func homogeneousConfig() {
-        Bundle.main.loadNibNamed("Meal", owner: self, options: nil)
+        Bundle.main.loadNibNamed("View_MealCondensed", owner: self, options: nil)
         addSubview(contentView)
         
         // TODO: - apparently the next 2 lines aren't the best way of doing things
@@ -58,12 +72,12 @@ class Meal: UIView {
     
     // MARK: - convenience functions
     
-    func roundCorners(toRadius radius: CGFloat = 16.0) {
+    func roundCorners(toRadius radius: CGFloat = View_MealCondensed.DEFAULT_CORNER_RADIUS) {
         windowToContentView.layer.cornerRadius = radius
         shadowView.layer.cornerRadius = radius
     }
     
-    func enableShadow(withOpacity opacity: Float = 0.15, withWidth radius: CGFloat = 8.0) {
+    func enableShadow(withOpacity opacity: Float = View_MealCondensed.DEFAULT_SHADOW_OPACITY, withWidth radius: CGFloat = View_MealCondensed.DEFAULT_SHADOW_WIDTH) {
         shadowView.layer.masksToBounds = false
         shadowView.layer.shadowOpacity = opacity
         shadowView.layer.shadowRadius = radius
@@ -78,6 +92,13 @@ class Meal: UIView {
     
     func attachContentTo(_ frame: CGRect) {
         contentView.frame = frame
+    }
+    
+    func insetWindowBy(x: CGFloat, y: CGFloat) {
+        windowToContentLeft.constant = x
+        windowToContentRight.constant = x
+        windowToContentTop.constant = y
+        windowToContentBottom.constant = y
     }
 
 }

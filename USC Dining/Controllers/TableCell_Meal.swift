@@ -8,10 +8,10 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+class TableCell_Meal: UITableViewCell {
     
     //MARK: Properties
-    @IBOutlet weak var mealView: Meal!
+    @IBOutlet weak var mealView: View_MealCondensed!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,15 +25,6 @@ class TableViewCell: UITableViewCell {
         
         self.addSubview(mealView)
     }
-
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // configure the view for the selected state
-    }
-    
-    // MARK: - convenience functions
     
     private func hideBuiltInViews() {
         self.backgroundColor = UIColor.clear
