@@ -21,6 +21,7 @@
 		C4E23E622186C4F6004439DA /* Controller_Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E23E612186C4F6004439DA /* Controller_Meal.swift */; };
 		C4E23E662186D340004439DA /* View_MealExpanded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E23E652186D340004439DA /* View_MealExpanded.swift */; };
 		C4E23E682186D358004439DA /* View_MealExpanded.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4E23E672186D358004439DA /* View_MealExpanded.xib */; };
+		C4F9D2542187BD7E0081606A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2532187BD7E0081606A /* Card.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		C4E23E612186C4F6004439DA /* Controller_Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller_Meal.swift; sourceTree = "<group>"; };
 		C4E23E652186D340004439DA /* View_MealExpanded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View_MealExpanded.swift; sourceTree = "<group>"; };
 		C4E23E672186D358004439DA /* View_MealExpanded.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View_MealExpanded.xib; sourceTree = "<group>"; };
+		C4F9D2532187BD7E0081606A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			children = (
 				C46E0F6E217DB97B007F5452 /* WebScraper.swift */,
 				C46E0F70217DB989007F5452 /* MenuBuilder.swift */,
+				C4F9D2532187BD7E0081606A /* Card.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				C4C4AE3D2184557700388F6E /* View_MealCondensed.swift in Sources */,
 				C4E23E662186D340004439DA /* View_MealExpanded.swift in Sources */,
 				C46E0F69217DB07C007F5452 /* TableController_Meals.swift in Sources */,
+				C4F9D2542187BD7E0081606A /* Card.swift in Sources */,
 				C4E23E6021868B89004439DA /* AnimateMealExpand.swift in Sources */,
 				C4E23E622186C4F6004439DA /* Controller_Meal.swift in Sources */,
 			);

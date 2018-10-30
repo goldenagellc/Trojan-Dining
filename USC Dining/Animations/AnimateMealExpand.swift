@@ -10,12 +10,6 @@ import UIKit
 
 class AnimateMealExpand: NSObject, UIViewControllerAnimatedTransitioning {
     
-    private let originCell: TableCell_Meal
-    
-    init(originCell: TableCell_Meal) {
-        self.originCell = originCell
-    }
-    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 5.0// seconds
     }
@@ -29,8 +23,6 @@ class AnimateMealExpand: NSObject, UIViewControllerAnimatedTransitioning {
         let fromVC = transitionContext.viewController(forKey: .from) as? TableController_Meals,
         let toVC = transitionContext.viewController(forKey: .to) as? Controller_Meal
         else {return}
-        
-        toVC.mealView.mealView = originCell.mealView
         
         // all animations happen inside the container view
         let containerView = transitionContext.containerView

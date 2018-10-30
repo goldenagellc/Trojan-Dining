@@ -84,6 +84,11 @@ class View_MealCondensed: UIView {
         shadowView.layer.shadowColor = UIColor.black.cgColor
         shadowView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
         shadowView.isHidden = false
+        
+        // prepare shadows for scrolling, TODO: must this be called more frequently?
+        let bounds = shadowView.layer.bounds
+        let radius = shadowView.layer.cornerRadius
+        shadowView.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: radius).cgPath
     }
     
     func disableShadow() {
@@ -92,13 +97,6 @@ class View_MealCondensed: UIView {
     
     func attachContentTo(_ frame: CGRect) {
         contentView.frame = frame
-    }
-    
-    func insetWindowBy(x: CGFloat, y: CGFloat) {
-        windowToContentLeft.constant = x
-        windowToContentRight.constant = x
-        windowToContentTop.constant = y
-        windowToContentBottom.constant = y
     }
 
 }

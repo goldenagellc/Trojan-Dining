@@ -17,13 +17,13 @@ class WebScraper {
     
     public init(_ delegate: TableController_Meals) {
         parent = delegate
-        address = "https://hospitality.usc.edu/residential-dining-menus/?menu_date=October+26%2C+2018"
+        address = "https://hospitality.usc.edu/residential-dining-menus/?menu_date=October+29%2C+2018"
         url = URL(string: address)!
         menuBuilder = MenuBuilder()
         
         task = URLSession.shared.dataTask(with: url) { data, response, error in
             // error handling part 1
-            guard let error = error else {return}
+            // guard let error = error else {return}
             // error handling part 2
             guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {return}
             // success
@@ -70,21 +70,35 @@ class WebScraper {
     private func propagateMenuChanges() {
         //DEBUG
         let menu = menuBuilder.getMenu()
+        
+        var cards = [Card]()
+        
         for meal in menu {
-            print(meal.name)
-            for hall in meal.locations {
-                print(hall.name)
-                for sect in hall.sections {
-                    print(sect.name)
-                    for food in sect.foods {
-                        print(food.name)
-                    }
-                }
+            if meal.locations[0].sections.count > 0 {
+                cards.append(Card(image: meal.image,
+                                  title: meal.name_short,
+                                  subtitle: meal.date,
+                                  description: "Great food!"
+                ))
             }
-            print("")
         }
         
-        parent.updateMenu(with: menu)
+        
+//        for meal in menu {
+//            print(meal.name)
+//            for hall in meal.locations {
+//                print(hall.name)
+//                for sect in hall.sections {
+//                    print(sect.name)
+//                    for food in sect.foods {
+//                        print(food.name)
+//                    }
+//                }
+//            }
+//            print("")
+//        }
+        
+        parent.updateCards(with: cards)
     }
     
     public func resume() {

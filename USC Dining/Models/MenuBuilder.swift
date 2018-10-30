@@ -6,7 +6,7 @@
 //  Copyright © 2018 Hayden Shively. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class MenuBuilder {
     
@@ -138,11 +138,48 @@ public class MenuBuilder {
     }
     
     
-    public struct Meal {
+    public class Meal {
+        
+        // MARK: - Scraped Properties
         public let name: String
         public var locations: [DiningHall]
         
         static let startTag: String = "<span class=\"fw-accordion-title-inner\">"
+        
+        init(name: String, locations: [DiningHall]) {
+            self.name = name
+            self.locations = locations
+        }
+        
+        // MARK: - Convenience Methods using Scraped Properties
+        
+        private var _name_short: String? = nil
+        public var name_short: String {return self._name_short ?? self.split_name().0}
+        
+        private var _date: String? = nil
+        public var date: String {return self._date ?? self.split_name().1}
+        
+        private var _image: UIImage? = nil
+        public var image: UIImage {return self._image ?? self.associate_image()}
+        
+        private func split_name() -> (String, String) {
+            let index_1st_space = name.firstIndex(of: " ") ?? name.endIndex
+            let index_1st_dash = name.firstIndex(of: "-") ?? index_1st_space
+            let index_4th_space = name.index(index_1st_dash, offsetBy: 2)
+            
+            self._name_short = String(self.name[..<index_1st_space])
+            self._date = String(self.name[index_4th_space...])
+            
+            return (self._name_short!, self._date!)
+        }
+        
+        private func associate_image() -> UIImage {
+            guard let result = UIImage(named: self.name_short) else {
+                fatalError("Error! There is no image asset named " + self.name_short)
+            }
+            self._image = result
+            return result
+        }
     }
     
     public struct DiningHall {
