@@ -8,24 +8,24 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table Controller Meals-->
+        <!--Card Table Controller-->
         <scene sceneID="vWX-Y8-hfm">
             <objects>
-                <tableViewController id="y0I-gX-JfP" customClass="TableController_Meals" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="y0I-gX-JfP" customClass="CardTableController" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="400" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="BkX-tu-bit">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="400" id="ZOc-8v-XeH" customClass="TableCell_Meal" customModule="USC_Dining" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="400" id="ZOc-8v-XeH" userLabel="Table View Cell" customClass="CardTableCell" customModule="USC_Dining" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="400"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZOc-8v-XeH" id="bCO-sF-qRq" customClass="View_MealCondensed" customModule="USC_Dining" customModuleProvider="target">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZOc-8v-XeH" id="bCO-sF-qRq" userLabel="Card View" customClass="CardView" customModule="USC_Dining" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="mealView" destination="bCO-sF-qRq" id="dze-ZB-EPl"/>
+                                    <outlet property="cardView" destination="bCO-sF-qRq" id="0C9-gn-OD2"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -42,10 +42,10 @@
             </objects>
             <point key="canvasLocation" x="141.59999999999999" y="145.27736131934034"/>
         </scene>
-        <!--Controller Meal-->
+        <!--Card Detail Controller-->
         <scene sceneID="ky1-V7-mCr">
             <objects>
-                <viewController id="rIm-1J-luS" customClass="Controller_Meal" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rIm-1J-luS" customClass="CardDetailController" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V62-Ur-iIS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -60,7 +60,7 @@
                                                 <rect key="frame" x="0.0" y="450" width="375" height="550"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TSo-gl-Hbp" customClass="View_MealCondensed" customModule="USC_Dining" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TSo-gl-Hbp" customClass="CardView" customModule="USC_Dining" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -98,10 +98,6 @@
                             <constraint firstItem="XP5-5C-yRf" firstAttribute="leading" secondItem="V62-Ur-iIS" secondAttribute="leading" id="fdq-mA-3p7"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="detailView" destination="tJc-pd-Vfh" id="60U-qS-g3n"/>
-                        <outlet property="mealView" destination="TSo-gl-Hbp" id="YTm-sk-tf3"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqA-eV-vEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

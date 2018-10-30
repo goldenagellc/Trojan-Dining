@@ -15,8 +15,8 @@ class TransitionMealExpand {
     
     init(params: Params, transitionContext: UIViewControllerContextTransitioning, baseAnimator: UIViewPropertyAnimator) {
         
-        let fromVC = transitionContext.viewController(forKey: .from) as! TableController_Meals
-        let toVC = transitionContext.viewController(forKey: .to) as! Controller_Meal
+        let fromVC = transitionContext.viewController(forKey: .from) as! CardTableController
+        let toVC = transitionContext.viewController(forKey: .to) as! CardDetailController
         let toView = transitionContext.view(forKey: .to)!
         
         let containerView = transitionContext.containerView

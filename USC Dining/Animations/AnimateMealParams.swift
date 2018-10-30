@@ -11,5 +11,5 @@ import UIKit
 struct Params {
     let fromCardFrame: CGRect
     let fromCardFrameBeforeTransform: CGRect
-    let fromCell: TableCell_Meal
+    let fromCell: CardTableCell
 }

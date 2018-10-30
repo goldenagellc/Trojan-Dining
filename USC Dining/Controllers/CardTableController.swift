@@ -8,12 +8,12 @@
 
 import UIKit
 
-class TableController_Meals: UITableViewController {
+class CardTableController: UITableViewController {
 
     // ----------
     // Properties
     // ----------
-    public var lastSelected: TableCell_Meal? = nil
+    public var lastSelected: CardTableCell? = nil
     private var cards = [Card]()
     
     public func updateCards(with newCards: [Card]) {
@@ -54,17 +54,10 @@ class TableController_Meals: UITableViewController {
     // UITableViewDelegate
     // ----------
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // Before displaying a cell, populate it with meal data
-        let cell = cell as! TableCell_Meal
-        let card = cards[indexPath.section]
-        
-        cell.mealView.windowTitle.text = card.title
-        cell.mealView.windowSubtitle.text = card.subtitle
-        cell.mealView.windowDescriptor.text = card.description
-        // cell.mealView.contentViewImage.image = card.image
-        
-        // for debugging purposes, leave last image blank to see shadows better
-        if indexPath.section < 2 {cell.mealView.contentViewImage.image = card.image}
+        // Before displaying a cell, populate its card with data
+        let cell = cell as! CardTableCell
+        cell.setData(toCard: cards[indexPath.section])
+        cell.updateContent(isPressed: false)
     }
     
 //    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -88,11 +81,11 @@ class TableController_Meals: UITableViewController {
 
 
 
-extension TableController_Meals: UIViewControllerTransitioningDelegate {
+extension CardTableController: UIViewControllerTransitioningDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Gets called when user taps on a cell
-        self.lastSelected = tableView.cellForRow(at: indexPath) as! TableCell_Meal
+        self.lastSelected = tableView.cellForRow(at: indexPath) as! CardTableCell
         
         print("Requesting that segue starts")
         performSegue(withIdentifier: "ExpandMeal", sender: nil)
@@ -101,7 +94,7 @@ extension TableController_Meals: UIViewControllerTransitioningDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // TODO: is call to super.prepare necessary?
         
-        if let toVC = segue.destination as? Controller_Meal {
+        if let toVC = segue.destination as? CardDetailController {
             print("Segue request received. Preparing to begin")
             toVC.transitioningDelegate = self
             toVC.modalPresentationCapturesStatusBarAppearance = true

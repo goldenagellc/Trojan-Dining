@@ -8,9 +8,9 @@
 
 import UIKit
 
-class Controller_Meal: UIViewController {
+class CardDetailController: UIViewController {
     
-    @IBOutlet weak var mealView: View_MealCondensed!
+    @IBOutlet weak var mealView: CardView!
     @IBOutlet weak var detailView: UIView!
     
     
@@ -38,7 +38,4 @@ class Controller_Meal: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    
-
 }
