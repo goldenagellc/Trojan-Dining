@@ -10,17 +10,30 @@ import UIKit
 
 class TableController_Meals: UITableViewController {
 
+    // ----------
+    // Properties
+    // ----------
+    public var lastSelected: TableCell_Meal? = nil
     private var cards = [Card]()
-
+    
+    public func updateCards(with newCards: [Card]) {
+        cards = newCards
+        DispatchQueue.main.async {self.tableView.reloadData()}
+    }
+    
+    // ----------
+    // UIViewController
+    // ----------
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let webScraper = WebScraper(self)
         webScraper.resume()
     }
-
-    // MARK: - Table view data source
-
+    
+    // ----------
+    // UITableViewDataSource
+    // ----------
     override func numberOfSections(in tableView: UITableView) -> Int {
         // Give each card its own section rather than just a row
         // This allows each one to have a unique header if necessary
@@ -37,6 +50,9 @@ class TableController_Meals: UITableViewController {
         return tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
     }
     
+    // ----------
+    // UITableViewDelegate
+    // ----------
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Before displaying a cell, populate it with meal data
         let cell = cell as! TableCell_Meal
@@ -45,13 +61,12 @@ class TableController_Meals: UITableViewController {
         cell.mealView.windowTitle.text = card.title
         cell.mealView.windowSubtitle.text = card.subtitle
         cell.mealView.windowDescriptor.text = card.description
-//        cell.mealView.contentViewImage.image = card.image
+        // cell.mealView.contentViewImage.image = card.image
         
         // for debugging purposes, leave last image blank to see shadows better
         if indexPath.section < 2 {cell.mealView.contentViewImage.image = card.image}
     }
     
-
 //    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        // set header height
 //        return 9
@@ -68,13 +83,6 @@ class TableController_Meals: UITableViewController {
 //        headerView.backgroundColor = UIColor.clear
 //        return headerView
 //    }
-    
-    
-
-    public func updateCards(with newCards: [Card]) {
-        cards = newCards
-        DispatchQueue.main.async {self.tableView.reloadData()}
-    }
 }
 
 
@@ -84,6 +92,8 @@ extension TableController_Meals: UIViewControllerTransitioningDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Gets called when user taps on a cell
+        self.lastSelected = tableView.cellForRow(at: indexPath) as! TableCell_Meal
+        
         print("Requesting that segue starts")
         performSegue(withIdentifier: "ExpandMeal", sender: nil)
     }
@@ -94,11 +104,34 @@ extension TableController_Meals: UIViewControllerTransitioningDelegate {
         if let toVC = segue.destination as? Controller_Meal {
             print("Segue request received. Preparing to begin")
             toVC.transitioningDelegate = self
+            toVC.modalPresentationCapturesStatusBarAppearance = true
+            toVC.modalPresentationStyle = .custom
         }
     }
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        let cell = self.lastSelected!
+        let cellFrame = cell.layer.presentation()!.frame
+        let cellRelativeToScreen = cell.superview!.convert(cellFrame, to: nil)
+        let cardNoTransfrom = {() -> CGRect in//for dismissing
+            let center = cell.center; let size = cell.bounds.size
+            let r = CGRect(
+                x: center.x - size.width/2.0,
+                y: center.y - size.height/2.0,
+                width: size.width,
+                height: size.height
+            )
+            return cell.superview!.convert(r, to: nil)
+        }()
+        
+        let params = Params(fromCardFrame: cellRelativeToScreen,
+                            fromCardFrameBeforeTransform: cardNoTransfrom,
+                            fromCell: cell)
+        
+        
         print("Segue received definition of custom animation")
-        return AnimateMealExpand()
+        
+        return AnimateMealExpand(params: params)
     }
 }

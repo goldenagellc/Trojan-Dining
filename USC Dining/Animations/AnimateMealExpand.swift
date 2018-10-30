@@ -10,54 +10,38 @@ import UIKit
 
 class AnimateMealExpand: NSObject, UIViewControllerAnimatedTransitioning {
     
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 5.0// seconds
+    private let params: Params
+    private let springAnimator: UIViewPropertyAnimator
+    private var transitionDriver: TransitionMealExpand?
+    
+    init(params: Params) {
+        self.params = params
+        self.springAnimator = expandingSpringAnimator(params: params)
+        
+        super.init()
     }
     
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return self.springAnimator.duration// seconds
+    }
+    
+    func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
+        
+        return transitionDriver!.animator
+    }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        // get references to the view controller being replaced and the one being presented
-        // take a snapshot of what the view will look like after transitioning
-        print("trying to animate")
-        guard
-        let fromVC = transitionContext.viewController(forKey: .from) as? TableController_Meals,
-        let toVC = transitionContext.viewController(forKey: .to) as? Controller_Meal
-        else {return}
+        transitionDriver = TransitionMealExpand(params: self.params, transitionContext: transitionContext, baseAnimator: self.springAnimator)
         
-        // all animations happen inside the container view
-        let containerView = transitionContext.containerView
-        
-        
-        // container view has fromVC but not any other views; add them now
-        // order matters - last added goes in front
-        containerView.addSubview(toVC.mealView)
-        
-        let duration = transitionDuration(using: transitionContext)
-        
-        UIView.animate(
-            withDuration: duration,
-            delay: 0.0,
-            options: .curveEaseOut,
-            animations: {
-//                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0) {
-//                    snapshot.attachContentTo(finalFrame)
-//                    snapshot.roundCorners(toRadius: 0.0)
-//                    snapshot.disableShadow()
-//                }
-                toVC.mealView.mealView.windowToContentTop.constant = 0.0
-
-                //print(toVC.mealView.mealView.windowToContentView.frame)
-            },
-            completion: { finished in
-                transitionContext.completeTransition(finished)
-                print("completed")
-            }
-        )
-        
-//        self.setNeedsStatusBarAppearanceUpdate()
-        
-        
+        self.interruptibleAnimator(using: transitionContext).startAnimation()
     }
+    
+    func animationEnded(_ transitionCompleted: Bool) {
+        transitionDriver = nil
+    }
+    
+    
+    
     
 
 }

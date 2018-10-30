@@ -46,18 +46,66 @@
         <scene sceneID="ky1-V7-mCr">
             <objects>
                 <viewController id="rIm-1J-luS" customClass="Controller_Meal" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0e8-CM-epl" customClass="View_MealExpanded" customModule="USC_Dining" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="V62-Ur-iIS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP5-5C-yRf">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W7q-zh-qGT" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJc-pd-Vfh" userLabel="Detail View">
+                                                <rect key="frame" x="0.0" y="450" width="375" height="550"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TSo-gl-Hbp" customClass="View_MealCondensed" customModule="USC_Dining" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="TSo-gl-Hbp" secondAttribute="height" multiplier="1:1.2" id="HBI-0C-7dB"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="tJc-pd-Vfh" secondAttribute="bottom" id="9nd-XT-sqA"/>
+                                            <constraint firstAttribute="height" constant="1000" id="AdT-Kj-Brj"/>
+                                            <constraint firstItem="tJc-pd-Vfh" firstAttribute="top" secondItem="TSo-gl-Hbp" secondAttribute="bottom" id="Jyd-fk-Yqu"/>
+                                            <constraint firstAttribute="trailing" secondItem="tJc-pd-Vfh" secondAttribute="trailing" id="MD5-iH-csG"/>
+                                            <constraint firstItem="TSo-gl-Hbp" firstAttribute="leading" secondItem="W7q-zh-qGT" secondAttribute="leading" id="Vgz-5p-87l"/>
+                                            <constraint firstItem="tJc-pd-Vfh" firstAttribute="leading" secondItem="W7q-zh-qGT" secondAttribute="leading" id="h5E-ni-UqE"/>
+                                            <constraint firstAttribute="width" constant="375" id="sy0-Dn-lDT"/>
+                                            <constraint firstAttribute="trailing" secondItem="TSo-gl-Hbp" secondAttribute="trailing" id="uhm-xf-dju"/>
+                                            <constraint firstItem="TSo-gl-Hbp" firstAttribute="top" secondItem="W7q-zh-qGT" secondAttribute="top" id="yGN-u5-ljl"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="W7q-zh-qGT" firstAttribute="top" secondItem="XP5-5C-yRf" secondAttribute="top" id="7dK-lH-GWL"/>
+                                    <constraint firstAttribute="trailing" secondItem="W7q-zh-qGT" secondAttribute="trailing" id="8SI-SX-oEp"/>
+                                    <constraint firstItem="W7q-zh-qGT" firstAttribute="leading" secondItem="XP5-5C-yRf" secondAttribute="leading" id="F1a-FR-80w"/>
+                                    <constraint firstAttribute="bottom" secondItem="W7q-zh-qGT" secondAttribute="bottom" constant="-188" id="i6f-Zh-44a"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XP5-5C-yRf" secondAttribute="trailing" id="1Ub-25-HOX"/>
+                            <constraint firstAttribute="bottom" secondItem="XP5-5C-yRf" secondAttribute="bottom" id="OUO-ZM-TdZ"/>
+                            <constraint firstItem="XP5-5C-yRf" firstAttribute="top" secondItem="V62-Ur-iIS" secondAttribute="top" id="di9-PJ-5DD"/>
+                            <constraint firstItem="XP5-5C-yRf" firstAttribute="leading" secondItem="V62-Ur-iIS" secondAttribute="leading" id="fdq-mA-3p7"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="mealView" destination="0e8-CM-epl" id="KhQ-xE-B2K"/>
+                        <outlet property="detailView" destination="tJc-pd-Vfh" id="60U-qS-g3n"/>
+                        <outlet property="mealView" destination="TSo-gl-Hbp" id="YTm-sk-tf3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqA-eV-vEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="913" y="145"/>
+            <point key="canvasLocation" x="912.79999999999995" y="143.47826086956522"/>
         </scene>
     </scenes>
 </document>

@@ -10,12 +10,22 @@ import UIKit
 
 class Controller_Meal: UIViewController {
     
-    @IBOutlet var mealView: View_MealExpanded!
+    @IBOutlet weak var mealView: View_MealCondensed!
+    @IBOutlet weak var detailView: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return UIStatusBarAnimation.fade
     }
     
 
@@ -29,12 +39,6 @@ class Controller_Meal: UIViewController {
     }
     */
     
-//    override var prefersStatusBarHidden: Bool {
-//        return true
-//    }
-//    
-//    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-//        return UIStatusBarAnimation.fade
-//    }
+    
 
 }

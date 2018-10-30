@@ -22,6 +22,9 @@
 		C4E23E662186D340004439DA /* View_MealExpanded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E23E652186D340004439DA /* View_MealExpanded.swift */; };
 		C4E23E682186D358004439DA /* View_MealExpanded.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4E23E672186D358004439DA /* View_MealExpanded.xib */; };
 		C4F9D2542187BD7E0081606A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2532187BD7E0081606A /* Card.swift */; };
+		C4F9D2562187DF1E0081606A /* AnimateMealParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2552187DF1E0081606A /* AnimateMealParams.swift */; };
+		C4F9D2582187DFF40081606A /* AnimateMealSpring.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2572187DFF40081606A /* AnimateMealSpring.swift */; };
+		C4F9D25A2187E5190081606A /* TransitionMealExpand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2592187E5190081606A /* TransitionMealExpand.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 		C4E23E652186D340004439DA /* View_MealExpanded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View_MealExpanded.swift; sourceTree = "<group>"; };
 		C4E23E672186D358004439DA /* View_MealExpanded.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View_MealExpanded.xib; sourceTree = "<group>"; };
 		C4F9D2532187BD7E0081606A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		C4F9D2552187DF1E0081606A /* AnimateMealParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateMealParams.swift; sourceTree = "<group>"; };
+		C4F9D2572187DFF40081606A /* AnimateMealSpring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateMealSpring.swift; sourceTree = "<group>"; };
+		C4F9D2592187E5190081606A /* TransitionMealExpand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionMealExpand.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +128,9 @@
 			isa = PBXGroup;
 			children = (
 				C4E23E5F21868B89004439DA /* AnimateMealExpand.swift */,
+				C4F9D2552187DF1E0081606A /* AnimateMealParams.swift */,
+				C4F9D2572187DFF40081606A /* AnimateMealSpring.swift */,
+				C4F9D2592187E5190081606A /* TransitionMealExpand.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -203,8 +212,11 @@
 				C46E0F71217DB989007F5452 /* MenuBuilder.swift in Sources */,
 				C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */,
 				C46E0F54217DAFEA007F5452 /* AppDelegate.swift in Sources */,
+				C4F9D2562187DF1E0081606A /* AnimateMealParams.swift in Sources */,
 				C4C4AE3D2184557700388F6E /* View_MealCondensed.swift in Sources */,
 				C4E23E662186D340004439DA /* View_MealExpanded.swift in Sources */,
+				C4F9D2582187DFF40081606A /* AnimateMealSpring.swift in Sources */,
+				C4F9D25A2187E5190081606A /* TransitionMealExpand.swift in Sources */,
 				C46E0F69217DB07C007F5452 /* TableController_Meals.swift in Sources */,
 				C4F9D2542187BD7E0081606A /* Card.swift in Sources */,
 				C4E23E6021868B89004439DA /* AnimateMealExpand.swift in Sources */,
