@@ -12,7 +12,7 @@ class CardTableCell: UITableViewCell {
     
     static let SHADOW_OPACITY: Float = 0.2
     static let SHADOW_WIDTH: CGFloat = 10.0
-    static let ON_PRESS_SCALE_FACTOR: CGFloat = 0.96
+    static let ON_PRESS_SCALE_FACTOR: CGFloat = 0.95
     
     //MARK: Properties
     @IBOutlet weak var cardView: CardView!
@@ -26,7 +26,6 @@ class CardTableCell: UITableViewCell {
         
         hideBuiltInViews()
         enableShadows()
-        configureViewWhileTapped(color: UIColor.clear)
 
         cardView.attachContentTo(insetFrame!)
         cardView.roundCorners()
@@ -34,19 +33,10 @@ class CardTableCell: UITableViewCell {
     }
     
     private func hideBuiltInViews() {
-        self.backgroundColor = UIColor.clear
+        self.selectionStyle = .none
+        self.backgroundColor = .clear
         self.contentView.backgroundColor = UIColor.clear
         self.contentView.clipsToBounds = false
-    }
-    
-    private func configureViewWhileTapped(color: UIColor) {
-//        if self.selectedBackgroundView != nil {self.selectedBackgroundView!.backgroundColor = color}
-//        else {
-//            let tappedView = UIView()
-//            tappedView.backgroundColor = color
-//            self.selectedBackgroundView = tappedView
-//        }
-        selectionStyle = .none
     }
     
     func setData(toCard card: Card) {
