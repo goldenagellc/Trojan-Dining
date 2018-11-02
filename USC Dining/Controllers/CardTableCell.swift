@@ -10,23 +10,26 @@ import UIKit
 
 class CardTableCell: UITableViewCell {
     
+    static let SHADOW_OPACITY: Float = 0.2
+    static let SHADOW_WIDTH: CGFloat = 10.0
     static let ON_PRESS_SCALE_FACTOR: CGFloat = 0.96
     
     //MARK: Properties
     @IBOutlet weak var cardView: CardView!
-    
     private var card: Card? = nil
+    private var insetFrame: CGRect? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        insetFrame = self.frame.insetBy(dx: 20, dy: 20)
+        
         hideBuiltInViews()
-        configureTapped(color: UIColor.clear)
-        
-        cardView.attachContentTo(self.frame)// enlarge meal canvas to fill cell
+        enableShadows()
+        configureViewWhileTapped(color: UIColor.clear)
+
+        cardView.attachContentTo(insetFrame!)
         cardView.roundCorners()
-        cardView.enableShadow()
-        
         self.addSubview(cardView)
     }
     
@@ -36,13 +39,14 @@ class CardTableCell: UITableViewCell {
         self.contentView.clipsToBounds = false
     }
     
-    private func configureTapped(color: UIColor) {
-        if self.selectedBackgroundView != nil {self.selectedBackgroundView!.backgroundColor = color}
-        else {
-            let tappedView = UIView()
-            tappedView.backgroundColor = color
-            self.selectedBackgroundView = tappedView
-        }
+    private func configureViewWhileTapped(color: UIColor) {
+//        if self.selectedBackgroundView != nil {self.selectedBackgroundView!.backgroundColor = color}
+//        else {
+//            let tappedView = UIView()
+//            tappedView.backgroundColor = color
+//            self.selectedBackgroundView = tappedView
+//        }
+        selectionStyle = .none
     }
     
     func setData(toCard card: Card) {
@@ -63,6 +67,55 @@ class CardTableCell: UITableViewCell {
             cardView.label_subtitle.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         }
     }
+}
+
+extension CardTableCell {// for shadows
+    
+    func enableShadows(withOpacity opacity: Float = CardTableCell.SHADOW_OPACITY, withWidth radius: CGFloat = CardTableCell.SHADOW_WIDTH) {
+        layer.shadowOpacity = opacity
+        layer.shadowRadius = radius
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize.zero
+        layer.masksToBounds = false
+        
+        layer.shadowPath = UIBezierPath(roundedRect: insetFrame!, cornerRadius: CardView.CORNER_RADIUS).cgPath
+    }
+    
+}
+
+extension CardTableCell {// for press down animation
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        animateOnPress()
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        animateOnPress(release: true)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        animateOnPress(release: true)
+    }
+    
+    func animateOnPress(release: Bool = false) {
+        let desiredTransform = release ? .identity: CGAffineTransform(scaleX: CardTableCell.ON_PRESS_SCALE_FACTOR, y: CardTableCell.ON_PRESS_SCALE_FACTOR)
+        
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0.0,
+            usingSpringWithDamping: 1.0,
+            initialSpringVelocity: 0.0,
+            options: [UIView.AnimationOptions.allowUserInteraction],
+            animations: {
+                self.transform = desiredTransform
+            },
+            completion: nil
+        )
+    }
+    
 }
 
 extension UIImage {

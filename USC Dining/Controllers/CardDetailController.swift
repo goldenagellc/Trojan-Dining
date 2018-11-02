@@ -10,9 +10,20 @@ import UIKit
 
 class CardDetailController: UIViewController {
     
-    @IBOutlet weak var mealView: CardView!
-    @IBOutlet weak var detailView: UIView!
+    //AK: Properties
+    @IBOutlet weak var cardView: CardView!
+    @IBOutlet weak var detailPane: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
+    private var card: Card? = nil
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.view.backgroundColor = UIColor.clear
+        
+//        cardView.attachContentTo(<#T##frame: CGRect##CGRect#>)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -60,22 +60,23 @@ class CardTableController: UITableViewController {
         cell.updateContent(isPressed: false)
     }
     
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        // set header height
-//        return 9
-//    }
-//
-//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        // set footer height
-//        return 9
-//    }
-//
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        // make table view background clear
-//        let headerView = UIView()
-//        headerView.backgroundColor = UIColor.clear
-//        return headerView
-//    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        // set header height
+        return 4
+    }
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        // set footer height
+        return 4
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // make table view background clear
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        headerView.layer.backgroundColor = UIColor.clear.cgColor
+        return headerView
+    }
 }
 
 
