@@ -107,20 +107,3 @@ extension CardTableCell {// for press down animation
     }
     
 }
-
-extension UIImage {
-    func resize(byScaleFactor scaleFactor: CGFloat) -> UIImage {
-        let image: UIImage = self
-        let height = image.size.height*scaleFactor
-        let width = image.size.width*scaleFactor
-        
-        let scaledSize = CGSize(width: width, height: height)
-        
-        UIGraphicsBeginImageContextWithOptions(scaledSize, true, image.scale)
-        image.draw(in: CGRect(x: 0.0, y: 0.0, width: scaledSize.width, height: scaledSize.height))
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return scaledImage!
-    }
-}

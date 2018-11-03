@@ -36,7 +36,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="rIm-1J-luS" kind="presentation" identifier="ExpandMeal" id="rSn-UU-iUW"/>
+                        <segue destination="rIm-1J-luS" kind="presentation" identifier="ExpandCard" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="rSn-UU-iUW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKP-x2-15c" userLabel="First Responder" sceneMemberID="firstResponder"/>

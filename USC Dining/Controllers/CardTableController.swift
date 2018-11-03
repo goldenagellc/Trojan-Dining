@@ -87,26 +87,23 @@ extension CardTableController: UIViewControllerTransitioningDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Gets called when user taps on a cell
         self.lastSelected = tableView.cellForRow(at: indexPath) as! CardTableCell
-        
-        print("Requesting that segue starts")
-        performSegue(withIdentifier: "ExpandMeal", sender: nil)
+        performSegue(withIdentifier: "ExpandCard", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // TODO: is call to super.prepare necessary?
         
-        if let toVC = segue.destination as? CardDetailController {
-            print("Segue request received. Preparing to begin")
-            toVC.transitioningDelegate = self
-            toVC.modalPresentationCapturesStatusBarAppearance = true
-            toVC.modalPresentationStyle = .custom
+        if let destination = segue.destination as? CardDetailController {
+            destination.transitioningDelegate = self
+            destination.modalPresentationCapturesStatusBarAppearance = true
+            destination.modalPresentationStyle = .custom
         }
     }
-    
+
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
+
         let cell = self.lastSelected!
-        let cellFrame = cell.layer.presentation()!.frame
+        let cellFrame = cell.cardView.contentView.frame
         let cellRelativeToScreen = cell.superview!.convert(cellFrame, to: nil)
         let cardNoTransfrom = {() -> CGRect in//for dismissing
             let center = cell.center; let size = cell.bounds.size
@@ -118,14 +115,12 @@ extension CardTableController: UIViewControllerTransitioningDelegate {
             )
             return cell.superview!.convert(r, to: nil)
         }()
-        
-        let params = Params(fromCardFrame: cellRelativeToScreen,
+
+        let params = CardTransitioningDelegate.Params(fromCardFrame: cellRelativeToScreen,
                             fromCardFrameBeforeTransform: cardNoTransfrom,
                             fromCell: cell)
-        
-        
-        print("Segue received definition of custom animation")
-        
-        return AnimateMealExpand(params: params)
+
+
+        return CardPresentationAnimation(params: params)
     }
 }
