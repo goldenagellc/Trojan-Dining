@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C45E344F218CE07000A8C28E /* CardTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45E344E218CE07000A8C28E /* CardTransitioningDelegate.swift */; };
 		C45E3451218CF39200A8C28E /* CardPresentationAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45E3450218CF39200A8C28E /* CardPresentationAnimation.swift */; };
+		C45E3453218EB46300A8C28E /* AddressBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45E3452218EB46300A8C28E /* AddressBuilder.swift */; };
 		C46E0F54217DAFEA007F5452 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F53217DAFEA007F5452 /* AppDelegate.swift */; };
 		C46E0F59217DAFEA007F5452 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46E0F57217DAFEA007F5452 /* Main.storyboard */; };
 		C46E0F5B217DAFEB007F5452 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E0F5A217DAFEB007F5452 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		C45E344E218CE07000A8C28E /* CardTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransitioningDelegate.swift; sourceTree = "<group>"; };
 		C45E3450218CF39200A8C28E /* CardPresentationAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPresentationAnimation.swift; sourceTree = "<group>"; };
+		C45E3452218EB46300A8C28E /* AddressBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBuilder.swift; sourceTree = "<group>"; };
 		C46E0F50217DAFEA007F5452 /* USC Dining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "USC Dining.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46E0F53217DAFEA007F5452 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C46E0F58217DAFEA007F5452 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -90,8 +92,9 @@
 			isa = PBXGroup;
 			children = (
 				C4F9D2532187BD7E0081606A /* Card.swift */,
-				C46E0F70217DB989007F5452 /* MenuBuilder.swift */,
 				C46E0F6E217DB97B007F5452 /* WebScraper.swift */,
+				C46E0F70217DB989007F5452 /* MenuBuilder.swift */,
+				C45E3452218EB46300A8C28E /* AddressBuilder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C45E3453218EB46300A8C28E /* AddressBuilder.swift in Sources */,
 				C46E0F6B217DB0B2007F5452 /* CardTableCell.swift in Sources */,
 				C46E0F71217DB989007F5452 /* MenuBuilder.swift in Sources */,
 				C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */,

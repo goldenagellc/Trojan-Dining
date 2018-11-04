@@ -13,16 +13,16 @@
         <scene sceneID="vWX-Y8-hfm">
             <objects>
                 <tableViewController id="y0I-gX-JfP" customClass="CardTableController" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="250" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="BkX-tu-bit">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="always" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="400" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="60" id="BkX-tu-bit">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="250" id="ZOc-8v-XeH" userLabel="Table View Cell" customClass="CardTableCell" customModule="USC_Dining" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="250"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="400" id="ZOc-8v-XeH" userLabel="Table View Cell" customClass="CardTableCell" customModule="USC_Dining" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="400"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZOc-8v-XeH" id="bCO-sF-qRq" userLabel="Card View" customClass="CardView" customModule="USC_Dining" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -30,6 +30,11 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="rect" keyPath="contentInset">
+                                <rect key="value" x="50" y="0.0" width="0.0" height="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="y0I-gX-JfP" id="C7E-HC-5Wn"/>
                             <outlet property="delegate" destination="y0I-gX-JfP" id="qfB-rQ-8kU"/>
@@ -41,7 +46,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKP-x2-15c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="141.59999999999999" y="145.27736131934034"/>
+            <point key="canvasLocation" x="-14" y="143"/>
         </scene>
         <!--Card Detail Controller-->
         <scene sceneID="ky1-V7-mCr">
@@ -51,21 +56,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP5-5C-yRf">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP5-5C-yRf">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W7q-zh-qGT" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJc-pd-Vfh" userLabel="Detail View">
-                                                <rect key="frame" x="0.0" y="250" width="375" height="750"/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="0.0" y="300" width="375" height="700"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TSo-gl-Hbp" customClass="CardView" customModule="USC_Dining" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="250" id="Sko-8C-NF8"/>
+                                                    <constraint firstAttribute="height" constant="300" id="Sko-8C-NF8"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -82,6 +87,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="W7q-zh-qGT" firstAttribute="top" secondItem="XP5-5C-yRf" secondAttribute="top" id="7dK-lH-GWL"/>
                                     <constraint firstAttribute="trailing" secondItem="W7q-zh-qGT" secondAttribute="trailing" id="8SI-SX-oEp"/>

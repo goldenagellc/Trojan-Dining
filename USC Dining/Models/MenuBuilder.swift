@@ -54,88 +54,36 @@ public class MenuBuilder {
             resetMeal(); resetHall(); resetSect(); resetFood();
             
         case DiningHall.startTag: if readingMeal {readingHall = true}
-            
         case Section.startTag: if readingHall {readingSect = true}
-            
         case Food.startTag: if readingSect {readingFood = true}
-            
         case Food.endTag: if readingFood {saveFood(); resetFood();}
-            
         case Section.endTag: if readingSect {saveSect(); resetSect();}
-            
         case DiningHall.endTag: if readingHall {saveHall(); resetHall();}
-            
         default: break
         }
     }
     
-    public func getMenu() -> [Meal] {
-        return menu
-    }
+    public func getMenu() -> [Meal] {return menu}
     
-    public func mealIsNil() -> Bool {
-        return currentMeal == nil
-    }
+    public func mealIsNil() -> Bool {return currentMeal == nil}
+    public func hallIsNil() -> Bool {return currentHall == nil}
+    public func sectIsNil() -> Bool {return currentSect == nil}
+    public func foodIsNil() -> Bool {return currentFood == nil}
     
-    public func hallIsNil() -> Bool {
-        return currentHall == nil
-    }
+    public func initializeMeal(withName name: String) {currentMeal = Meal(name: name, locations: [])}
+    public func initializeHall(withName name: String) {currentHall = DiningHall(name: name, sections: [])}
+    public func initializeSect(withName name: String) {currentSect = Section(name: name, foods: [])}
+    public func initializeFood(withName name: String) {currentFood = Food(name: name, allergens: [])}
     
-    public func sectIsNil() -> Bool {
-        return currentSect == nil
-    }
+    public func saveMeal() {if let meal = currentMeal, meal.locations.count == 3 {menu.append(meal)}}
+    private func saveHall() {if let hall = currentHall {currentMeal!.locations.append(hall)}}
+    private func saveSect() {if let sect = currentSect {currentHall!.sections.append(sect)}}
+    private func saveFood() {if let food = currentFood {currentSect!.foods.append(food)}}
     
-    public func foodIsNil() -> Bool {
-        return currentFood == nil
-    }
-    
-    public func initializeMeal(withName name: String) {
-        currentMeal = Meal(name: name, locations: [])
-    }
-    
-    public func initializeHall(withName name: String) {
-        currentHall = DiningHall(name: name, sections: [])
-    }
-    
-    public func initializeSect(withName name: String) {
-        currentSect = Section(name: name, foods: [])
-    }
-    
-    public func initializeFood(withName name: String) {
-        currentFood = Food(name: name, allergens: [])
-    }
-    
-    public func saveMeal() {
-        if let meal = currentMeal, meal.locations.count == 3 {menu.append(meal)}
-    }
-    
-    private func saveHall() {
-        if let hall = currentHall {currentMeal!.locations.append(hall)}
-    }
-    
-    private func saveSect() {
-        if let sect = currentSect {currentHall!.sections.append(sect)}
-    }
-    
-    private func saveFood() {
-        if let food = currentFood {currentSect!.foods.append(food)}
-    }
-    
-    private func resetMeal() {
-        currentMeal = nil; readingMeal = true;
-    }
-    
-    private func resetHall() {
-        currentHall = nil; readingHall = false;
-    }
-    
-    private func resetSect() {
-        currentSect = nil; readingSect = false;
-    }
-    
-    private func resetFood() {
-        currentFood = nil; readingFood = false;
-    }
+    private func resetMeal() {currentMeal = nil; readingMeal = true;}
+    private func resetHall() {currentHall = nil; readingHall = false;}
+    private func resetSect() {currentSect = nil; readingSect = false;}
+    private func resetFood() {currentFood = nil; readingFood = false;}
     
     
     public class Meal {

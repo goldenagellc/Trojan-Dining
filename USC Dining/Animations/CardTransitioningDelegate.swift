@@ -12,7 +12,7 @@ class CardTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate
 
     struct Params {
         let fromCardFrame: CGRect
-        let fromCardFrameBeforeTransform: CGRect
+//        let fromCardFrameBeforeTransform: CGRect
         let fromCell: CardTableCell
     }
 }

@@ -22,7 +22,8 @@ class CardTableCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        insetFrame = self.frame.insetBy(dx: 20, dy: 20)
+        insetFrame = self.frame.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 20))//self.frame.insetBy(dx: 20, dy: 10)
+
         
         hideBuiltInViews()
         enableShadows()
@@ -45,14 +46,16 @@ class CardTableCell: UITableViewCell {
         cardView.label_subtitle.text = card.subtitle
         cardView.label_description.text = card.description
     }
+
+    func getData() -> Card? {return card}
     
     func updateContent(isPressed pressed: Bool) {
         if pressed {
-            cardView.image.image = card!.image.resize(byScaleFactor: CardTableCell.ON_PRESS_SCALE_FACTOR)
+            cardView.image.image = card!.image.resize(byScaleFactor: CardTableCell.ON_PRESS_SCALE_FACTOR)//TODO .noir()
             cardView.label_title.font = UIFont.systemFont(ofSize: 36*CardTableCell.ON_PRESS_SCALE_FACTOR, weight: .bold)
             cardView.label_subtitle.font = UIFont.systemFont(ofSize: 18*CardTableCell.ON_PRESS_SCALE_FACTOR, weight: .semibold)
         }else {
-            cardView.image.image = card!.image
+            cardView.image.image = card!.image//TODO .noir()
             cardView.label_title.font = UIFont.systemFont(ofSize: 36, weight: .bold)
             cardView.label_subtitle.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         }

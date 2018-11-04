@@ -21,8 +21,6 @@ class CardDetailController: UIViewController {
         super.awakeFromNib()
         
         self.view.backgroundColor = UIColor.clear
-        
-//        cardView.attachContentTo(<#T##frame: CGRect##CGRect#>)
     }
     
     override func viewDidLoad() {
@@ -30,13 +28,21 @@ class CardDetailController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+
+    func setData(toCard card: Card) {
+        self.card = card
+        cardView.image.image = card.image
+        cardView.label_title.text = card.title
+        cardView.label_subtitle.text = card.subtitle
+        cardView.label_description.text = card.description
+    }
     
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return UIStatusBarAnimation.fade
+        return UIStatusBarAnimation.slide
     }
     
 
