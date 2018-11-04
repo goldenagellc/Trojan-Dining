@@ -103,7 +103,7 @@ extension CardTableController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
         let cell = self.lastSelected!
-        let cellFrame = cell.cardView.contentView.frame
+        let cellFrame = cell.frame
         let cellRelativeToScreen = cell.superview!.convert(cellFrame, to: nil)
         let cardNoTransfrom = {() -> CGRect in//for dismissing
             let center = cell.center; let size = cell.bounds.size

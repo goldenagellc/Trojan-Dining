@@ -19,11 +19,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" userLabel="Given Area">
-            <rect key="frame" x="0.0" y="0.0" width="335" height="425"/>
+            <rect key="frame" x="0.0" y="0.0" width="335" height="250"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qex-C3-7fg">
-                    <rect key="frame" x="0.0" y="0.0" width="335" height="425"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Breakfast" translatesAutoresizingMaskIntoConstraints="NO" id="Qex-C3-7fg">
+                    <rect key="frame" x="0.0" y="0.0" width="335" height="250"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXN-Z9-vlW" userLabel="Subtitle">
@@ -32,7 +32,7 @@
                         <constraint firstAttribute="height" constant="21" id="IdZ-F2-hkl"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdl-SR-8fR" userLabel="Title">
@@ -45,12 +45,12 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z95-pY-R64" userLabel="Description">
-                    <rect key="frame" x="16" y="388" width="335" height="21"/>
+                    <rect key="frame" x="16" y="213" width="335" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="m3G-Jk-T9c"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -58,14 +58,14 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Qex-C3-7fg" secondAttribute="bottom" id="27g-0U-meM"/>
                 <constraint firstItem="Qex-C3-7fg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3D9-gb-Z6K"/>
+                <constraint firstItem="Qex-C3-7fg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="7Et-ZK-0zM"/>
                 <constraint firstItem="LXN-Z9-vlW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="8bh-mS-epg"/>
                 <constraint firstItem="LXN-Z9-vlW" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="AbV-lM-N9I"/>
-                <constraint firstAttribute="trailing" secondItem="Qex-C3-7fg" secondAttribute="trailing" id="CCq-MH-aml"/>
                 <constraint firstItem="Bdl-SR-8fR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="IMM-Fv-Sud"/>
                 <constraint firstItem="Bdl-SR-8fR" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="IiK-b5-djq"/>
                 <constraint firstItem="Bdl-SR-8fR" firstAttribute="top" secondItem="LXN-Z9-vlW" secondAttribute="bottom" constant="8" id="UWa-M3-nFW"/>
                 <constraint firstItem="Z95-pY-R64" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="b20-iB-v26"/>
-                <constraint firstItem="Qex-C3-7fg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bSY-vk-2Zx"/>
+                <constraint firstItem="Qex-C3-7fg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="eY8-f6-mEk"/>
                 <constraint firstItem="LXN-Z9-vlW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="nXn-KT-bOO"/>
                 <constraint firstAttribute="bottom" secondItem="Z95-pY-R64" secondAttribute="bottom" constant="16" id="szG-EH-wgk"/>
                 <constraint firstItem="Z95-pY-R64" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="vig-q3-0Ah"/>
@@ -77,4 +77,7 @@
             <point key="canvasLocation" x="130.40000000000001" y="48.125937031484263"/>
         </view>
     </objects>
+    <resources>
+        <image name="Breakfast" width="245.75999450683594" height="164.39999389648438"/>
+    </resources>
 </document>

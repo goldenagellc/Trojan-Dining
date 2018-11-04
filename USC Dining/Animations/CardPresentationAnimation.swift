@@ -27,8 +27,8 @@ class CardPresentationAnimation: NSObject, UIViewControllerAnimatedTransitioning
         let dampingKeyframe: CGFloat = 0.3
         let damping: CGFloat = 1.0 - dampingKeyframe*(distanceToBounce/extentToBounce)
 
-        let nominalDuration: TimeInterval = 0.5
-        let maximumDuration: TimeInterval = 0.9
+        let nominalDuration: TimeInterval = 0.7
+        let maximumDuration: TimeInterval = 1.4
         let duration: TimeInterval = nominalDuration + (maximumDuration - nominalDuration)*TimeInterval(max(0, distanceToBounce)/UIScreen.main.bounds.height)
 
         return (duration, damping)
@@ -37,7 +37,7 @@ class CardPresentationAnimation: NSObject, UIViewControllerAnimatedTransitioning
     }
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 5.0//spring.duration
+        return spring.duration
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -45,40 +45,62 @@ class CardPresentationAnimation: NSObject, UIViewControllerAnimatedTransitioning
         let container = transitionContext.containerView
         guard let toView = transitionContext.view(forKey: .to) else {return}
 
+        // Make sure data matches
         if let newCardVC = toVC as? CardDetailController {
             print(true)
             newCardVC.cardView.label_title.text = params.fromCell.cardView.label_title.text
             newCardVC.cardView.label_subtitle.text = params.fromCell.cardView.label_subtitle.text
             newCardVC.cardView.label_description.text = params.fromCell.cardView.label_description.text
-            newCardVC.cardView.image.image = params.fromCell.cardView.image.image
+            newCardVC.cardView.image.image = params.fromCell.cardView.image.image!
+//            newCardVC.cardView.image.contentMode = .center
         }
 
+        // Create a temporary view for animation
+        let animatedView = UIView()
+        animatedView.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(animatedView)
+        // Constrain it to its container
+        let animatedViewConstraints = [
+            animatedView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            animatedView.widthAnchor.constraint(equalToConstant: container.bounds.width),
+            animatedView.heightAnchor.constraint(equalToConstant: container.bounds.height)
+        ]
+        NSLayoutConstraint.activate(animatedViewConstraints)
+        let animatedViewVerticalConstraint: NSLayoutConstraint = animatedView.topAnchor.constraint(equalTo: container.topAnchor, constant: params.fromCardFrame.minY)
+        animatedViewVerticalConstraint.isActive = true
 
-        container.addSubview(toView)
+        // Add the destination view the temporary animated view
+        animatedView.addSubview(toView)
+        toView.translatesAutoresizingMaskIntoConstraints = false
+        toView.layer.cornerRadius = 16
+        // Constrain it to the animated view
+        let toViewConstraints = [
+            toView.centerXAnchor.constraint(equalTo: animatedView.centerXAnchor),
+            toView.widthAnchor.constraint(equalToConstant: params.fromCardFrame.width),
+            toView.heightAnchor.constraint(equalToConstant: params.fromCardFrame.height)
+        ]
+        NSLayoutConstraint.activate(toViewConstraints)
+        let toViewVerticalConstraint = toView.topAnchor.constraint(equalTo: animatedView.topAnchor, constant: 0)
+        toViewVerticalConstraint.isActive = true
+
+
         params.fromCell.isHidden = true
-
-//        let cardVerticalAnchor: NSLayoutConstraint = toView.topAnchor.constraint(equalTo: container.topAnchor, constant: params.fromCardFrame.minY)
-        let cardHorizontAnchor: NSLayoutConstraint = toView.centerXAnchor.constraint(equalTo: container.centerXAnchor)
-        print(params.fromCardFrame.width)
-        let cardWidthConstraint: NSLayoutConstraint = toView.widthAnchor.constraint(equalToConstant: params.fromCardFrame.width)
-        let cardHeighConstraint: NSLayoutConstraint = toView.heightAnchor.constraint(equalToConstant: params.fromCardFrame.height)
-        NSLayoutConstraint.activate([/*cardVerticalAnchor,*/ cardHorizontAnchor, cardWidthConstraint, cardHeighConstraint])
-
+        params.fromCell.transform = .identity
         container.layoutIfNeeded()
 
-        print(params.fromCardFrame.width)
-        print(toView.frame.width)
+
 
 
         let duration = transitionDuration(using: transitionContext)
-//        UIView.animate(withDuration: duration) {
-//            cardVerticalAnchor.constant = 0
-//            container.layoutIfNeeded()
-//        }
+        UIView.animate(withDuration: duration) {
+            toViewConstraints[1].constant = animatedView.bounds.width
+            toViewConstraints[2].constant = animatedView.bounds.height
+            toView.layer.cornerRadius = 0
+            container.layoutIfNeeded()
+        }
 
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: spring.damping, initialSpringVelocity: 0.0, options: .curveLinear, animations: {
-            cardWidthConstraint.constant = container.bounds.width
-            cardHeighConstraint.constant = container.bounds.height
+            animatedViewVerticalConstraint.constant = 0.0
             container.layoutIfNeeded()
         }, completion: {_ in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)

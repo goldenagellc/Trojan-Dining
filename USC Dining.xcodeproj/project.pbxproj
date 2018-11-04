@@ -17,10 +17,8 @@
 		C46E0F6B217DB0B2007F5452 /* CardTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F6A217DB0B2007F5452 /* CardTableCell.swift */; };
 		C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F6E217DB97B007F5452 /* WebScraper.swift */; };
 		C46E0F71217DB989007F5452 /* MenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F70217DB989007F5452 /* MenuBuilder.swift */; };
-		C4E23E6021868B89004439DA /* AnimateMealExpand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E23E5F21868B89004439DA /* AnimateMealExpand.swift */; };
 		C4E23E622186C4F6004439DA /* CardDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E23E612186C4F6004439DA /* CardDetailController.swift */; };
 		C4F9D2542187BD7E0081606A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2532187BD7E0081606A /* Card.swift */; };
-		C4F9D2582187DFF40081606A /* AnimateMealSpring.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2572187DFF40081606A /* AnimateMealSpring.swift */; };
 		C4F9D25A2187E5190081606A /* TransitionMealExpand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2592187E5190081606A /* TransitionMealExpand.swift */; };
 		C4F9D25C218838990081606A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F9D25B218838990081606A /* CardView.xib */; };
 		C4F9D26021883E6A0081606A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D25F21883E6A0081606A /* CardView.swift */; };
@@ -39,10 +37,8 @@
 		C46E0F6A217DB0B2007F5452 /* CardTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableCell.swift; sourceTree = "<group>"; };
 		C46E0F6E217DB97B007F5452 /* WebScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebScraper.swift; sourceTree = "<group>"; };
 		C46E0F70217DB989007F5452 /* MenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBuilder.swift; sourceTree = "<group>"; };
-		C4E23E5F21868B89004439DA /* AnimateMealExpand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateMealExpand.swift; sourceTree = "<group>"; };
 		C4E23E612186C4F6004439DA /* CardDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailController.swift; sourceTree = "<group>"; };
 		C4F9D2532187BD7E0081606A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		C4F9D2572187DFF40081606A /* AnimateMealSpring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateMealSpring.swift; sourceTree = "<group>"; };
 		C4F9D2592187E5190081606A /* TransitionMealExpand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionMealExpand.swift; sourceTree = "<group>"; };
 		C4F9D25B218838990081606A /* CardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		C4F9D25F21883E6A0081606A /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -123,8 +119,6 @@
 		C4E23E5E21868B30004439DA /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				C4E23E5F21868B89004439DA /* AnimateMealExpand.swift */,
-				C4F9D2572187DFF40081606A /* AnimateMealSpring.swift */,
 				C4F9D2592187E5190081606A /* TransitionMealExpand.swift */,
 				C45E344E218CE07000A8C28E /* CardTransitioningDelegate.swift */,
 				C45E3450218CF39200A8C28E /* CardPresentationAnimation.swift */,
@@ -208,12 +202,10 @@
 				C46E0F71217DB989007F5452 /* MenuBuilder.swift in Sources */,
 				C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */,
 				C46E0F54217DAFEA007F5452 /* AppDelegate.swift in Sources */,
-				C4F9D2582187DFF40081606A /* AnimateMealSpring.swift in Sources */,
 				C4F9D26021883E6A0081606A /* CardView.swift in Sources */,
 				C4F9D25A2187E5190081606A /* TransitionMealExpand.swift in Sources */,
 				C46E0F69217DB07C007F5452 /* CardTableController.swift in Sources */,
 				C4F9D2542187BD7E0081606A /* Card.swift in Sources */,
-				C4E23E6021868B89004439DA /* AnimateMealExpand.swift in Sources */,
 				C45E344F218CE07000A8C28E /* CardTransitioningDelegate.swift in Sources */,
 				C45E3451218CF39200A8C28E /* CardPresentationAnimation.swift in Sources */,
 				C4E23E622186C4F6004439DA /* CardDetailController.swift in Sources */,
