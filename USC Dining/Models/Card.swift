@@ -9,8 +9,14 @@
 import UIKit
 
 struct Card {
-    let image: UIImage
     let title: String
     let subtitle: String
-    let description: String
+    let foods: [Food]
+}
+
+struct Food {
+    let name: String
+    let location: String
+    let section: String
+    let allergens: [String]
 }

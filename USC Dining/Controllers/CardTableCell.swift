@@ -44,18 +44,18 @@ class CardTableCell: UITableViewCell {
         self.card = card
         cardView.label_title.text = card.title
         cardView.label_subtitle.text = card.subtitle
-        cardView.label_description.text = card.description
+//        cardView.label_description.text = card.description
     }
 
     func getData() -> Card? {return card}
     
     func updateContent(isPressed pressed: Bool) {
         if pressed {
-            cardView.image.image = card!.image.resize(byScaleFactor: CardTableCell.ON_PRESS_SCALE_FACTOR)//TODO .noir()
+//            cardView.image.image = card!.image.resize(byScaleFactor: CardTableCell.ON_PRESS_SCALE_FACTOR)//TODO .noir()
             cardView.label_title.font = UIFont.systemFont(ofSize: 36*CardTableCell.ON_PRESS_SCALE_FACTOR, weight: .bold)
             cardView.label_subtitle.font = UIFont.systemFont(ofSize: 18*CardTableCell.ON_PRESS_SCALE_FACTOR, weight: .semibold)
         }else {
-            cardView.image.image = card!.image//TODO .noir()
+//            cardView.image.image = card!.image//TODO .noir()
             cardView.label_title.font = UIFont.systemFont(ofSize: 36, weight: .bold)
             cardView.label_subtitle.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         }

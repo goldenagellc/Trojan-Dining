@@ -66,18 +66,43 @@ class WebScraper {
     private func propagateMenuChanges() {
         let menu = menuBuilder.getMenu()
         var cards = [Card]()
-        
+
         for meal in menu {
             if meal.locations[0].sections.count > 0 {
+                var foods = [Food]()
+
+                for location in meal.locations {
+                    for section in location.sections {
+                        for food in section.foods {
+                            foods.append(Food(
+                                name: food.name,
+                                location: location.name,
+                                section: section.name,
+                                allergens: food.allergens
+                            ))
+                        }
+                    }
+                }
+
                 cards.append(Card(
-                    image: meal.image,
                     title: meal.name_short,
                     subtitle: meal.date,
-                    description: "image courtesy of..."
+                    foods: foods
                 ))
             }
         }
-        
+//        for meal in menu {
+//            if meal.locations[0].sections.count > 0 {
+//                cards.append(Card(
+//                    image: meal.image,
+//                    title: meal.name_short,
+//                    subtitle: meal.date,
+//                    description: "image courtesy of..."
+//                ))
+//            }
+//        }
+
+
         callback(cards)
     }
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y0I-gX-JfP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pqm-uC-z2z">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,112 +9,46 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Card Table Controller-->
-        <scene sceneID="vWX-Y8-hfm">
+        <!--View Controller-->
+        <scene sceneID="8Xb-WW-1zX">
             <objects>
-                <tableViewController id="y0I-gX-JfP" customClass="CardTableController" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="always" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="400" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="60" id="BkX-tu-bit">
+                <viewController id="pqm-uC-z2z" customClass="ViewController" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wr3-L7-72r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="400" id="ZOc-8v-XeH" userLabel="Table View Cell" customClass="CardTableCell" customModule="USC_Dining" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="400"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZOc-8v-XeH" id="bCO-sF-qRq" userLabel="Card View" customClass="CardView" customModule="USC_Dining" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="cardView" destination="bCO-sF-qRq" id="0C9-gn-OD2"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="rect" keyPath="contentInset">
-                                <rect key="value" x="50" y="0.0" width="0.0" height="0.0"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <outlet property="dataSource" destination="y0I-gX-JfP" id="C7E-HC-5Wn"/>
-                            <outlet property="delegate" destination="y0I-gX-JfP" id="qfB-rQ-8kU"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <segue destination="rIm-1J-luS" kind="presentation" identifier="ExpandCard" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="rSn-UU-iUW"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bKP-x2-15c" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-14" y="143"/>
-        </scene>
-        <!--Card Detail Controller-->
-        <scene sceneID="ky1-V7-mCr">
-            <objects>
-                <viewController id="rIm-1J-luS" customClass="CardDetailController" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="V62-Ur-iIS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XP5-5C-yRf">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W7q-zh-qGT" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJc-pd-Vfh" userLabel="Detail View">
-                                                <rect key="frame" x="0.0" y="300" width="375" height="700"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TSo-gl-Hbp" customClass="CardView" customModule="USC_Dining" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="300" id="Sko-8C-NF8"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="tJc-pd-Vfh" secondAttribute="bottom" id="9nd-XT-sqA"/>
-                                            <constraint firstAttribute="height" constant="1000" id="AdT-Kj-Brj"/>
-                                            <constraint firstItem="tJc-pd-Vfh" firstAttribute="top" secondItem="TSo-gl-Hbp" secondAttribute="bottom" id="Jyd-fk-Yqu"/>
-                                            <constraint firstAttribute="trailing" secondItem="tJc-pd-Vfh" secondAttribute="trailing" id="MD5-iH-csG"/>
-                                            <constraint firstItem="TSo-gl-Hbp" firstAttribute="leading" secondItem="W7q-zh-qGT" secondAttribute="leading" id="Vgz-5p-87l"/>
-                                            <constraint firstItem="tJc-pd-Vfh" firstAttribute="leading" secondItem="W7q-zh-qGT" secondAttribute="leading" id="h5E-ni-UqE"/>
-                                            <constraint firstAttribute="trailing" secondItem="TSo-gl-Hbp" secondAttribute="trailing" id="uhm-xf-dju"/>
-                                            <constraint firstItem="TSo-gl-Hbp" firstAttribute="top" secondItem="W7q-zh-qGT" secondAttribute="top" id="yGN-u5-ljl"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="W7q-zh-qGT" firstAttribute="top" secondItem="XP5-5C-yRf" secondAttribute="top" id="7dK-lH-GWL"/>
-                                    <constraint firstAttribute="trailing" secondItem="W7q-zh-qGT" secondAttribute="trailing" id="8SI-SX-oEp"/>
-                                    <constraint firstItem="W7q-zh-qGT" firstAttribute="leading" secondItem="XP5-5C-yRf" secondAttribute="leading" id="F1a-FR-80w"/>
-                                    <constraint firstAttribute="bottom" secondItem="W7q-zh-qGT" secondAttribute="bottom" constant="-188" id="i6f-Zh-44a"/>
-                                </constraints>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YA-E4-r8h">
+                                <rect key="frame" x="0.0" y="20" width="375" height="597"/>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ga8-AG-i8O" customClass="FilterView" customModule="USC_Dining" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="617" width="375" height="230"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="230" id="LoE-gK-6aa"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="XP5-5C-yRf" secondAttribute="bottom" id="OUO-ZM-TdZ"/>
-                            <constraint firstItem="W7q-zh-qGT" firstAttribute="width" secondItem="V62-Ur-iIS" secondAttribute="width" id="WTk-6O-ayz"/>
-                            <constraint firstItem="XP5-5C-yRf" firstAttribute="centerX" secondItem="GWt-Z5-n7G" secondAttribute="centerX" id="aSa-rY-Ain"/>
-                            <constraint firstItem="XP5-5C-yRf" firstAttribute="top" secondItem="V62-Ur-iIS" secondAttribute="top" id="di9-PJ-5DD"/>
-                            <constraint firstItem="XP5-5C-yRf" firstAttribute="width" secondItem="V62-Ur-iIS" secondAttribute="width" id="yw0-hA-sBU"/>
+                            <constraint firstItem="0YA-E4-r8h" firstAttribute="width" secondItem="wr3-L7-72r" secondAttribute="width" id="3Pt-S3-WBf"/>
+                            <constraint firstAttribute="bottom" secondItem="Ga8-AG-i8O" secondAttribute="bottom" constant="-180" id="E5p-gk-75v"/>
+                            <constraint firstItem="Ga8-AG-i8O" firstAttribute="width" secondItem="wr3-L7-72r" secondAttribute="width" id="UUG-ow-Dgt"/>
+                            <constraint firstItem="0YA-E4-r8h" firstAttribute="top" secondItem="waF-nw-dga" secondAttribute="top" id="eTd-wE-vcQ"/>
+                            <constraint firstItem="Ga8-AG-i8O" firstAttribute="centerX" secondItem="waF-nw-dga" secondAttribute="centerX" id="qUq-Ae-wJH"/>
+                            <constraint firstItem="Ga8-AG-i8O" firstAttribute="top" secondItem="0YA-E4-r8h" secondAttribute="bottom" id="xCx-b3-5r7"/>
+                            <constraint firstItem="0YA-E4-r8h" firstAttribute="centerX" secondItem="waF-nw-dga" secondAttribute="centerX" id="xfx-Vt-V0h"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="GWt-Z5-n7G"/>
+                        <viewLayoutGuide key="safeArea" id="waF-nw-dga"/>
                     </view>
                     <connections>
-                        <outlet property="cardView" destination="TSo-gl-Hbp" id="9Q3-hS-oSa"/>
-                        <outlet property="detailPane" destination="tJc-pd-Vfh" id="fqj-W6-MUb"/>
-                        <outlet property="scrollView" destination="XP5-5C-yRf" id="cho-wB-i3g"/>
+                        <outlet property="filterView" destination="Ga8-AG-i8O" id="VZn-R3-Jzs"/>
+                        <outlet property="filterViewConstraint_amountOffScreen" destination="E5p-gk-75v" id="6Qc-SL-8xM"/>
+                        <outlet property="scrollView" destination="0YA-E4-r8h" id="2Za-9o-FKe"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bqA-eV-vEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YH9-Bx-jtt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="912.79999999999995" y="143.47826086956522"/>
+            <point key="canvasLocation" x="344.80000000000001" y="-123.68815592203899"/>
         </scene>
     </scenes>
 </document>
