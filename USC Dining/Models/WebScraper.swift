@@ -76,7 +76,7 @@ class WebScraper {
                         for food in section.foods {
                             foods.append(Food(
                                 name: food.name,
-                                location: location.name,
+                                hall: location.name,
                                 section: section.name,
                                 allergens: food.allergens
                             ))

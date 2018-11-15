@@ -36,16 +36,16 @@ class CardView: UIView {
     private func homogeneousConfig(frame: CGRect) {
         Bundle.main.loadNibNamed("CardView", owner: self, options: nil)
         addSubview(contentView)
-        
-        // TODO: - apparently the next 2 lines aren't the best way of doing things
-        contentView.frame = frame
-        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+
+        attachContentTo(frame)
+        roundCorners()
     }
     
     // MARK: - convenience functions
     
     func attachContentTo(_ frame: CGRect) {
         contentView.frame = frame
+        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
     func roundCorners(toRadius radius: CGFloat = CardView.CORNER_RADIUS) {

@@ -30,16 +30,16 @@ public class MenuBuilder {
         // when readingMeal becomes true, use first encountered text as meal name
         if readingMeal {
             if mealIsNil() {initializeMeal(withName: text)}
-                // when readingHall becomes true, use first encountered text as hall name
+            // when readingHall becomes true, use first encountered text as hall name
             else if readingHall {
                 if hallIsNil() {initializeHall(withName: text)}
-                    // when readingSect becomes true, use first encountered text as sect name
+                // when readingSect becomes true, use first encountered text as sect name
                 else if readingSect {
                     if sectIsNil() {initializeSect(withName: text)}
-                        // when readingFood becomes true, use first encountered text as food name
+                    // when readingFood becomes true, use first encountered text as food name
                     else if readingFood {
                         if foodIsNil() {initializeFood(withName: text)}
-                            // use other text to populate allergens
+                        // use other text to populate allergens
                         else {currentFood!.allergens.append(text)}
                     }
                 }
@@ -84,10 +84,12 @@ public class MenuBuilder {
     private func resetHall() {currentHall = nil; readingHall = false;}
     private func resetSect() {currentSect = nil; readingSect = false;}
     private func resetFood() {currentFood = nil; readingFood = false;}
-    
+
+}
+
+extension MenuBuilder {
     
     public class Meal {
-        
         // MARK: - Scraped Properties
         public let name: String
         public var locations: [DiningHall]
@@ -100,7 +102,6 @@ public class MenuBuilder {
         }
         
         // MARK: - Convenience Methods using Scraped Properties
-        
         private var _name_short: String? = nil
         public var name_short: String {return self._name_short ?? self.split_name().0}
         

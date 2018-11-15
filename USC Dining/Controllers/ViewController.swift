@@ -62,10 +62,10 @@ class ViewController: UIViewController {
             let totalCardCount = cardsToday.count + cardsTomorrow.count + cardsTheNextDay.count
             scrollView.contentSize = CGSize(width: scrollView.frame.width*CGFloat(totalCardCount), height: scrollView.frame.height)
 
-            var xOffset: CGFloat = 0
+            var xOffset: CGFloat = 10
 
             for i in 0 ..< cardsToday.count {
-                let cardView = CardView(frame: CGRect(x: xOffset + scrollView.frame.width*CGFloat(i)/2, y: 0, width: scrollView.frame.width, height: scrollView.frame.height))
+                let cardView = CardView(frame: CGRect(x: xOffset + scrollView.frame.width*CGFloat(i)/2, y: 0, width: scrollView.frame.width - 40, height: scrollView.frame.height))
                 cardView.label_title.text = cardsToday[i].title
                 cardView.label_subtitle.text = cardsToday[i].subtitle
 
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
             xOffset += scrollView.frame.width*CGFloat(cardsToday.count)/2
 
             for i in 0 ..< cardsTomorrow.count {
-                let cardView = CardView(frame: CGRect(x: xOffset + scrollView.frame.width*CGFloat(i)/2, y: 0, width: scrollView.frame.width, height: scrollView.frame.height))
+                let cardView = CardView(frame: CGRect(x: xOffset + scrollView.frame.width*CGFloat(i)/2, y: 0, width: scrollView.frame.width - 40, height: scrollView.frame.height))
                 cardView.label_title.text = cardsTomorrow[i].title
                 cardView.label_subtitle.text = cardsTomorrow[i].subtitle
 
@@ -87,7 +87,7 @@ class ViewController: UIViewController {
             xOffset += scrollView.frame.width*CGFloat(cardsTomorrow.count)/2
 
             for i in 0 ..< cardsTheNextDay.count {
-                let cardView = CardView(frame: CGRect(x: xOffset + scrollView.frame.width*CGFloat(i)/2, y: 0, width: scrollView.frame.width, height: scrollView.frame.height))
+                let cardView = CardView(frame: CGRect(x: xOffset + scrollView.frame.width*CGFloat(i)/2, y: 0, width: scrollView.frame.width - 40, height: scrollView.frame.height))
                 cardView.label_title.text = cardsTheNextDay[i].title
                 cardView.label_subtitle.text = cardsTheNextDay[i].subtitle
 
