@@ -41,6 +41,11 @@ class CardView: UIView {
         label_title.text = data.name
 //        label_subtitle.text = data.hours()
         label_subtitle.text = data.date
+
+        let tableController = CardTableController(data: data, tableView: tableView)
+//        tableView.delegate = tableController
+//        tableView.dataSource = tableController
+//        tableView.reloadData()
     }
     
     // code to run regardless of initialization method
