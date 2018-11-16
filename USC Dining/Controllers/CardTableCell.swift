@@ -16,7 +16,7 @@ class CardTableCell: UITableViewCell {
     
     //MARK: Properties
     @IBOutlet weak var cardView: CardView!
-    private var card: Card? = nil
+    private var card: Meal? = nil
     private var insetFrame: CGRect? = nil
     
     override func awakeFromNib() {
@@ -40,14 +40,13 @@ class CardTableCell: UITableViewCell {
         self.contentView.clipsToBounds = false
     }
     
-    func setData(toCard card: Card) {
+    func setData(toCard card: Meal) {
         self.card = card
-        cardView.label_title.text = card.title
-        cardView.label_subtitle.text = card.subtitle
-//        cardView.label_description.text = card.description
+        cardView.label_title.text = card.name
+//        cardView.label_subtitle.text = card.hours()
     }
 
-    func getData() -> Card? {return card}
+    func getData() -> Meal? {return card}
     
     func updateContent(isPressed pressed: Bool) {
         if pressed {

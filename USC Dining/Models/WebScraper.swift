@@ -10,11 +10,11 @@ import Foundation
 
 class WebScraper {
     private let url: URL
-    private let callback: ([Card]) -> Void
+    private let callback: ([Meal]) -> Void
     private let menuBuilder: MenuBuilder
     private var task: URLSessionDataTask? = nil
     
-    public init(forURL url: String, callback: @escaping ([Card]) -> Void) {
+    public init(forURL url: String, callback: @escaping ([Meal]) -> Void) {
         self.url = URL(string: url)!
         self.callback = callback
         self.menuBuilder = MenuBuilder()
@@ -64,46 +64,10 @@ class WebScraper {
     }
     
     private func propagateMenuChanges() {
-        let menu = menuBuilder.getMenu()
-        var cards = [Card]()
+        var menu: [Meal] = []
+        for htmlMeal in menuBuilder.mealHierarchy() {menu.append(Meal(fromHTMLMeal: htmlMeal))}
 
-        for meal in menu {
-            if meal.locations[0].sections.count > 0 {
-                var foods = [Food]()
-
-                for location in meal.locations {
-                    for section in location.sections {
-                        for food in section.foods {
-                            foods.append(Food(
-                                name: food.name,
-                                hall: location.name,
-                                section: section.name,
-                                allergens: food.allergens
-                            ))
-                        }
-                    }
-                }
-
-                cards.append(Card(
-                    title: meal.name_short,
-                    subtitle: meal.date,
-                    foods: foods
-                ))
-            }
-        }
-//        for meal in menu {
-//            if meal.locations[0].sections.count > 0 {
-//                cards.append(Card(
-//                    image: meal.image,
-//                    title: meal.name_short,
-//                    subtitle: meal.date,
-//                    description: "image courtesy of..."
-//                ))
-//            }
-//        }
-
-
-        callback(cards)
+        callback(menu)
     }
     
     public func resume() {task!.resume()}

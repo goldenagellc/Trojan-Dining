@@ -15,7 +15,7 @@ class CardDetailController: UIViewController {
     @IBOutlet weak var detailPane: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    private var card: Card? = nil
+    private var card: Meal? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,12 +29,11 @@ class CardDetailController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    func setData(toCard card: Card) {
+    func setData(toCard card: Meal) {
         self.card = card
 //        cardView.image.image = card.image
-        cardView.label_title.text = card.title
-        cardView.label_subtitle.text = card.subtitle
-//        cardView.label_description.text = card.description
+        cardView.label_title.text = card.name
+//        cardView.label_subtitle.text = meal.hours()
     }
     
     override var prefersStatusBarHidden: Bool {

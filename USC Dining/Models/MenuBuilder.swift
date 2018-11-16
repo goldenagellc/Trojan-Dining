@@ -10,12 +10,12 @@ import UIKit
 
 public class MenuBuilder {
     
-    private var menu: [Meal] = []
+    private var menu: [HTMLMeal] = []
     
-    var currentMeal: Meal?
-    var currentHall: DiningHall?
-    var currentSect: Section?
-    var currentFood: Food?
+    var currentMeal: HTMLMeal?
+    var currentHall: HTMLHall?
+    var currentSect: HTMLSection?
+    var currentFood: HTMLFood?
     
     var readingMeal: Bool = false
     var readingHall: Bool = false
@@ -49,34 +49,34 @@ public class MenuBuilder {
     
     public func processNewTag(_ tag: String) {
         switch tag {
-        case Meal.startTag:
+        case HTMLMeal.startTag:
             saveMeal()
             resetMeal(); resetHall(); resetSect(); resetFood();
             
-        case DiningHall.startTag: if readingMeal {readingHall = true}
-        case Section.startTag: if readingHall {readingSect = true}
-        case Food.startTag: if readingSect {readingFood = true}
-        case Food.endTag: if readingFood {saveFood(); resetFood();}
-        case Section.endTag: if readingSect {saveSect(); resetSect();}
-        case DiningHall.endTag: if readingHall {saveHall(); resetHall();}
+        case HTMLHall.startTag: if readingMeal {readingHall = true}
+        case HTMLSection.startTag: if readingHall {readingSect = true}
+        case HTMLFood.startTag: if readingSect {readingFood = true}
+        case HTMLFood.endTag: if readingFood {saveFood(); resetFood();}
+        case HTMLSection.endTag: if readingSect {saveSect(); resetSect();}
+        case HTMLHall.endTag: if readingHall {saveHall(); resetHall();}
         default: break
         }
     }
     
-    public func getMenu() -> [Meal] {return menu}
+    public func mealHierarchy() -> [HTMLMeal] {return menu}
     
     public func mealIsNil() -> Bool {return currentMeal == nil}
     public func hallIsNil() -> Bool {return currentHall == nil}
     public func sectIsNil() -> Bool {return currentSect == nil}
     public func foodIsNil() -> Bool {return currentFood == nil}
     
-    public func initializeMeal(withName name: String) {currentMeal = Meal(name: name, locations: [])}
-    public func initializeHall(withName name: String) {currentHall = DiningHall(name: name, sections: [])}
-    public func initializeSect(withName name: String) {currentSect = Section(name: name, foods: [])}
-    public func initializeFood(withName name: String) {currentFood = Food(name: name, allergens: [])}
+    public func initializeMeal(withName name: String) {currentMeal = HTMLMeal(name: name, halls: [])}
+    public func initializeHall(withName name: String) {currentHall = HTMLHall(name: name, sections: [])}
+    public func initializeSect(withName name: String) {currentSect = HTMLSection(name: name, foods: [])}
+    public func initializeFood(withName name: String) {currentFood = HTMLFood(name: name, allergens: [])}
     
-    public func saveMeal() {if let meal = currentMeal, meal.locations.count == 3 {menu.append(meal)}}
-    private func saveHall() {if let hall = currentHall {currentMeal!.locations.append(hall)}}
+    public func saveMeal() {if let meal = currentMeal, meal.halls.count == 3 {menu.append(meal)}}
+    private func saveHall() {if let hall = currentHall {currentMeal!.halls.append(hall)}}
     private func saveSect() {if let sect = currentSect {currentHall!.sections.append(sect)}}
     private func saveFood() {if let food = currentFood {currentSect!.foods.append(food)}}
     
@@ -89,16 +89,16 @@ public class MenuBuilder {
 
 extension MenuBuilder {
     
-    public class Meal {
+    public class HTMLMeal {
         // MARK: - Scraped Properties
         public let name: String
-        public var locations: [DiningHall]
+        public var halls: [HTMLHall]
         
         static let startTag: String = "<span class=\"fw-accordion-title-inner\">"
         
-        init(name: String, locations: [DiningHall]) {
+        init(name: String, halls: [HTMLHall]) {
             self.name = name
-            self.locations = locations
+            self.halls = halls
         }
         
         // MARK: - Convenience Methods using Scraped Properties
@@ -107,9 +107,6 @@ extension MenuBuilder {
         
         private var _date: String? = nil
         public var date: String {return self._date ?? self.split_name().1}
-        
-        private var _image: UIImage? = nil
-        public var image: UIImage {return self._image ?? self.associate_image()}
         
         private func split_name() -> (String, String) {
             let index_1st_space = name.firstIndex(of: " ") ?? name.endIndex
@@ -121,33 +118,25 @@ extension MenuBuilder {
             
             return (self._name_short!, self._date!)
         }
-        
-        private func associate_image() -> UIImage {
-            guard let result = UIImage(named: self.name_short) else {
-                fatalError("Error! There is no image asset named " + self.name_short)
-            }
-            self._image = result
-            return result
-        }
     }
     
-    public struct DiningHall {
+    public struct HTMLHall {
         public let name: String
-        public var sections: [Section]
+        public var sections: [HTMLSection]
         
         static let startTag: String = "<h3 class=\"menu-venue-title\">"
         static let endTag: String = "</div>"
     }
     
-    public struct Section {
+    public struct HTMLSection {
         public let name: String
-        public var foods: [Food]
+        public var foods: [HTMLFood]
         
         static let startTag: String = "<h4>"
         static let endTag: String = "</ul>"
     }
     
-    public struct Food {
+    public struct HTMLFood {
         public let name: String
         public var allergens: [String]
         

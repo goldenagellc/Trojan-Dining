@@ -14,38 +14,23 @@ class ViewController: UIViewController {
     @IBOutlet weak var filterView: FilterView!
     @IBOutlet weak var filterViewConstraint_amountOffScreen: NSLayoutConstraint!
 
-    private var cardViews = [CardView]()
+    private var mealViews = [CardView]()
 
-    private var cardsToday = [Card]()
-    private var cardsTomorrow = [Card]()
-    private var cardsTheNextDay = [Card]()
-    private var hasCardsToday = false
-    private var hasCardsTomorrow = false
-    private var hasCardsTheNextDay = false
+    private var menuToday: [Meal] = []
+    private var menuTomorrow: [Meal] = []
+    private var menuTheNextDay: [Meal] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let scraperToday = WebScraper(forURL: AddressBuilder.url(for: .today)) {cards in
-            self.cardsToday = cards
-            DispatchQueue.main.async {
-                self.hasCardsToday = true
-                self.reloadDataIfReady()
-            }
+        let scraperToday = WebScraper(forURL: AddressBuilder.url(for: .today)) {menu in
+            DispatchQueue.main.async {self.menuToday = menu; self.reloadDataIfReady()}
         }
-        let scraperTomorrow = WebScraper(forURL: AddressBuilder.url(for: .tomorrow)) {cards in
-            self.cardsTomorrow = cards
-            DispatchQueue.main.async {
-                self.hasCardsTomorrow = true
-                self.reloadDataIfReady()
-            }
+        let scraperTomorrow = WebScraper(forURL: AddressBuilder.url(for: .tomorrow)) {menu in
+            DispatchQueue.main.async {self.menuTomorrow = menu; self.reloadDataIfReady()}
         }
-        let scraperTheNextDay = WebScraper(forURL: AddressBuilder.url(for: .theNextDay)) {cards in
-            self.cardsTheNextDay = cards
-            DispatchQueue.main.async {
-                self.hasCardsTheNextDay = true
-                self.reloadDataIfReady()
-            }
+        let scraperTheNextDay = WebScraper(forURL: AddressBuilder.url(for: .theNextDay)) {menu in
+            DispatchQueue.main.async {self.menuTheNextDay = menu; self.reloadDataIfReady()}
         }
         scraperToday.resume()
         scraperTomorrow.resume()
@@ -58,46 +43,23 @@ class ViewController: UIViewController {
     }
 
     func reloadDataIfReady() {
-        if hasCardsToday && hasCardsTomorrow && hasCardsTheNextDay {
-            let totalCardCount = cardsToday.count + cardsTomorrow.count + cardsTheNextDay.count
-            scrollView.contentSize = CGSize(width: scrollView.frame.width*CGFloat(totalCardCount), height: scrollView.frame.height)
+        let menu = (menuToday + menuTomorrow + menuTheNextDay).filter {$0.isServed}
+        let mealCount = menu.count
 
-            var xOffset: CGFloat = 10
+        scrollView.contentSize = CGSize(width: scrollView.frame.width*CGFloat(mealCount), height: scrollView.frame.height)
 
-            for i in 0 ..< cardsToday.count {
-                let cardView = CardView(frame: CGRect(x: xOffset + scrollView.frame.width*CGFloat(i)/2, y: 0, width: scrollView.frame.width - 40, height: scrollView.frame.height))
-                cardView.label_title.text = cardsToday[i].title
-                cardView.label_subtitle.text = cardsToday[i].subtitle
+        let xInset: CGFloat = 20
 
-                cardViews.append(cardView)
-                scrollView.addSubview(cardView)
-            }
+        for i in 0 ..< mealCount {
+            let frame = CGRect(x: (xInset + scrollView.frame.width*CGFloat(i))/2, y: 0, width: scrollView.frame.width - xInset*2, height: scrollView.frame.height)
+            let mealView = CardView(frame: frame, mealData: menu[i])// TODO no reason to rebuild every card every time reload gets called
 
-            xOffset += scrollView.frame.width*CGFloat(cardsToday.count)/2
-
-            for i in 0 ..< cardsTomorrow.count {
-                let cardView = CardView(frame: CGRect(x: xOffset + scrollView.frame.width*CGFloat(i)/2, y: 0, width: scrollView.frame.width - 40, height: scrollView.frame.height))
-                cardView.label_title.text = cardsTomorrow[i].title
-                cardView.label_subtitle.text = cardsTomorrow[i].subtitle
-
-                cardViews.append(cardView)
-                scrollView.addSubview(cardView)
-            }
-
-            xOffset += scrollView.frame.width*CGFloat(cardsTomorrow.count)/2
-
-            for i in 0 ..< cardsTheNextDay.count {
-                let cardView = CardView(frame: CGRect(x: xOffset + scrollView.frame.width*CGFloat(i)/2, y: 0, width: scrollView.frame.width - 40, height: scrollView.frame.height))
-                cardView.label_title.text = cardsTheNextDay[i].title
-                cardView.label_subtitle.text = cardsTheNextDay[i].subtitle
-
-                cardViews.append(cardView)
-                scrollView.addSubview(cardView)
-            }
-
-            scrollView.setNeedsDisplay()
-            print("Got cards")
+            mealViews.append(mealView)
+            scrollView.addSubview(mealView)
         }
+
+        scrollView.setNeedsDisplay()
+        print("Got cards")
     }
 
 

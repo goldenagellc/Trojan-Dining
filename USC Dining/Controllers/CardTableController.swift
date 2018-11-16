@@ -14,9 +14,9 @@ class CardTableController: UITableViewController {
     // Properties
     // ----------
     public var lastSelected: CardTableCell? = nil
-    private var cardsToday = [Card]()
-    private var cardsTomorrow = [Card]()
-    private var cardsTheNextDay = [Card]()
+    private var cardsToday = [Meal]()
+    private var cardsTomorrow = [Meal]()
+    private var cardsTheNextDay = [Meal]()
     
     // ----------
     // UIViewController
@@ -24,21 +24,21 @@ class CardTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scraperToday = WebScraper(forURL: AddressBuilder.url(for: .today)) {cards in
-            self.cardsToday = cards
-            DispatchQueue.main.async {self.tableView.reloadData()}
-        }
-        let scraperTomorrow = WebScraper(forURL: AddressBuilder.url(for: .tomorrow)) {cards in
-            self.cardsTomorrow = cards
-            DispatchQueue.main.async {self.tableView.reloadData()}
-        }
-        let scraperTheNextDay = WebScraper(forURL: AddressBuilder.url(for: .theNextDay)) {cards in
-            self.cardsTheNextDay = cards
-            DispatchQueue.main.async {self.tableView.reloadData()}
-        }
-        scraperToday.resume()
-        scraperTomorrow.resume()
-        scraperTheNextDay.resume()
+//        let scraperToday = WebScraper(forURL: AddressBuilder.url(for: .today)) {cards in
+//            self.cardsToday = cards
+//            DispatchQueue.main.async {self.tableView.reloadData()}
+//        }
+//        let scraperTomorrow = WebScraper(forURL: AddressBuilder.url(for: .tomorrow)) {cards in
+//            self.cardsTomorrow = cards
+//            DispatchQueue.main.async {self.tableView.reloadData()}
+//        }
+//        let scraperTheNextDay = WebScraper(forURL: AddressBuilder.url(for: .theNextDay)) {cards in
+//            self.cardsTheNextDay = cards
+//            DispatchQueue.main.async {self.tableView.reloadData()}
+//        }
+//        scraperToday.resume()
+//        scraperTomorrow.resume()
+//        scraperTheNextDay.resume()
     }
     
     // ----------

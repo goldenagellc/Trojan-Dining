@@ -8,13 +8,48 @@
 
 import UIKit
 
-struct Card {
-    let title: String
-    let subtitle: String
-    let foods: [Food]
+public final class Meal {
+    public let name: String
+    public let date: String
+    public let halls: [String]
+    public let foods: [[Food]]
+    public private(set) lazy var isServed: Bool = {[unowned self] in return foods[0].count > 0}()// TODO only return true if hours haven't passed
+
+    init(name: String, date: String, halls: [String], foods: [[Food]]) {
+        self.name = name
+        self.date = date
+        self.halls = halls
+        self.foods = foods
+    }
+
+    convenience init(fromHTMLMeal htmlMeal: MenuBuilder.HTMLMeal) {
+        var halls: [String] = []
+        var foods: [[Food]] = []
+
+        for htmlHall in htmlMeal.halls {
+            halls.append(htmlHall.name)
+            foods.append([])
+            for htmlSection in htmlHall.sections {
+                for htmlFood in htmlSection.foods {
+                    let food = Food(name: htmlFood.name, hall: htmlHall.name, section: htmlSection.name, allergens: htmlFood.allergens)
+                    foods[foods.endIndex - 1].append(food)
+        }}}
+
+        self.init(name: htmlMeal.name_short, date: htmlMeal.date, halls: halls, foods: foods)
+    }
+
+//    public func generateView()
+
+//    public func filterBy()
+
+//    public func getHours()
+
+    //    public func getRelativeDate() //return "Today", "Tomorrow", etc
 }
 
-class Food {
+
+
+public final class Food {
     public static let POSSIBLE_ALLERGENS: [String: Int] = [
         "Dairy" : 0,
         "Eggs" : 1,
@@ -30,11 +65,11 @@ class Food {
         "Wheat / Gluten" : 11
     ]
 
-    public static let POSSIBLE_HALLS: [String: Int] = [
-        "USC Village Dining Hall" : 0,
-        "Parkside Restaurant & Grill" : 1,
-        "Everybody's Kitchen" : 2
-    ]
+//    public static let POSSIBLE_HALLS: [String: Int] = [
+//        "USC Village Dining Hall" : 0,
+//        "Parkside Restaurant & Grill" : 1,
+//        "Everybody's Kitchen" : 2
+//    ]
 
     public let name: String
     public let hall: String
@@ -65,23 +100,7 @@ class Food {
         return false
     }
 
-    public func canBeFoundAt(diningHall hall: String) -> Bool {
-        return self.hall == hall
-    }
-}
-
-
-class Menu {
-    let breakfast: [Food]
-    let brunch: [Food]
-    let lunch: [Food]
-    let dinner: [Food]
-
-
-    init(breakfast: [Food], brunch: [Food], lunch: [Food], dinner: [Food]) {
-        self.breakfast = breakfast
-        self.brunch = brunch
-        self.lunch = lunch
-        self.dinner = dinner
-    }
+//    public func canBeFoundAt(diningHall hall: String) -> Bool {
+//        return self.hall == hall
+//    }
 }
