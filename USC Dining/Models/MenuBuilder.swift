@@ -77,7 +77,8 @@ public class MenuBuilder {
     
     public func saveMeal() {if let meal = currentMeal, meal.halls.count == 3 {menu.append(meal)}}
     private func saveHall() {if let hall = currentHall {currentMeal!.halls.append(hall)}}
-    private func saveSect() {if let sect = currentSect {currentHall!.sections.append(sect)}}
+    private func saveSect() {if let sect = currentSect {
+        currentHall?.sections.append(sect)}}//TODO this broke when there were 4 meals (thanksgiving)
     private func saveFood() {if let food = currentFood {currentSect!.foods.append(food)}}
     
     private func resetMeal() {currentMeal = nil; readingMeal = true;}

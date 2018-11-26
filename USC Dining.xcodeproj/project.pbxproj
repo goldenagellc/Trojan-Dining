@@ -22,7 +22,6 @@
 		C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F6E217DB97B007F5452 /* WebScraper.swift */; };
 		C46E0F71217DB989007F5452 /* MenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F70217DB989007F5452 /* MenuBuilder.swift */; };
 		C49F5EA2219F6D55009A915C /* CardTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49F5EA1219F6D55009A915C /* CardTableCell.xib */; };
-		C4E23E622186C4F6004439DA /* CardDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E23E612186C4F6004439DA /* CardDetailController.swift */; };
 		C4F9D2542187BD7E0081606A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2532187BD7E0081606A /* Card.swift */; };
 		C4F9D25A2187E5190081606A /* TransitionMealExpand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2592187E5190081606A /* TransitionMealExpand.swift */; };
 		C4F9D25C218838990081606A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F9D25B218838990081606A /* CardView.xib */; };
@@ -47,7 +46,6 @@
 		C46E0F6E217DB97B007F5452 /* WebScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebScraper.swift; sourceTree = "<group>"; };
 		C46E0F70217DB989007F5452 /* MenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBuilder.swift; sourceTree = "<group>"; };
 		C49F5EA1219F6D55009A915C /* CardTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableCell.xib; sourceTree = "<group>"; };
-		C4E23E612186C4F6004439DA /* CardDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailController.swift; sourceTree = "<group>"; };
 		C4F9D2532187BD7E0081606A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C4F9D2592187E5190081606A /* TransitionMealExpand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionMealExpand.swift; sourceTree = "<group>"; };
 		C4F9D25B218838990081606A /* CardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 			children = (
 				C44DE8E72198097900CFC981 /* ViewController.swift */,
 				C46E0F68217DB07C007F5452 /* CardTableController.swift */,
-				C4E23E612186C4F6004439DA /* CardDetailController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -228,7 +225,6 @@
 				C4F9D2542187BD7E0081606A /* Card.swift in Sources */,
 				C45E344F218CE07000A8C28E /* CardTransitioningDelegate.swift in Sources */,
 				C45E3451218CF39200A8C28E /* CardPresentationAnimation.swift in Sources */,
-				C4E23E622186C4F6004439DA /* CardDetailController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

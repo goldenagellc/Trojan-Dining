@@ -10,7 +10,7 @@ import UIKit
 
 class CardTableController: UITableViewController {
 
-    private static let cellID = "CellID"
+    private static let cellID = "CardTableCell"
 
     // ----------
     // Properties
@@ -19,22 +19,7 @@ class CardTableController: UITableViewController {
 
     private var data: Meal? = nil
 
-//    override func awakeFromNib() {
-//        title = "None"
-//        tableView.register(CardTableCell.self, forCellReuseIdentifier: CardTableController.cellID)
-//        print("woke from nib")
-//    }
-//
-//    required init(coder: NSCoder) {
-//        super.init(coder: coder)!
-//
-//        title = "None"
-//        tableView.register(CardTableCell.self, forCellReuseIdentifier: CardTableController.cellID)
-//        print("ran override init")
-//    }
-
     convenience init(data: Meal, tableView: UITableView) {
-//        self.init(style: UITableView.Style.grouped)
         self.init()
         self.data = data
         self.tableView = tableView
@@ -91,6 +76,12 @@ class CardTableController: UITableViewController {
 ////        }
 ////        cell.updateContent(isPressed: false)
 //    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.blue
+        return view
+    }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         // set header height

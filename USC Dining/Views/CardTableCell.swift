@@ -9,6 +9,7 @@
 import UIKit
 
 class CardTableCell: UITableViewCell {
+    
     @IBOutlet weak var label: UILabel!
 
 //    override func awakeFromNib() {

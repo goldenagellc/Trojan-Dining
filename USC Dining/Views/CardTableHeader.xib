@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner">
+            <connections>
+                <outlet property="title" destination="JUc-Y4-QOG" id="YXL-ne-0zb"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CardTableHeader" customModule="USC_Dining" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0h-0H-Bse" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUc-Y4-QOG">
+                            <rect key="frame" x="8" y="9.5" width="359" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="JUc-Y4-QOG" secondAttribute="trailing" constant="8" id="9bD-st-oFA"/>
+                        <constraint firstItem="JUc-Y4-QOG" firstAttribute="centerY" secondItem="M0h-0H-Bse" secondAttribute="centerY" id="ZGp-B4-tHI"/>
+                        <constraint firstItem="JUc-Y4-QOG" firstAttribute="leading" secondItem="M0h-0H-Bse" secondAttribute="leading" constant="8" id="wgi-wD-oUj"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="M0h-0H-Bse" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="1UO-xD-nAb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="M0h-0H-Bse" secondAttribute="bottom" id="21v-6m-em0"/>
+                <constraint firstItem="M0h-0H-Bse" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="bh4-pI-sG4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="M0h-0H-Bse" secondAttribute="trailing" id="lxb-M6-mDn"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="152" y="294.60269865067471"/>
+        </view>
+    </objects>
+</document>
