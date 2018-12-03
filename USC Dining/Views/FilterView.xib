@@ -11,50 +11,32 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterView" customModule="USC_Dining" customModuleProvider="target">
             <connections>
-                <outlet property="button" destination="dvQ-CL-iox" id="B6m-Sk-As6"/>
-                <outlet property="collectionView" destination="Fs8-GP-JAs" id="iXK-p2-ckh"/>
-                <outlet property="contentView" destination="iN0-l3-epB" id="gBw-q4-yFy"/>
+                <outlet property="collectionView" destination="06M-QF-tZ0" id="t89-5o-egE"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="Tir-tg-6vb"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="230"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvQ-CL-iox">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
-                    <color key="backgroundColor" red="1" green="0.34147931190000003" blue="0.098721968760000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="DEi-wT-ri1"/>
-                    </constraints>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" title="Filters">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="onButtonClick:" destination="-1" eventType="touchUpInside" id="CXP-zX-byl"/>
-                    </connections>
-                </button>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Fs8-GP-JAs">
-                    <rect key="frame" x="0.0" y="30" width="375" height="200"/>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="06M-QF-tZ0">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="giO-bX-3sf">
-                        <size key="itemSize" width="50" height="50"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="U8w-9i-dsF">
+                        <size key="itemSize" width="50" height="35"/>
+                        <size key="headerReferenceSize" width="20" height="35"/>
+                        <size key="footerReferenceSize" width="20" height="35"/>
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Fs8-GP-JAs" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="0P4-xi-OT7"/>
-                <constraint firstItem="Fs8-GP-JAs" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="JXN-wb-oVD"/>
-                <constraint firstItem="Fs8-GP-JAs" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Ovz-wc-CGo"/>
-                <constraint firstItem="dvQ-CL-iox" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="QyL-2Z-HDI"/>
-                <constraint firstItem="Fs8-GP-JAs" firstAttribute="top" secondItem="dvQ-CL-iox" secondAttribute="bottom" id="Zo4-2X-sIc"/>
-                <constraint firstItem="dvQ-CL-iox" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="ca5-Eb-a5y"/>
-                <constraint firstItem="dvQ-CL-iox" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="iyI-LO-6om"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="06M-QF-tZ0" secondAttribute="trailing" id="Be5-P5-lCB"/>
+                <constraint firstAttribute="bottom" secondItem="06M-QF-tZ0" secondAttribute="bottom" id="OGY-3K-3vt"/>
+                <constraint firstItem="06M-QF-tZ0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="OPg-mE-9oi"/>
+                <constraint firstItem="06M-QF-tZ0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="nHe-Ef-rPG"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

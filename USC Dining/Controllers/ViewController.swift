@@ -9,10 +9,11 @@
 import UIKit
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, Filterer {
     private static let SPACING_BETWEEN_ITEMS: CGFloat = 40
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var filterView: FilterView!
 
     private var mealViews = [CardView]()
 
@@ -24,77 +25,64 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Register cell classes
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(CardView.self, forCellWithReuseIdentifier: "CardView")
+        engageCollectionView()
+        filterView.filterer = self
 
-        // Do any additional setup after loading the view.
         let scraperToday = WebScraper(forURL: AddressBuilder.url(for: .today)) {menu in
-            DispatchQueue.main.async {self.menuToday = menu; self.reloadDataIfReady()}
+            DispatchQueue.main.async {self.menuToday = menu; self.reloadData()}
         }
         let scraperTomorrow = WebScraper(forURL: AddressBuilder.url(for: .tomorrow)) {menu in
-            DispatchQueue.main.async {self.menuTomorrow = menu; self.reloadDataIfReady()}
+            DispatchQueue.main.async {self.menuTomorrow = menu; self.reloadData()}
         }
         let scraperTheNextDay = WebScraper(forURL: AddressBuilder.url(for: .theNextDay)) {menu in
-            DispatchQueue.main.async {self.menuTheNextDay = menu; self.reloadDataIfReady()}
+            DispatchQueue.main.async {self.menuTheNextDay = menu; self.reloadData()}
         }
         scraperToday.resume()
         scraperTomorrow.resume()
         scraperTheNextDay.resume()
     }
 
-    func reloadDataIfReady() {
-
+    func reloadData() {
         menu = (menuToday + menuTomorrow + menuTheNextDay).filter {$0.isServed}
-
         collectionView.reloadData()
-
     }
 
+    func apply(_ filter: Filter) {
+        print(filter)
+        for meal in menu {meal.apply(filter)}
+        collectionView.reloadData()
+    }
 }
+
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-    // MARK: UICollectionViewDataSource
+    /*number of sections*/func numberOfSections(in collectionView: UICollectionView) -> Int {return 1}
+    /*number of cells   */func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {return menu.count}
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+    /*cell spacing*/func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {return 0.0}
+
+    //cell size
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: collectionView.frame.height - ViewController.SPACING_BETWEEN_ITEMS)
     }
-
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        print(menu.count)
-        return menu.count
-    }
-
+    //cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardView", for: indexPath) as! CardView
-
-        // Configure the cell
-        cell.setData(mealData: menu[indexPath.item])
-        cell.tableView.reloadData()
-    
+        cell.oneTimeSetup(withData: menu[indexPath.item])
         return cell
     }
-
+    //cell display
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
         let dx = ViewController.SPACING_BETWEEN_ITEMS - (view.frame.width - cell.frame.width)
         cell.frame = cell.frame.insetBy(dx: dx/2, dy: 0)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: collectionView.frame.height - 40)
-    }
-
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 20.0
-//    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
+    //MARK: - convenience functions
+    func engageCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CardView.self, forCellWithReuseIdentifier: "CardView")
+        collectionView.reloadData()
     }
 }

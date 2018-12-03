@@ -8,18 +8,22 @@
 
 import UIKit
 
-public final class Meal {
+public final class Meal: Filterer {
     public let name: String
     public let date: String
     public let halls: [String]
     public let foods: [[Food]]
     public private(set) lazy var isServed: Bool = {[unowned self] in return foods[0].count > 0}()// TODO only return true if hours haven't passed
 
+    public private(set) var filteredFoods: [[Food]]
+
     init(name: String, date: String, halls: [String], foods: [[Food]]) {
         self.name = name
         self.date = date
         self.halls = halls
         self.foods = foods
+
+        self.filteredFoods = foods
     }
 
     convenience init(fromHTMLMeal htmlMeal: MenuBuilder.HTMLMeal) {
@@ -40,11 +44,14 @@ public final class Meal {
 
 //    public func generateView()
 
-//    public func filterBy()
+    public func apply(_ filter: Filter) {
+        filteredFoods = []
+        for section in foods {filteredFoods.append(section.filter {!$0.contains(unacceptableAllergens: filter.unacceptableAllergens)})}
+    }
 
 //    public func getHours()
 
-    //    public func getRelativeDate() //return "Today", "Tomorrow", etc
+//    public func getRelativeDate() //return "Today", "Tomorrow", etc
 }
 
 
@@ -62,7 +69,8 @@ public final class Food {
         "Tree Nuts" : 8,
         "Vegan" : 9,
         "Vegetarian" : 10,
-        "Wheat / Gluten" : 11
+        "Wheat / Gluten" : 11,
+        "Food Not Analyzed for Allergens" : 12
     ]
 
 //    public static let POSSIBLE_HALLS: [String: Int] = [
@@ -79,7 +87,7 @@ public final class Food {
     private lazy var standardizedAllergens: [Bool] = { [unowned self] in
         var standardized: [Bool] = [Bool](repeating: false, count: Food.POSSIBLE_ALLERGENS.count)
         for allergen in allergens {
-            guard let allergenIndex: Int = Food.POSSIBLE_ALLERGENS[allergen] else {fatalError("Scraped allergen not possible?")}
+            guard let allergenIndex: Int = Food.POSSIBLE_ALLERGENS[allergen] else {fatalError("Scraped an allergen not associated with a constant! :: " + allergen)}
             standardized[allergenIndex] = true
         }
         return standardized
@@ -94,7 +102,7 @@ public final class Food {
 
     public func contains(unacceptableAllergens allergens: [String]) -> Bool {
         for allergen in allergens {
-            guard let allergenIndex: Int = Food.POSSIBLE_ALLERGENS[allergen] else {fatalError("Are you sure you're filtering correctly spelled allergens?")}
+            guard let allergenIndex: Int = Food.POSSIBLE_ALLERGENS[allergen] else {fatalError("Tried to filter out an allergen that doesn't exist!")}
             if standardizedAllergens[allergenIndex] {return true}
         }
         return false

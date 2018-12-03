@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QF7-8v-Ypk">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="592"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vYv-YU-g7I">
                                     <size key="itemSize" width="375" height="622"/>
@@ -28,18 +28,29 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4uG-MP-YcA" customClass="FilterView" customModule="USC_Dining" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="612" width="375" height="35"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="nCd-fq-fHE"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="4uG-MP-YcA" firstAttribute="leading" secondItem="waF-nw-dga" secondAttribute="leading" id="GQF-Tw-IFr"/>
+                            <constraint firstItem="waF-nw-dga" firstAttribute="bottom" secondItem="4uG-MP-YcA" secondAttribute="bottom" constant="20" id="PPO-UC-cHG"/>
                             <constraint firstItem="QF7-8v-Ypk" firstAttribute="top" secondItem="waF-nw-dga" secondAttribute="top" id="aux-g1-SHr"/>
                             <constraint firstItem="QF7-8v-Ypk" firstAttribute="leading" secondItem="waF-nw-dga" secondAttribute="leading" id="p92-f7-OlC"/>
-                            <constraint firstItem="waF-nw-dga" firstAttribute="bottom" secondItem="QF7-8v-Ypk" secondAttribute="bottom" id="vZq-SS-wOR"/>
+                            <constraint firstItem="4uG-MP-YcA" firstAttribute="top" secondItem="QF7-8v-Ypk" secondAttribute="bottom" id="pAe-dg-EL5"/>
                             <constraint firstItem="waF-nw-dga" firstAttribute="trailing" secondItem="QF7-8v-Ypk" secondAttribute="trailing" id="vqn-Fe-kc8"/>
+                            <constraint firstItem="4uG-MP-YcA" firstAttribute="trailing" secondItem="waF-nw-dga" secondAttribute="trailing" id="xzR-w0-9zI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="waF-nw-dga"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="QF7-8v-Ypk" id="qqb-fa-4JI"/>
+                        <outlet property="filterView" destination="4uG-MP-YcA" id="b4b-t8-uuO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YH9-Bx-jtt" userLabel="First Responder" sceneMemberID="firstResponder"/>
