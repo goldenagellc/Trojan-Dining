@@ -8,13 +8,13 @@
 
 import UIKit
 
-class CardView: UIView {
+class CardView: UICollectionViewCell {
     
     static let CELL_ID: String = "CardTableCell"
-    static let CORNER_RADIUS: CGFloat = 20.0
+    static let CORNER_RADIUS: CGFloat = 16.0
+    static let BORDER_WIDTH: CGFloat = 4.0
     
-    //canvas
-    @IBOutlet var contentView: UIView!
+
     //scene on canvas
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var label_title: UILabel!
@@ -43,24 +43,38 @@ class CardView: UIView {
         
         prepareTableView()
     }
+
+    public func setData(mealData data: Meal) {
+        self.data = data
+
+        label_title.text = data.name
+//        label_subtitle.text = data.hours()
+        label_subtitle.text = data.date
+
+        prepareTableView()
+    }
     
     //run regardless of initialization method
     private func homogeneousConfig(frame: CGRect) {
         Bundle.main.loadNibNamed("CardView", owner: self, options: nil)
-        addSubview(contentView)
 
-        attachContentTo(frame)
         roundCorners()
+//        addBorder()
     }
     
-    //MARK: - convenience functions
-    func attachContentTo(_ frame: CGRect) {
-        contentView.frame = frame
-        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-    }
-    
+
     func roundCorners(toRadius radius: CGFloat = CardView.CORNER_RADIUS) {
         contentView.layer.cornerRadius = radius
+        contentView.layer.masksToBounds = true
+
+        tableView.backgroundColor = UIColor.clear
+        tableView.layer.cornerRadius = radius
+        tableView.layer.masksToBounds = true
+    }
+
+    func addBorder(withWidth width: CGFloat = CardView.BORDER_WIDTH) {
+        contentView.layer.borderColor = contentView.backgroundColor?.cgColor
+        contentView.layer.borderWidth = width
         contentView.layer.masksToBounds = true
     }
 }
@@ -83,7 +97,7 @@ extension CardView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else {return}
         let backgroundView = UIView()
-        backgroundView.backgroundColor = contentView.backgroundColor
+        backgroundView.backgroundColor = UIColor.groupTableViewBackground//contentView.backgroundColor
         headerView.backgroundView = backgroundView
     }
     
@@ -99,6 +113,5 @@ extension CardView: UITableViewDataSource, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "CardTableCell", bundle: nil), forCellReuseIdentifier: CardView.CELL_ID)
-        tableView.backgroundColor = UIColor.clear
     }
 }

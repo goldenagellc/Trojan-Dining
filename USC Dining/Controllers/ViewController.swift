@@ -2,25 +2,34 @@
 //  ViewController.swift
 //  USC Dining
 //
-//  Created by Hayden Shively on 11/10/18.
+//  Created by Hayden Shively on 12/2/18.
 //  Copyright © 2018 Hayden Shively. All rights reserved.
 //
 
 import UIKit
 
+
 class ViewController: UIViewController {
+    private static let SPACING_BETWEEN_ITEMS: CGFloat = 40
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var collectionView: UICollectionView!
 
     private var mealViews = [CardView]()
 
+    private var menu: [Meal] = []
     private var menuToday: [Meal] = []
     private var menuTomorrow: [Meal] = []
     private var menuTheNextDay: [Meal] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Register cell classes
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CardView.self, forCellWithReuseIdentifier: "CardView")
+
+        // Do any additional setup after loading the view.
         let scraperToday = WebScraper(forURL: AddressBuilder.url(for: .today)) {menu in
             DispatchQueue.main.async {self.menuToday = menu; self.reloadDataIfReady()}
         }
@@ -33,38 +42,59 @@ class ViewController: UIViewController {
         scraperToday.resume()
         scraperTomorrow.resume()
         scraperTheNextDay.resume()
-
-        scrollView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
-        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollView.frame.height)
-        scrollView.isPagingEnabled = true
     }
 
     func reloadDataIfReady() {
-        removeAllMealViews()
-        
-        let menu = (menuToday + menuTomorrow + menuTheNextDay).filter {$0.isServed}
-        let mealCount = menu.count
 
-        scrollView.contentSize = CGSize(width: scrollView.frame.width*CGFloat(mealCount), height: scrollView.frame.height)
+        menu = (menuToday + menuTomorrow + menuTheNextDay).filter {$0.isServed}
 
-        let xInset: CGFloat = 20
+        collectionView.reloadData()
 
-        for i in 0 ..< mealCount {
-            let frame = CGRect(x: (xInset + scrollView.frame.width*CGFloat(i))/2, y: 0, width: scrollView.frame.width - xInset*2, height: scrollView.frame.height)
-            let mealView = CardView(frame: frame, mealData: menu[i])// TODO no reason to rebuild every card every time reload gets called
-            mealViews.append(mealView)
-        }
-
-        addAllMealViews()
-        scrollView.setNeedsDisplay()
     }
-    
-    func removeAllMealViews() {
-        for i in 0 ..< mealViews.count {mealViews[i].removeFromSuperview()}
-        mealViews = []
+
+}
+
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+    // MARK: UICollectionViewDataSource
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
     }
+
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of items
+        print(menu.count)
+        return menu.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardView", for: indexPath) as! CardView
+
+        // Configure the cell
+        cell.setData(mealData: menu[indexPath.item])
+        cell.tableView.reloadData()
     
-    func addAllMealViews() {
-        for i in 0 ..< mealViews.count {scrollView.addSubview(mealViews[i])}
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+        let dx = ViewController.SPACING_BETWEEN_ITEMS - (view.frame.width - cell.frame.width)
+        cell.frame = cell.frame.insetBy(dx: dx/2, dy: 0)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: collectionView.frame.height - 40)
+    }
+
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 20.0
+//    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
     }
 }
