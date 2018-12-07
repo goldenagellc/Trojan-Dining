@@ -74,12 +74,6 @@ public final class Food {
         "Food Not Analyzed for Allergens" : 12
     ]
 
-//    public static let POSSIBLE_HALLS: [String: Int] = [
-//        "USC Village Dining Hall" : 0,
-//        "Parkside Restaurant & Grill" : 1,
-//        "Everybody's Kitchen" : 2
-//    ]
-
     public let name: String
     public let hall: String
     public let section: String
@@ -92,6 +86,9 @@ public final class Food {
         else {for attribute in attributes {
             guard let attributeIndex: Int = Food.POSSIBLE_ATTRIBUTES[attribute] else {fatalError("Scraped an attribute not associated with a constant! :: " + attribute)}
             standardized[attributeIndex] = .present
+
+            //SPECIAL CASE
+            if standardized[9] == .present {standardized[10] = .present}
         }}
 
         return standardized
@@ -108,9 +105,6 @@ public final class Food {
         for attribute in attributes {
             guard let attributeIndex: Int = Food.POSSIBLE_ATTRIBUTES[attribute] else {fatalError("Tried to filter out an attribute that doesn't exist! :: " + attribute)}
             if standardizedAttributes[attributeIndex] == .present {return true}
-
-            //SPECIAL CASE
-            if attributeIndex == 10 {if standardizedAttributes[9] == .present {return true}}
         }
         return false
     }
@@ -124,22 +118,24 @@ public final class Food {
     }
 
     public func passes(_ filter: Filter) -> Bool {
-        //SPECIAL CASE
-        if filter.specifications[10] == .present {filter.specifications[9] == .present}
+//        //Ensures ALL conditions pass
+//        var failures = zip(standardizedAttributes, filter.specifications).filter {$0 != $1 && $1 != Filter.AttributeStatus.inconsequential}
+//        return failures.count == 0
 
-        var failures = zip(standardizedAttributes, filter.specifications).filter {$0 != $1 && $1 != Filter.AttributeStatus.inconsequential}
-        if failures.count > 0 && filter.specifications[10] == .present {
-            filter.specifications[9] == .present
-            filter.specifications[10] == .inconsequential
-            failures = zip(standardizedAttributes, filter.specifications).filter {$0 != $1 && $1 != Filter.AttributeStatus.inconsequential}
+
+        //Ensures ALL things that are supposed to be absent are absent
+        //AND
+        //Ensures AT LEAST ONE thing that is supposed to be present is present
+        let validity = zip(standardizedAttributes, filter.specifications).reduce((false, false, false)) {(prev, curr) in
+            //true only when filter contains .present
+            let isAffirmativeSearchActive = prev.0 || (curr.1 == .present)
+            //true only when at least one index contains .present in both standardizedAttributes and filter
+            let isAffirmativeSearchSuccessful = prev.1 || (curr.0 == .present && curr.1 == .present)
+            //true when any given index is .absent in the filter but .present in standardizedAttributes
+            let hasUnacceptableAttributes = prev.2 || (curr.0 != .absent && curr.1 == .absent)
+            return (isAffirmativeSearchActive, isAffirmativeSearchSuccessful, hasUnacceptableAttributes)
         }
 
-        return failures.count == 0
+        return (validity.0 == validity.1) && !validity.2
     }
-
-    
-
-//    public func canBeFoundAt(diningHall hall: String) -> Bool {
-//        return self.hall == hall
-//    }
 }
