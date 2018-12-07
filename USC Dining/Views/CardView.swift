@@ -31,17 +31,19 @@ class CardView: UICollectionViewCell {
 
 
     func oneTimeSetup(withData data: Meal? = nil) {
+        if let data = data {self.data = data}
         roundCorners()
         engageTableView()
-        if let data = data {self.data = data}
     }
+
+//    func update(withData data: Meal) {
+//        self.data = data
+//        tableView.reloadData()
+//    }
 
     func roundCorners(toRadius radius: CGFloat = CardView.CORNER_RADIUS) {
         contentView.layer.cornerRadius = radius
         contentView.layer.masksToBounds = true
-
-//        tableView.layer.cornerRadius = radius
-//        tableView.layer.masksToBounds = true
     }
 
     func addBorder(withWidth width: CGFloat = CardView.BORDER_WIDTH) {
@@ -73,7 +75,7 @@ extension CardView: UITableViewDataSource, UITableViewDelegate {
         headerView.backgroundView = backgroundView
     }
     
-    //cell
+    //cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CardView.CELL_ID, for: indexPath) as! CardTableCell
         cell.label.text = data.filteredFoods[indexPath.section][indexPath.row].name

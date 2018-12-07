@@ -31,6 +31,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="A1G-pp-uV6" firstAttribute="leading" secondItem="NQM-de-JSR" secondAttribute="leading" constant="10" id="Byg-db-raM"/>
                             <constraint firstItem="A1G-pp-uV6" firstAttribute="centerX" secondItem="NQM-de-JSR" secondAttribute="centerX" id="GX9-Fs-lMo"/>
@@ -40,6 +41,7 @@
                     </view>
                 </subviews>
             </view>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="NQM-de-JSR" secondAttribute="trailing" id="UYO-fl-IOf"/>
                 <constraint firstItem="NQM-de-JSR" firstAttribute="top" secondItem="TfB-gW-qmc" secondAttribute="top" id="hFc-Ha-i19"/>

@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ViewController: UIViewController, Filterer {
+class ViewController: UIViewController, DataDuct {
     private static let SPACING_BETWEEN_ITEMS: CGFloat = 40
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -26,7 +26,7 @@ class ViewController: UIViewController, Filterer {
         super.viewDidLoad()
 
         engageCollectionView()
-        filterView.filterer = self
+        filterView.dataDuct = self
 
         let scraperToday = WebScraper(forURL: AddressBuilder.url(for: .today)) {menu in
             DispatchQueue.main.async {self.menuToday = menu; self.reloadData()}
@@ -48,7 +48,6 @@ class ViewController: UIViewController, Filterer {
     }
 
     func apply(_ filter: Filter) {
-        print(filter)
         for meal in menu {meal.apply(filter)}
         collectionView.reloadData()
     }
@@ -74,6 +73,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     //cell display
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? CardView else {return}
+
         let dx = ViewController.SPACING_BETWEEN_ITEMS - (view.frame.width - cell.frame.width)
         cell.frame = cell.frame.insetBy(dx: dx/2, dy: 0)
     }

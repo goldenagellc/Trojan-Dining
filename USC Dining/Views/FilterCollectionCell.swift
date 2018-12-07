@@ -13,19 +13,25 @@ class FilterCollectionCell: UICollectionViewCell {
     @IBOutlet weak var pill: UIView!
     @IBOutlet weak var label: UILabel!
 
-    override var isSelected: Bool {
+    public var state: Filter.AttributeStatus = .inconsequential {
         didSet {
-            if isSelected {
-                label.textColor = UIColor.white
-                pill.backgroundColor = UIColor.darkGray
-            }else {
-                label.textColor = UIColor.black
-                pill.backgroundColor = UIColor.groupTableViewBackground
+            switch state {
+            case .inconsequential:
+            label.textColor = UIColor.black
+            pill.backgroundColor = UIColor.groupTableViewBackground
+            case .present:
+            label.textColor = UIColor.white
+            pill.backgroundColor = UIColor.darkGray
+            case .absent:
+            label.textColor = UIColor.darkText
+            pill.backgroundColor = UIColor.red
             }
         }
     }
 
-    func roundCorners(toRadius radius: CGFloat? = nil) {
+    override var isSelected: Bool {didSet {}}
+
+    public func roundCorners(toRadius radius: CGFloat? = nil) {
         contentView.layer.cornerRadius = radius ?? contentView.frame.height/2.0
         contentView.layer.masksToBounds = true
     }

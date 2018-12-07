@@ -8,7 +8,7 @@
 
 import UIKit
 
-public final class Meal: Filterer {
+public final class Meal: DataDuct {
     public let name: String
     public let date: String
     public let halls: [String]
@@ -35,7 +35,7 @@ public final class Meal: Filterer {
             foods.append([])
             for htmlSection in htmlHall.sections {
                 for htmlFood in htmlSection.foods {
-                    let food = Food(name: htmlFood.name, hall: htmlHall.name, section: htmlSection.name, allergens: htmlFood.allergens)
+                    let food = Food(name: htmlFood.name, hall: htmlHall.name, section: htmlSection.name, attributes: htmlFood.allergens)
                     foods[foods.endIndex - 1].append(food)
         }}}
 
@@ -46,7 +46,7 @@ public final class Meal: Filterer {
 
     public func apply(_ filter: Filter) {
         filteredFoods = []
-        for section in foods {filteredFoods.append(section.filter {!$0.contains(unacceptableAllergens: filter.unacceptableAllergens)})}
+        for section in foods {filteredFoods.append(section.filter {$0.passes(filter)})}
     }
 
 //    public func getHours()
@@ -57,7 +57,8 @@ public final class Meal: Filterer {
 
 
 public final class Food {
-    public static let POSSIBLE_ALLERGENS: [String: Int] = [
+
+    public static let POSSIBLE_ATTRIBUTES: [String: Int] = [
         "Dairy" : 0,
         "Eggs" : 1,
         "Fish" : 2,
@@ -82,31 +83,61 @@ public final class Food {
     public let name: String
     public let hall: String
     public let section: String
-    public let allergens: [String]
+    public let attributes: [String]
 
-    private lazy var standardizedAllergens: [Bool] = { [unowned self] in
-        var standardized: [Bool] = [Bool](repeating: false, count: Food.POSSIBLE_ALLERGENS.count)
-        for allergen in allergens {
-            guard let allergenIndex: Int = Food.POSSIBLE_ALLERGENS[allergen] else {fatalError("Scraped an allergen not associated with a constant! :: " + allergen)}
-            standardized[allergenIndex] = true
-        }
+    private lazy var standardizedAttributes: [Filter.AttributeStatus] = { [unowned self] in
+        var standardized = [Filter.AttributeStatus](repeating: .absent, count: Food.POSSIBLE_ATTRIBUTES.count + 1)
+
+        if attributes.count == 0 {standardized[standardized.count - 1] = .present}
+        else {for attribute in attributes {
+            guard let attributeIndex: Int = Food.POSSIBLE_ATTRIBUTES[attribute] else {fatalError("Scraped an attribute not associated with a constant! :: " + attribute)}
+            standardized[attributeIndex] = .present
+        }}
+
         return standardized
     }()
 
-    init(name: String, hall: String, section: String, allergens: [String]) {
+    init(name: String, hall: String, section: String, attributes: [String]) {
         self.name = name
         self.hall = hall
         self.section = section
-        self.allergens = allergens
+        self.attributes = attributes
     }
 
-    public func contains(unacceptableAllergens allergens: [String]) -> Bool {
-        for allergen in allergens {
-            guard let allergenIndex: Int = Food.POSSIBLE_ALLERGENS[allergen] else {fatalError("Tried to filter out an allergen that doesn't exist!")}
-            if standardizedAllergens[allergenIndex] {return true}
+    public func hasAny(unacceptableAttributes attributes: [String]) -> Bool {
+        for attribute in attributes {
+            guard let attributeIndex: Int = Food.POSSIBLE_ATTRIBUTES[attribute] else {fatalError("Tried to filter out an attribute that doesn't exist! :: " + attribute)}
+            if standardizedAttributes[attributeIndex] == .present {return true}
+
+            //SPECIAL CASE
+            if attributeIndex == 10 {if standardizedAttributes[9] == .present {return true}}
         }
         return false
     }
+
+    public func hasAll(requiredAttributes attributes: [String]) -> Bool {
+        for attribute in attributes {
+            guard let attributeIndex: Int = Food.POSSIBLE_ATTRIBUTES[attribute] else {fatalError("Searched for an attribute that doesn't exist! :: " + attribute)}
+            if standardizedAttributes[attributeIndex] != .present {return false}
+        }
+        return true
+    }
+
+    public func passes(_ filter: Filter) -> Bool {
+        //SPECIAL CASE
+        if filter.specifications[10] == .present {filter.specifications[9] == .present}
+
+        var failures = zip(standardizedAttributes, filter.specifications).filter {$0 != $1 && $1 != Filter.AttributeStatus.inconsequential}
+        if failures.count > 0 && filter.specifications[10] == .present {
+            filter.specifications[9] == .present
+            filter.specifications[10] == .inconsequential
+            failures = zip(standardizedAttributes, filter.specifications).filter {$0 != $1 && $1 != Filter.AttributeStatus.inconsequential}
+        }
+
+        return failures.count == 0
+    }
+
+    
 
 //    public func canBeFoundAt(diningHall hall: String) -> Bool {
 //        return self.hall == hall
