@@ -35,7 +35,7 @@
 		C455B28D21B51EB700309A7A /* FilterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionCell.swift; sourceTree = "<group>"; };
 		C455B28F21B53C6700309A7A /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		C45E3452218EB46300A8C28E /* AddressBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBuilder.swift; sourceTree = "<group>"; };
-		C46E0F50217DAFEA007F5452 /* USC Dining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "USC Dining.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C46E0F50217DAFEA007F5452 /* Trojan Dining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trojan Dining.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46E0F53217DAFEA007F5452 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C46E0F58217DAFEA007F5452 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C46E0F5A217DAFEB007F5452 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 		C46E0F47217DAFEA007F5452 = {
 			isa = PBXGroup;
 			children = (
-				C46E0F52217DAFEA007F5452 /* USC Dining */,
+				C46E0F52217DAFEA007F5452 /* Trojan Dining */,
 				C46E0F51217DAFEA007F5452 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,12 +72,12 @@
 		C46E0F51217DAFEA007F5452 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C46E0F50217DAFEA007F5452 /* USC Dining.app */,
+				C46E0F50217DAFEA007F5452 /* Trojan Dining.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C46E0F52217DAFEA007F5452 /* USC Dining */ = {
+		C46E0F52217DAFEA007F5452 /* Trojan Dining */ = {
 			isa = PBXGroup;
 			children = (
 				C46E0F67217DB003007F5452 /* Controllers */,
@@ -89,7 +89,7 @@
 				C46E0F53217DAFEA007F5452 /* AppDelegate.swift */,
 				C46E0F5F217DAFEB007F5452 /* Info.plist */,
 			);
-			path = "USC Dining";
+			path = "Trojan Dining";
 			sourceTree = "<group>";
 		};
 		C46E0F65217DAFF7007F5452 /* Models */ = {
@@ -138,9 +138,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C46E0F4F217DAFEA007F5452 /* USC Dining */ = {
+		C46E0F4F217DAFEA007F5452 /* Trojan Dining */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C46E0F62217DAFEB007F5452 /* Build configuration list for PBXNativeTarget "USC Dining" */;
+			buildConfigurationList = C46E0F62217DAFEB007F5452 /* Build configuration list for PBXNativeTarget "Trojan Dining" */;
 			buildPhases = (
 				C46E0F4C217DAFEA007F5452 /* Sources */,
 				C46E0F4D217DAFEA007F5452 /* Frameworks */,
@@ -150,9 +150,9 @@
 			);
 			dependencies = (
 			);
-			name = "USC Dining";
+			name = "Trojan Dining";
 			productName = "USC Dining";
-			productReference = C46E0F50217DAFEA007F5452 /* USC Dining.app */;
+			productReference = C46E0F50217DAFEA007F5452 /* Trojan Dining.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -170,7 +170,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C46E0F4B217DAFEA007F5452 /* Build configuration list for PBXProject "USC Dining" */;
+			buildConfigurationList = C46E0F4B217DAFEA007F5452 /* Build configuration list for PBXProject "Trojan Dining" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -183,7 +183,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C46E0F4F217DAFEA007F5452 /* USC Dining */,
+				C46E0F4F217DAFEA007F5452 /* Trojan Dining */,
 			);
 		};
 /* End PBXProject section */
@@ -368,12 +368,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 37X3EN3NY4;
-				INFOPLIST_FILE = "USC Dining/Info.plist";
+				INFOPLIST_FILE = "Trojan Dining/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "info.haydenshively.USC-Dining";
+				PRODUCT_BUNDLE_IDENTIFIER = "info.haydenshively.trojan-dining";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -386,12 +386,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 37X3EN3NY4;
-				INFOPLIST_FILE = "USC Dining/Info.plist";
+				INFOPLIST_FILE = "Trojan Dining/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "info.haydenshively.USC-Dining";
+				PRODUCT_BUNDLE_IDENTIFIER = "info.haydenshively.trojan-dining";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -401,7 +401,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C46E0F4B217DAFEA007F5452 /* Build configuration list for PBXProject "USC Dining" */ = {
+		C46E0F4B217DAFEA007F5452 /* Build configuration list for PBXProject "Trojan Dining" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C46E0F60217DAFEB007F5452 /* Debug */,
@@ -410,7 +410,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C46E0F62217DAFEB007F5452 /* Build configuration list for PBXNativeTarget "USC Dining" */ = {
+		C46E0F62217DAFEB007F5452 /* Build configuration list for PBXNativeTarget "Trojan Dining" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C46E0F63217DAFEB007F5452 /* Debug */,
