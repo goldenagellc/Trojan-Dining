@@ -3,7 +3,7 @@
 //  USC Dining
 //
 //  Created by Hayden Shively on 11/3/18.
-//  Copyright © 2018 Hayden Shively. All rights reserved.
+//  Copyright © 2019 Golden Age Technologies LLC. All rights reserved.
 //
 
 import Foundation
