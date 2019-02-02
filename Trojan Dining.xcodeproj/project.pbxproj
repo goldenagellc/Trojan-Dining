@@ -21,6 +21,7 @@
 		C46E0F6B217DB0B2007F5452 /* CardTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F6A217DB0B2007F5452 /* CardTableCell.swift */; };
 		C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F6E217DB97B007F5452 /* WebScraper.swift */; };
 		C46E0F71217DB989007F5452 /* MenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F70217DB989007F5452 /* MenuBuilder.swift */; };
+		C474D0AE220562AE00FF17F8 /* HallHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474D0AD220562AE00FF17F8 /* HallHours.swift */; };
 		C49F5EA2219F6D55009A915C /* CardTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49F5EA1219F6D55009A915C /* CardTableCell.xib */; };
 		C4F9D2542187BD7E0081606A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9D2532187BD7E0081606A /* Card.swift */; };
 		C4F9D25C218838990081606A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4F9D25B218838990081606A /* CardView.xib */; };
@@ -44,6 +45,7 @@
 		C46E0F6A217DB0B2007F5452 /* CardTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableCell.swift; sourceTree = "<group>"; };
 		C46E0F6E217DB97B007F5452 /* WebScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebScraper.swift; sourceTree = "<group>"; };
 		C46E0F70217DB989007F5452 /* MenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBuilder.swift; sourceTree = "<group>"; };
+		C474D0AD220562AE00FF17F8 /* HallHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallHours.swift; sourceTree = "<group>"; };
 		C49F5EA1219F6D55009A915C /* CardTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableCell.xib; sourceTree = "<group>"; };
 		C4F9D2532187BD7E0081606A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C4F9D25B218838990081606A /* CardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				C46E0F6E217DB97B007F5452 /* WebScraper.swift */,
 				C46E0F70217DB989007F5452 /* MenuBuilder.swift */,
 				C45E3452218EB46300A8C28E /* AddressBuilder.swift */,
+				C474D0AD220562AE00FF17F8 /* HallHours.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				C45E3453218EB46300A8C28E /* AddressBuilder.swift in Sources */,
 				C455B29021B53C6700309A7A /* Filter.swift in Sources */,
 				C46E0F6B217DB0B2007F5452 /* CardTableCell.swift in Sources */,
+				C474D0AE220562AE00FF17F8 /* HallHours.swift in Sources */,
 				C455B28E21B51EB700309A7A /* FilterCollectionCell.swift in Sources */,
 				C46E0F71217DB989007F5452 /* MenuBuilder.swift in Sources */,
 				C444FBE621B49B6A00E8C2F7 /* ViewController.swift in Sources */,

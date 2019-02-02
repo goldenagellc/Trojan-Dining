@@ -13,7 +13,9 @@ public final class Meal: DataDuct {
     public let date: String
     public let halls: [String]
     public let foods: [[Food]]
-    public private(set) lazy var isServed: Bool = {[unowned self] in return foods[0].count > 0}()// TODO only return true if hours haven't passed
+    public private(set) lazy var isServed: Bool = {[unowned self] in
+        return (foods[0].count > 0) && withinHours(for: self)
+    }()
 
     public private(set) var filteredFoods: [[Food]]
 
