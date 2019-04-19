@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pqm-uC-z2z">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pqm-uC-z2z">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,14 +12,17 @@
         <!--View Controller-->
         <scene sceneID="8Xb-WW-1zX">
             <objects>
-                <viewController id="pqm-uC-z2z" customClass="ViewController" customModule="USC_Dining" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pqm-uC-z2z" customClass="ViewController" customModule="Trojan_Dining" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wr3-L7-72r">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QF7-8v-Ypk">
-                                <rect key="frame" x="0.0" y="20" width="375" height="592"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QF7-8v-Ypk">
+                                <rect key="frame" x="0.0" y="196" width="375" height="500"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="QF7-8v-Ypk" secondAttribute="height" multiplier="3:4" id="lTP-Fm-BWd"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vYv-YU-g7I">
                                     <size key="itemSize" width="375" height="622"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -28,34 +31,66 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4uG-MP-YcA" customClass="FilterView" customModule="USC_Dining" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="612" width="375" height="35"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fTq-Fg-8oj">
+                                <rect key="frame" x="30" y="712" width="315" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="315" id="4dF-QZ-rko"/>
+                                    <constraint firstAttribute="height" constant="50" id="age-0O-h70"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="MCCARTHY"/>
+                                    <segment title="EVK"/>
+                                    <segment title="PARKSIDE"/>
+                                </segments>
+                                <color key="tintColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="onSegmentedControlClick:" destination="pqm-uC-z2z" eventType="valueChanged" id="GKa-tx-1oL"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srB-gN-GUD">
+                                <rect key="frame" x="16" y="150" width="343" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="cLF-OZ-GFD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4uG-MP-YcA" customClass="FilterView" customModule="Trojan_Dining" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="60" width="375" height="35"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="nCd-fq-fHE"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.20177832477168947" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="4uG-MP-YcA" firstAttribute="trailing" secondItem="waF-nw-dga" secondAttribute="trailing" id="6UC-1A-tK5"/>
+                            <constraint firstItem="waF-nw-dga" firstAttribute="trailing" secondItem="srB-gN-GUD" secondAttribute="trailing" constant="16" id="77o-0b-VjG"/>
+                            <constraint firstItem="QF7-8v-Ypk" firstAttribute="trailing" secondItem="waF-nw-dga" secondAttribute="trailing" id="E1B-Ay-iz1"/>
                             <constraint firstItem="4uG-MP-YcA" firstAttribute="leading" secondItem="waF-nw-dga" secondAttribute="leading" id="GQF-Tw-IFr"/>
-                            <constraint firstItem="waF-nw-dga" firstAttribute="bottom" secondItem="4uG-MP-YcA" secondAttribute="bottom" constant="20" id="PPO-UC-cHG"/>
-                            <constraint firstItem="QF7-8v-Ypk" firstAttribute="top" secondItem="waF-nw-dga" secondAttribute="top" id="aux-g1-SHr"/>
+                            <constraint firstItem="srB-gN-GUD" firstAttribute="leading" secondItem="waF-nw-dga" secondAttribute="leading" constant="16" id="GV8-9y-CdK"/>
+                            <constraint firstItem="QF7-8v-Ypk" firstAttribute="top" secondItem="srB-gN-GUD" secondAttribute="bottom" constant="16" id="Rvk-Cu-bNM"/>
+                            <constraint firstItem="fTq-Fg-8oj" firstAttribute="centerX" secondItem="waF-nw-dga" secondAttribute="centerX" id="gU4-w3-6rr"/>
+                            <constraint firstItem="4uG-MP-YcA" firstAttribute="top" secondItem="waF-nw-dga" secondAttribute="top" constant="16" id="giS-wa-0nF"/>
+                            <constraint firstItem="waF-nw-dga" firstAttribute="bottom" secondItem="fTq-Fg-8oj" secondAttribute="bottom" constant="16" id="ogB-cv-DPr"/>
                             <constraint firstItem="QF7-8v-Ypk" firstAttribute="leading" secondItem="waF-nw-dga" secondAttribute="leading" id="p92-f7-OlC"/>
-                            <constraint firstItem="4uG-MP-YcA" firstAttribute="top" secondItem="QF7-8v-Ypk" secondAttribute="bottom" id="pAe-dg-EL5"/>
-                            <constraint firstItem="waF-nw-dga" firstAttribute="trailing" secondItem="QF7-8v-Ypk" secondAttribute="trailing" id="vqn-Fe-kc8"/>
-                            <constraint firstItem="4uG-MP-YcA" firstAttribute="trailing" secondItem="waF-nw-dga" secondAttribute="trailing" id="xzR-w0-9zI"/>
+                            <constraint firstItem="fTq-Fg-8oj" firstAttribute="top" secondItem="QF7-8v-Ypk" secondAttribute="bottom" constant="16" id="uHR-Fi-hOp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="waF-nw-dga"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="QF7-8v-Ypk" id="qqb-fa-4JI"/>
                         <outlet property="filterView" destination="4uG-MP-YcA" id="b4b-t8-uuO"/>
+                        <outlet property="segmentedControl" destination="fTq-Fg-8oj" id="81h-3n-ctI"/>
+                        <outlet property="segmentedControlWidth" destination="4dF-QZ-rko" id="oRg-nR-JKu"/>
+                        <outlet property="titleLabelLeading" destination="GV8-9y-CdK" id="1SO-jT-Slj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YH9-Bx-jtt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="344.80000000000001" y="-123.68815592203899"/>
+            <point key="canvasLocation" x="344.80000000000001" y="-124.13793103448276"/>
         </scene>
     </scenes>
 </document>
