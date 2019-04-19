@@ -16,10 +16,10 @@ class FilterCollectionCell: UICollectionViewCell {
     public var state: Filter.AttributeStatus = .inconsequential {
         didSet {
             switch state {
-            case .inconsequential:
+            case .present:
             label.textColor = UIColor.black
             pill.backgroundColor = UIColor.groupTableViewBackground
-            case .present:
+            case .inconsequential:
             label.textColor = UIColor.white
             pill.backgroundColor = UIColor.darkGray
             case .absent:

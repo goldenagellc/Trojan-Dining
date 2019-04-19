@@ -9,6 +9,11 @@
 import UIKit
 
 public final class Meal: DataDuct {
+
+    private static let COLOR_BREAKFAST = UIColor(red: 254/255.0, green: 229/255.0, blue: 203/255.0, alpha: 1.0)
+    private static let COLOR_LUNCH = UIColor(red: 193/255.0, green: 225/255.0, blue: 231/255.0, alpha: 1.0)
+    private static let COLOR_DINNER = UIColor(red: 240/255.0, green: 144/255.0, blue: 138/255.0, alpha: 1.0)
+
     public let name: String
     public let date: String
     public let halls: [String]
@@ -49,6 +54,21 @@ public final class Meal: DataDuct {
     public func apply(_ filter: Filter) {
         filteredFoods = []
         for section in foods {filteredFoods.append(section.filter {$0.passes(filter)})}
+    }
+
+    public func getColor() -> UIColor {
+        switch name {
+        case "Breakfast":
+            return Meal.COLOR_BREAKFAST
+        case "Brunch":
+            return Meal.COLOR_BREAKFAST
+        case "Lunch":
+            return Meal.COLOR_LUNCH
+        case "Dinner":
+            return Meal.COLOR_DINNER
+        default:
+            return UIColor.darkGray
+        }
     }
 
 //    public func getHours()

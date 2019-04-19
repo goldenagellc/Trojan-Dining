@@ -20,6 +20,7 @@ class CardView: UICollectionViewCell {
         didSet {
 //            label_title.text = data.name
 //            label_subtitle.text = data.date
+            contentView.backgroundColor = data.getColor()
         }
     }
     private var hallToShow: Int = 0
@@ -35,11 +36,6 @@ class CardView: UICollectionViewCell {
         roundCorners()
         engageTableView()
     }
-
-//    func update(withData data: Meal) {
-//        self.data = data
-//        tableView.reloadData()
-//    }
 
     func roundCorners(toRadius radius: CGFloat = CardView.CORNER_RADIUS) {
         contentView.layer.cornerRadius = radius
@@ -88,5 +84,8 @@ extension CardView: UITableViewDataSource, UITableViewDelegate {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "CardTableCell", bundle: nil), forCellReuseIdentifier: CardView.CELL_ID)
         tableView.reloadData()
+
+        tableView.backgroundColor = UIColor.clear
+        tableView.allowsSelection = false
     }
 }

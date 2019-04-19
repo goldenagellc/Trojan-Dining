@@ -94,5 +94,6 @@ extension FilterView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
 
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = true
+        collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 12.0)
     }
 }

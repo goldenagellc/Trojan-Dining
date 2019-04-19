@@ -17,20 +17,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="suy-um-BOy">
-                        <rect key="frame" x="20" y="0.0" width="42" height="43.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="suy-um-BOy">
+                        <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="suy-um-BOy" firstAttribute="centerY" secondItem="gWy-sb-NpE" secondAttribute="centerY" id="13p-bR-pyi"/>
-                    <constraint firstItem="suy-um-BOy" firstAttribute="leading" secondItem="gWy-sb-NpE" secondAttribute="leading" constant="20" id="NLr-Pr-RGg"/>
+                    <constraint firstItem="suy-um-BOy" firstAttribute="leading" secondItem="gWy-sb-NpE" secondAttribute="leading" constant="16" id="NLr-Pr-RGg"/>
+                    <constraint firstAttribute="trailing" secondItem="suy-um-BOy" secondAttribute="trailing" constant="16" id="Y7z-OD-bfO"/>
                     <constraint firstItem="suy-um-BOy" firstAttribute="height" secondItem="gWy-sb-NpE" secondAttribute="height" id="wNu-Wu-xRd"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="label" destination="suy-um-BOy" id="SyA-k6-J1c"/>
             </connections>

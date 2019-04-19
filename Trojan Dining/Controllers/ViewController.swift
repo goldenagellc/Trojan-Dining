@@ -13,7 +13,6 @@ class ViewController: UIViewController, DataDuct {
     private static let SPACING_BETWEEN_ITEMS: CGFloat = 16
     private static let PEAKING_AMOUNT_FOR_ITEMS: CGFloat = 16
     private static let TOTAL_INSET: CGFloat = ViewController.SPACING_BETWEEN_ITEMS + ViewController.PEAKING_AMOUNT_FOR_ITEMS
-    private static let SCROLL_THRESHOLD: CGFloat = 50
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var titleLabelLeading: NSLayoutConstraint!
@@ -21,10 +20,11 @@ class ViewController: UIViewController, DataDuct {
     @IBOutlet weak var segmentedControlWidth: NSLayoutConstraint!
     @IBOutlet weak var filterView: FilterView!
 
+    private var SCROLL_THRESHOLD: CGFloat = 50
     private var cellIndexBeforeDrag: Int = 0
     private var selectedDiningHall: Int = 0
 
-    private var menu: [Meal] = []
+    private var menu: [Meal] = [Meal(name: "Menu", date: "Today", halls: [], foods: [[Food(name: "", hall: "", section: "", attributes: [])]])]
     private var menuToday: [Meal] = []
     private var menuTomorrow: [Meal] = []
     private var menuTheNextDay: [Meal] = []
@@ -33,6 +33,7 @@ class ViewController: UIViewController, DataDuct {
         super.viewDidLoad()
 
         engageCollectionView()
+        SCROLL_THRESHOLD = view.frame.width/8.0
 
         titleLabelLeading.constant = ViewController.TOTAL_INSET
 
@@ -59,7 +60,14 @@ class ViewController: UIViewController, DataDuct {
 
     func reloadData() {
         menu = (menuToday + menuTomorrow + menuTheNextDay).filter {$0.isServed}
-        collectionView.reloadData()
+
+        let countOfMealsServedToday = menuToday.filter({$0.isServed}).count
+        if (countOfMealsServedToday > 0) || ((countOfMealsServedToday == 0) && menuTomorrow.count > 0) {
+            segmentedControl.tintColor = menu[0].getColor()
+            segmentedControl.layer.borderColor = segmentedControl.tintColor.cgColor
+
+            collectionView.performBatchUpdates({collectionView.reloadSections(IndexSet(arrayLiteral: 0))}, completion: nil)
+        }
     }
 
     func apply(_ filter: Filter) {
@@ -94,12 +102,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         return cell
     }
     //cell display
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? CardView else {return}
-
-//        let dx = ViewController.SPACING_BETWEEN_ITEMS - (view.frame.width - cell.frame.width)
-//        cell.frame = cell.frame.insetBy(dx: dx/2, dy: 0)
-    }
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        guard let cell = cell as? CardView else {return}
+//    }
 
     //edge insets
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -141,16 +146,21 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: velocity.x, animations: {
                 scrollView.contentOffset = CGPoint(x: toValue, y: 0)
                 scrollView.layoutIfNeeded()
-            }, completion: nil)
 
-            print("did swipe")
+                self.segmentedControl.tintColor = self.menu[snapToIndex].getColor()
+                self.segmentedControl.layer.borderColor = self.segmentedControl.tintColor.cgColor
+            }, completion: nil)
 
 
         } else {
             // This is a much better way to scroll to a cell:
             let indexPath = IndexPath(row: indexToSnapTo, section: 0)
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            print("did normal scroll")
+
+            UIView.animate(withDuration: 0.3) {
+                self.segmentedControl.tintColor = self.menu[indexToSnapTo].getColor()
+                self.segmentedControl.layer.borderColor = self.segmentedControl.tintColor.cgColor
+            }
         }
     }
 
@@ -159,6 +169,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(CardView.self, forCellWithReuseIdentifier: "CardView")
+
+        collectionView.allowsSelection = false
+
         collectionView.reloadData()
     }
 }
