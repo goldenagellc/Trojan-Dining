@@ -18,8 +18,6 @@ class CardView: UICollectionViewCell {
 
     public private(set) var data: Meal = Meal(name: "", date: "", halls: [], foods: []) {
         didSet {
-//            label_title.text = data.name
-//            label_subtitle.text = data.date
             contentView.backgroundColor = data.getColor()
         }
     }

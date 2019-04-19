@@ -41,6 +41,7 @@ class ViewController: UIViewController, DataDuct {
         segmentedControl.layer.borderColor = segmentedControl.tintColor.cgColor
         segmentedControl.layer.borderWidth = 1.0
         segmentedControl.layer.masksToBounds = true
+        segmentedControl.isUserInteractionEnabled = false
 
         filterView.dataDuct = self
 
@@ -67,6 +68,7 @@ class ViewController: UIViewController, DataDuct {
             segmentedControl.layer.borderColor = segmentedControl.tintColor.cgColor
 
             collectionView.performBatchUpdates({collectionView.reloadSections(IndexSet(arrayLiteral: 0))}, completion: nil)
+            segmentedControl.isUserInteractionEnabled = true
         }
     }
 
