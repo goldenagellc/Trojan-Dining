@@ -64,7 +64,7 @@ class ViewController: UIViewController, DataDuct {
 
         let countOfMealsServedToday = menuToday.filter({$0.isServed}).count
         if (countOfMealsServedToday > 0) || ((countOfMealsServedToday == 0) && menuTomorrow.count > 0) {
-            segmentedControl.tintColor = menu[0].getColor()
+            segmentedControl.tintColor = menu.first?.getColor() ?? UIColor.darkGray//menu[0].getColor()
             segmentedControl.layer.borderColor = segmentedControl.tintColor.cgColor
 
             collectionView.performBatchUpdates({collectionView.reloadSections(IndexSet(arrayLiteral: 0))}, completion: nil)
