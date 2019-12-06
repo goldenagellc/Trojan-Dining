@@ -17,14 +17,14 @@ class FilterCollectionCell: UICollectionViewCell {
         didSet {
             switch state {
             case .present:
-            label.textColor = UIColor.black
-            pill.backgroundColor = UIColor.groupTableViewBackground
+                label.textColor = .label//.darkText
+                pill.backgroundColor = .systemGray2
             case .inconsequential:
-            label.textColor = UIColor.white
-            pill.backgroundColor = UIColor.darkGray
+                label.textColor = .label
+                pill.backgroundColor = .systemGray5
             case .absent:
-            label.textColor = UIColor.darkText
-            pill.backgroundColor = UIColor.red
+                label.textColor = .label//.darkText
+                pill.backgroundColor = .red
             }
         }
     }

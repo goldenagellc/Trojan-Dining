@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pqm-uC-z2z">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pqm-uC-z2z">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,9 +27,10 @@
                                 <cells/>
                             </collectionView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fTq-Fg-8oj">
-                                <rect key="frame" x="30" y="712" width="315" height="51"/>
+                                <rect key="frame" x="10" y="712" width="355" height="51"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="315" id="4dF-QZ-rko"/>
+                                    <constraint firstAttribute="width" constant="355" id="4dF-QZ-rko"/>
                                     <constraint firstAttribute="height" constant="50" id="age-0O-h70"/>
                                 </constraints>
                                 <segments>
@@ -39,7 +38,8 @@
                                     <segment title="EVK"/>
                                     <segment title="PARKSIDE"/>
                                 </segments>
-                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="onSegmentedControlClick:" destination="pqm-uC-z2z" eventType="valueChanged" id="GKa-tx-1oL"/>
                                 </connections>
@@ -50,7 +50,6 @@
                                     <constraint firstAttribute="height" constant="30" id="cLF-OZ-GFD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4uG-MP-YcA" customClass="FilterView" customModule="Trojan_Dining" customModuleProvider="target">
@@ -61,7 +60,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.20177832477168947" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="waF-nw-dga" firstAttribute="trailing" secondItem="srB-gN-GUD" secondAttribute="trailing" constant="16" id="77o-0b-VjG"/>
                             <constraint firstItem="QF7-8v-Ypk" firstAttribute="trailing" secondItem="waF-nw-dga" secondAttribute="trailing" id="E1B-Ay-iz1"/>
@@ -79,6 +78,7 @@
                         <viewLayoutGuide key="safeArea" id="waF-nw-dga"/>
                     </view>
                     <connections>
+                        <outlet property="bigTitleText" destination="srB-gN-GUD" id="J0O-41-a2E"/>
                         <outlet property="collectionView" destination="QF7-8v-Ypk" id="qqb-fa-4JI"/>
                         <outlet property="filterView" destination="4uG-MP-YcA" id="b4b-t8-uuO"/>
                         <outlet property="segmentedControl" destination="fTq-Fg-8oj" id="81h-3n-ctI"/>

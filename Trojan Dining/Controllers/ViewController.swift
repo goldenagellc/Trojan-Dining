@@ -19,12 +19,13 @@ class ViewController: UIViewController, DataDuct {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var segmentedControlWidth: NSLayoutConstraint!
     @IBOutlet weak var filterView: FilterView!
-
+    @IBOutlet weak var bigTitleText: UILabel!
+    
     private var SCROLL_THRESHOLD: CGFloat = 50
     private var cellIndexBeforeDrag: Int = 0
     private var selectedDiningHall: Int = 0
 
-    private var menu: [Meal] = [Meal(name: "Menu", date: "Today", halls: [], foods: [[Food(name: "", hall: "", section: "", attributes: [])]])]
+    private var menu: [Meal] = []
     private var menuToday: [Meal] = []
     private var menuTomorrow: [Meal] = []
     private var menuTheNextDay: [Meal] = []
@@ -64,12 +65,16 @@ class ViewController: UIViewController, DataDuct {
 
         let countOfMealsServedToday = menuToday.filter({$0.isServed}).count
         if (countOfMealsServedToday > 0) || ((countOfMealsServedToday == 0) && menuTomorrow.count > 0) {
-            segmentedControl.tintColor = menu.first?.getColor() ?? UIColor.darkGray//menu[0].getColor()
-            segmentedControl.layer.borderColor = segmentedControl.tintColor.cgColor
+            segmentedControl.selectedSegmentTintColor = menu.first?.getColor()
+            segmentedControl.layer.borderColor = segmentedControl.selectedSegmentTintColor?.cgColor
+            segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+            segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.label], for: .normal)
 
             collectionView.performBatchUpdates({collectionView.reloadSections(IndexSet(arrayLiteral: 0))}, completion: nil)
             segmentedControl.isUserInteractionEnabled = true
         }
+        
+        updateBigText(cellIndexBeforeDrag)
     }
 
     func apply(_ filter: Filter) {
@@ -103,10 +108,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         cell.oneTimeSetup(withData: menu[indexPath.item], butOnlyShow: selectedDiningHall)
         return cell
     }
-    //cell display
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard let cell = cell as? CardView else {return}
-//    }
 
     //edge insets
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -142,15 +143,15 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
             let snapToIndex = cellIndexBeforeDrag + (hasEnoughVelocityToSlideToTheNextCell ? 1 : -1)
             let offsetPerIndex = (collectionView.frame.width - ViewController.TOTAL_INSET - ViewController.PEAKING_AMOUNT_FOR_ITEMS)
             let toValue = offsetPerIndex * CGFloat(snapToIndex)
-//            toValue += -1*ViewController.PEAKING_AMOUNT_FOR_ITEMS
 
             // Damping equal 1 => no oscillations => decay animation:
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: velocity.x, animations: {
                 scrollView.contentOffset = CGPoint(x: toValue, y: 0)
                 scrollView.layoutIfNeeded()
 
-                self.segmentedControl.tintColor = self.menu[snapToIndex].getColor()
-                self.segmentedControl.layer.borderColor = self.segmentedControl.tintColor.cgColor
+                self.segmentedControl.selectedSegmentTintColor = self.menu[snapToIndex].getColor()
+                self.segmentedControl.layer.borderColor = self.segmentedControl.selectedSegmentTintColor?.cgColor
+                self.updateBigText(snapToIndex)
             }, completion: nil)
 
 
@@ -160,8 +161,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
 
             UIView.animate(withDuration: 0.3) {
-                self.segmentedControl.tintColor = self.menu[indexToSnapTo].getColor()
-                self.segmentedControl.layer.borderColor = self.segmentedControl.tintColor.cgColor
+                self.segmentedControl.selectedSegmentTintColor = self.menu[indexToSnapTo].getColor()
+                self.segmentedControl.layer.borderColor = self.segmentedControl.selectedSegmentTintColor?.cgColor
+                self.updateBigText(indexToSnapTo)
             }
         }
     }
@@ -175,5 +177,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         collectionView.allowsSelection = false
 
         collectionView.reloadData()
+    }
+    
+    func updateBigText(_ menuIndex: Int) {
+        bigTitleText.text = menu[menuIndex].name + " | " + menu[menuIndex].date
+//        if menuIndex < menuToday.count - 1 {
+//            bigTitleText.text = menu[menuIndex].name + ", Today"
+//        }else if menuIndex < menuToday.count + menuTomorrow.count - 2 {
+//            bigTitleText.text = menu[menuIndex].name + ", Tomorrow"
+//        }else {
+//            bigTitleText.text = menu[menuIndex].name + ", " + menu[menuIndex].date
+//        }
     }
 }

@@ -15,10 +15,10 @@ class CardView: UICollectionViewCell {
     private static let BORDER_WIDTH: CGFloat = 4.0
 
     @IBOutlet weak var tableView: UITableView!
-
-    public private(set) var data: Meal = Meal(name: "", date: "", halls: [], foods: []) {
+    
+    public private(set) var data: Meal? = nil {
         didSet {
-            contentView.backgroundColor = data.getColor()
+            contentView.backgroundColor = data?.getColor()
         }
     }
     private var hallToShow: Int = 0
@@ -54,25 +54,26 @@ extension CardView: UITableViewDataSource, UITableViewDelegate {
     /*cell height  */func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {return 40}
     /*footer height*/func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {return 0}
     
-    /*number of sections*/func numberOfSections(in tableView: UITableView) -> Int {return 1}
-    /*number of rows    */func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {return data.filteredFoods[hallToShow].count}
+    /*number of sections*/func numberOfSections(in tableView: UITableView) -> Int {return data?.filteredFoods[hallToShow].count ?? 0}
+    /*number of rows    */func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {return data?.filteredFoods[hallToShow][section].count ?? 0}
 
     //header title
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return data.name + " for " + data.date
+//        if section == 0 {return (data?.name ?? "Food") + " for " + (data?.date ?? "the day")}
+        return data?.sections[hallToShow][section]
     }
     //header view
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else {return}
         let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.groupTableViewBackground
+        backgroundView.backgroundColor = .systemGray5
         headerView.backgroundView = backgroundView
     }
     
     //cell generation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CardView.CELL_ID, for: indexPath) as! CardTableCell
-        cell.label.text = data.filteredFoods[hallToShow][indexPath.row].name
+        cell.label.text = data?.filteredFoods[hallToShow][indexPath.section][indexPath.row].name
         return cell
     }
     

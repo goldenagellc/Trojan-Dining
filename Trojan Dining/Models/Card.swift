@@ -17,17 +17,19 @@ public final class Meal: DataDuct {
     public let name: String
     public let date: String
     public let halls: [String]
-    public let foods: [[Food]]
+    public let sections: [[String]]
+    public let foods: [[[Food]]]
     public private(set) lazy var isServed: Bool = {[unowned self] in
         return (foods[0].count > 0) && withinHours(for: self)
     }()
 
-    public private(set) var filteredFoods: [[Food]]
+    public private(set) var filteredFoods: [[[Food]]]
 
-    init(name: String, date: String, halls: [String], foods: [[Food]]) {
+    init(name: String, date: String, halls: [String], sections: [[String]], foods: [[[Food]]]) {
         self.name = name
         self.date = date
         self.halls = halls
+        self.sections = sections
         self.foods = foods
 
         self.filteredFoods = foods
@@ -35,25 +37,34 @@ public final class Meal: DataDuct {
 
     convenience init(fromHTMLMeal htmlMeal: MenuBuilder.HTMLMeal) {
         var halls: [String] = []
-        var foods: [[Food]] = []
+        var sections: [[String]] = []
+        var foods: [[[Food]]] = []
 
         for htmlHall in htmlMeal.halls {
             halls.append(htmlHall.name)
+            sections.append([])
             foods.append([])
             for htmlSection in htmlHall.sections {
+                sections[sections.endIndex - 1].append(htmlSection.name)
+                foods[foods.endIndex - 1].append([])
                 for htmlFood in htmlSection.foods {
                     let food = Food(name: htmlFood.name, hall: htmlHall.name, section: htmlSection.name, attributes: htmlFood.allergens)
-                    foods[foods.endIndex - 1].append(food)
+                    foods[foods.endIndex - 1][foods[foods.endIndex - 1].endIndex - 1].append(food)
         }}}
 
-        self.init(name: htmlMeal.name_short, date: htmlMeal.date, halls: halls, foods: foods)
+        self.init(name: htmlMeal.name_short, date: htmlMeal.date, halls: halls, sections: sections, foods: foods)
     }
 
 //    public func generateView()
 
     public func apply(_ filter: Filter) {
         filteredFoods = []
-        for section in foods {filteredFoods.append(section.filter {$0.passes(filter)})}
+        for hall in foods {
+            filteredFoods.append([])
+            for section in hall {
+                filteredFoods[filteredFoods.endIndex - 1].append(section.filter {$0.passes(filter)})
+            }
+        }
     }
 
     public func getColor() -> UIColor {
