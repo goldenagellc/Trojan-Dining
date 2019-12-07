@@ -17,7 +17,7 @@ class FilterView: UIView {
 
     public var dataDuct: DataDuct? = nil
     private let attributes: [String] = Array(Food.POSSIBLE_ATTRIBUTES.keys)
-    private var filter: Filter = Filter(unacceptable: [], required: [])
+    public var filter: Filter = Filter(unacceptable: [], required: [])
 
     /*programmatic init     */override init(frame: CGRect) {              super.init(frame: frame);       combinedInit()}
     /*interface builder init*/required init?(coder aDecoder: NSCoder) {   super.init(coder: aDecoder);    combinedInit()}
@@ -87,6 +87,8 @@ extension FilterView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
 
     //MARK: - convenience functions
     func engageCollectionView() {
+        filter.load()
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: FilterView.CELL_ID, bundle: nil), forCellWithReuseIdentifier: FilterView.CELL_ID)

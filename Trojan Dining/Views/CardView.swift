@@ -11,7 +11,7 @@ import UIKit
 class CardView: UICollectionViewCell {
     
     private static let CELL_ID: String = "CardTableCell"
-    private static let CORNER_RADIUS: CGFloat = 16.0
+    private static let CORNER_RADIUS: CGFloat = 8.0
     private static let BORDER_WIDTH: CGFloat = 4.0
 
     @IBOutlet weak var tableView: UITableView!
@@ -65,9 +65,9 @@ extension CardView: UITableViewDataSource, UITableViewDelegate {
     //header view
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else {return}
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = .systemGray5
-        headerView.backgroundView = backgroundView
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.prominent)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        headerView.backgroundView = blurEffectView
     }
     
     //cell generation

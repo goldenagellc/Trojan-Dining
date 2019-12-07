@@ -72,12 +72,14 @@ class ViewController: UIViewController, DataDuct {
 
             collectionView.performBatchUpdates({collectionView.reloadSections(IndexSet(arrayLiteral: 0))}, completion: nil)
             segmentedControl.isUserInteractionEnabled = true
+            
+            updateBigText(cellIndexBeforeDrag)
+            apply(filterView.filter)
         }
-        
-        updateBigText(cellIndexBeforeDrag)
     }
 
     func apply(_ filter: Filter) {
+        filter.save()
         for meal in menu {meal.apply(filter)}
         collectionView.reloadData()
     }
@@ -180,13 +182,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func updateBigText(_ menuIndex: Int) {
-        bigTitleText.text = menu[menuIndex].name + " | " + menu[menuIndex].date
-//        if menuIndex < menuToday.count - 1 {
-//            bigTitleText.text = menu[menuIndex].name + ", Today"
-//        }else if menuIndex < menuToday.count + menuTomorrow.count - 2 {
-//            bigTitleText.text = menu[menuIndex].name + ", Tomorrow"
-//        }else {
-//            bigTitleText.text = menu[menuIndex].name + ", " + menu[menuIndex].date
-//        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        let date = dateFormatter.date(from: menu[menuIndex].date)
+        dateFormatter.dateFormat = "M/d"
+        bigTitleText.text = menu[menuIndex].name + ", " + dateFormatter.string(from: date!)
     }
 }

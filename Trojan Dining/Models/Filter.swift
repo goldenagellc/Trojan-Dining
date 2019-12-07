@@ -26,12 +26,12 @@ public class Filter {
     private static func standardize(unacceptable unacceptableAttributes: [String], required requiredAttributes: [String]) -> [AttributeStatus] {
         var standardized = [AttributeStatus](repeating: .inconsequential, count: Food.POSSIBLE_ATTRIBUTES.count)
         for attribute in unacceptableAttributes {
-            guard let attributeIndex: Int = Food.POSSIBLE_ATTRIBUTES[attribute] else {fatalError("Searched for an attribute that doesn't exist! :: " + attribute)}
+            guard let attributeIndex: Int = Food.POSSIBLE_ATTRIBUTES[attribute] else {fatalError("Searched for an attribute that doesn't exist! :: \(attribute)")}
             standardized[attributeIndex] = .absent
         }
 
         for attribute in requiredAttributes {
-            guard let attributeIndex: Int = Food.POSSIBLE_ATTRIBUTES[attribute] else {fatalError("Searched for an attribute that doesn't exist! :: " + attribute)}
+            guard let attributeIndex: Int = Food.POSSIBLE_ATTRIBUTES[attribute] else {fatalError("Searched for an attribute that doesn't exist! :: \(attribute)")}
             standardized[attributeIndex] = .present
         }
 
@@ -47,6 +47,15 @@ public class Filter {
         }
         specifications[index] = status
     }
+    
+    public func save() {
+        UserDefaults.standard.set(specifications.map({$0.rawValue}), forKey: "Filter")
+    }
+    
+    public func load() {
+        guard let savedFilter = UserDefaults.standard.array(forKey: "Filter") as? [String] else {return}
+        specifications = savedFilter.map({AttributeStatus(rawValue: $0)!})
+    }
 
-    public enum AttributeStatus {case inconsequential, absent, present}
+    public enum AttributeStatus: String {case inconsequential, absent, present}
 }

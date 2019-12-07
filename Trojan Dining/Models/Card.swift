@@ -55,8 +55,6 @@ public final class Meal: DataDuct {
         self.init(name: htmlMeal.name_short, date: htmlMeal.date, halls: halls, sections: sections, foods: foods)
     }
 
-//    public func generateView()
-
     public func apply(_ filter: Filter) {
         filteredFoods = []
         for hall in foods {
