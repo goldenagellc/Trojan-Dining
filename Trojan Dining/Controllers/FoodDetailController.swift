@@ -25,9 +25,7 @@ class FoodDetailController: UIViewController {
         let name = food.name
         let repeated = String(repeating: name.uppercased() + " ", count: 200)
         foodTitle.text = repeated
-        
         allergenSubtitle.text = "  Attributes: " + food.attributes.joined(separator: ", ") + "  "
-        allergenSubtitle.textColor = .quaternaryLabel//UIColor(white: 1 - (UIColor.label.cgColor.components?[0] ?? CGFloat(0)), alpha: 1.0)
         
         starStackView.addStarButtonCallback(onStarButtonTap)
         

@@ -89,6 +89,7 @@ class ViewController: UIViewController, DataDuct {
     func updateBigText(_ menuIndex: Int) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
+        if menuIndex >= menu.count {return}
         let date = dateFormatter.date(from: menu[menuIndex].date)
         dateFormatter.dateFormat = "M/d"
         bigTitleText.text = menu[menuIndex].name + ", " + dateFormatter.string(from: date!)
