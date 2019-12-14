@@ -14,9 +14,18 @@ class FoodCell: AUITableViewCell, TableableCell {
     
     @IBOutlet weak var label: UILabel!
     
+    public var data: Food? = nil {
+        didSet {label.text = data?.name}
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        selectionStyle = .none
+    }
+    
     override public func populatedBy(_ data: TableableData, at indexPath: IndexPath) -> AUITableViewCell {
         super.populatedBy(data, at: indexPath)
-        label.text = (data as? Food)?.name
+        self.data = (data as! Food)
         return self
     }    
 }

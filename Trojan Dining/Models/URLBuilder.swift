@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class AddressBuilder {
+final class URLBuilder {
     static let BASE_URL = "https://hospitality.usc.edu/residential-dining-menus/?menu_date="
 
     private static func dateWith(daysAddedOn days: Int = 0) -> Date {

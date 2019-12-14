@@ -20,6 +20,7 @@ class MealCell: AUICollectionViewCell, CollectableCell {
     public var hallToShow: Int = 0 {
         didSet {tableView.reloadData()}
     }
+    public var parent: ViewController? = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -68,6 +69,11 @@ extension MealCell: UITableViewDataSource, UITableViewDelegate {
         return data!.filteredFoods[hallToShow][indexPath.section][indexPath.row].generateCellFor(tableView, at: indexPath)
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! FoodCell
+        parent?.performSegue(withIdentifier: "FoodDetailSegue", sender: cell.data)
+    }
+    
     //MARK: - convenience functions
     func engageTableView() {
         tableView.delegate = self
@@ -76,7 +82,7 @@ extension MealCell: UITableViewDataSource, UITableViewDelegate {
         FoodCell.registerWith(tableView)
 
         tableView.backgroundColor = .clear
-        tableView.allowsSelection = false
+        tableView.allowsSelection = true
     }
 }
 

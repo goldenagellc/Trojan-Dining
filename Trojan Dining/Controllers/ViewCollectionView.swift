@@ -31,6 +31,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     //cell view
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         (cell as? MealCell)?.hallToShow = selectedDiningHall
+        (cell as? MealCell)?.parent = self
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

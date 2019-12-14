@@ -7,15 +7,34 @@
 //
 
 import UIKit
+import AuthenticationServices
+import Firebase
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        
+//        let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+//            print(auth.currentUser)
+//            print(user?.uid)
+//        }
+        
+        if let firebaseUser = Auth.auth().currentUser {
+            print("FIRUser UID: \(firebaseUser.uid)")
+            if let appleUserID = firebaseUser.displayName {
+                print("Apple UID: \(firebaseUser.displayName!)")
+                ASAuthorizationAppleIDProvider().getCredentialState(forUserID: appleUserID) { (credentialState, error) in
+                    TrojanDiningUser.shared.isSignedInWithApple = credentialState
+                }
+            }
+        }
+        
         return true
     }
 

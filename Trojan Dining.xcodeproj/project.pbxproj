@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E9765759C43EC7762EE4DB8 /* Pods_Trojan_Dining.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1207B618EA10D0B206ED315F /* Pods_Trojan_Dining.framework */; };
 		BE7BEF7E239C82BB00977EE0 /* ViewCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BEF7D239C82BB00977EE0 /* ViewCollectionView.swift */; };
 		BE7BEF81239C869400977EE0 /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BEF7F239C869400977EE0 /* MealCell.swift */; };
 		BE7BEF82239C869400977EE0 /* MealCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE7BEF80239C869400977EE0 /* MealCell.xib */; };
@@ -16,13 +17,17 @@
 		BE7BEF8A239C8A1B00977EE0 /* CollectableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BEF89239C8A1B00977EE0 /* CollectableData.swift */; };
 		BE7BEF8C239C974400977EE0 /* ViewInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BEF8B239C974400977EE0 /* ViewInteraction.swift */; };
 		BE7BEF8E239C9AE500977EE0 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BEF8D239C9AE500977EE0 /* Meal.swift */; };
+		BE7BEF92239CB91100977EE0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE7BEF91239CB91100977EE0 /* GoogleService-Info.plist */; };
+		BEE57C3423A4EF9700F90FC8 /* TrojanDiningUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE57C3323A4EF9700F90FC8 /* TrojanDiningUser.swift */; };
+		BEEB6C7E239CC769007062D7 /* FoodDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB6C7D239CC769007062D7 /* FoodDetailController.swift */; };
+		BEF67973239CDBAB00BBB88D /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF67972239CDBAB00BBB88D /* StarRatingView.swift */; };
 		C444FBE621B49B6A00E8C2F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C444FBE521B49B6A00E8C2F7 /* ViewController.swift */; };
 		C44DE8E4219805CD00CFC981 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44DE8E3219805CD00CFC981 /* FilterView.swift */; };
 		C44DE8E6219805E500CFC981 /* FilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44DE8E5219805E500CFC981 /* FilterView.xib */; };
 		C455B28C21B51E9600309A7A /* FilterCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C455B28B21B51E9600309A7A /* FilterCollectionCell.xib */; };
 		C455B28E21B51EB700309A7A /* FilterCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C455B28D21B51EB700309A7A /* FilterCollectionCell.swift */; };
 		C455B29021B53C6700309A7A /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C455B28F21B53C6700309A7A /* Filter.swift */; };
-		C45E3453218EB46300A8C28E /* AddressBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45E3452218EB46300A8C28E /* AddressBuilder.swift */; };
+		C45E3453218EB46300A8C28E /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45E3452218EB46300A8C28E /* URLBuilder.swift */; };
 		C46E0F54217DAFEA007F5452 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E0F53217DAFEA007F5452 /* AppDelegate.swift */; };
 		C46E0F59217DAFEA007F5452 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46E0F57217DAFEA007F5452 /* Main.storyboard */; };
 		C46E0F5B217DAFEB007F5452 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E0F5A217DAFEB007F5452 /* Assets.xcassets */; };
@@ -35,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1207B618EA10D0B206ED315F /* Pods_Trojan_Dining.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trojan_Dining.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		71849656A04F38282D417D84 /* Pods-Trojan Dining.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trojan Dining.debug.xcconfig"; path = "Target Support Files/Pods-Trojan Dining/Pods-Trojan Dining.debug.xcconfig"; sourceTree = "<group>"; };
+		AB07223A8BCC15F9144062B7 /* Pods-Trojan Dining.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trojan Dining.release.xcconfig"; path = "Target Support Files/Pods-Trojan Dining/Pods-Trojan Dining.release.xcconfig"; sourceTree = "<group>"; };
 		BE7BEF7D239C82BB00977EE0 /* ViewCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCollectionView.swift; sourceTree = "<group>"; };
 		BE7BEF7F239C869400977EE0 /* MealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCell.swift; sourceTree = "<group>"; };
 		BE7BEF80239C869400977EE0 /* MealCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealCell.xib; sourceTree = "<group>"; };
@@ -44,13 +52,18 @@
 		BE7BEF89239C8A1B00977EE0 /* CollectableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectableData.swift; sourceTree = "<group>"; };
 		BE7BEF8B239C974400977EE0 /* ViewInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInteraction.swift; sourceTree = "<group>"; };
 		BE7BEF8D239C9AE500977EE0 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
+		BE7BEF91239CB91100977EE0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BEE57C3223A4D73900F90FC8 /* Trojan Dining.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Trojan Dining.entitlements"; sourceTree = "<group>"; };
+		BEE57C3323A4EF9700F90FC8 /* TrojanDiningUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrojanDiningUser.swift; sourceTree = "<group>"; };
+		BEEB6C7D239CC769007062D7 /* FoodDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailController.swift; sourceTree = "<group>"; };
+		BEF67972239CDBAB00BBB88D /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		C444FBE521B49B6A00E8C2F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C44DE8E3219805CD00CFC981 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		C44DE8E5219805E500CFC981 /* FilterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterView.xib; sourceTree = "<group>"; };
 		C455B28B21B51E9600309A7A /* FilterCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCollectionCell.xib; sourceTree = "<group>"; };
 		C455B28D21B51EB700309A7A /* FilterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionCell.swift; sourceTree = "<group>"; };
 		C455B28F21B53C6700309A7A /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
-		C45E3452218EB46300A8C28E /* AddressBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBuilder.swift; sourceTree = "<group>"; };
+		C45E3452218EB46300A8C28E /* URLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		C46E0F50217DAFEA007F5452 /* Trojan Dining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trojan Dining.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46E0F53217DAFEA007F5452 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C46E0F58217DAFEA007F5452 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -69,17 +82,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E9765759C43EC7762EE4DB8 /* Pods_Trojan_Dining.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D9963C0B3FB77466EA24B35 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1207B618EA10D0B206ED315F /* Pods_Trojan_Dining.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BE7BEF8F239CA2E100977EE0 /* Abstract */ = {
 			isa = PBXGroup;
 			children = (
 				BE7BEF83239C88BD00977EE0 /* TableableCell.swift */,
 				BE7BEF87239C894900977EE0 /* CollectableCell.swift */,
+				BEF67972239CDBAB00BBB88D /* StarRatingView.swift */,
 			);
 			path = Abstract;
 			sourceTree = "<group>";
@@ -98,6 +121,8 @@
 			children = (
 				C46E0F52217DAFEA007F5452 /* Trojan Dining */,
 				C46E0F51217DAFEA007F5452 /* Products */,
+				EE1AF5167FF691C16C8B1DE9 /* Pods */,
+				1D9963C0B3FB77466EA24B35 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,13 +137,14 @@
 		C46E0F52217DAFEA007F5452 /* Trojan Dining */ = {
 			isa = PBXGroup;
 			children = (
+				BEE57C3223A4D73900F90FC8 /* Trojan Dining.entitlements */,
 				C46E0F67217DB003007F5452 /* Controllers */,
 				C46E0F66217DAFFE007F5452 /* Views */,
-				C4E23E5E21868B30004439DA /* Animations */,
 				C46E0F65217DAFF7007F5452 /* Models */,
 				C46E0F5A217DAFEB007F5452 /* Assets.xcassets */,
 				C46E0F5C217DAFEB007F5452 /* LaunchScreen.storyboard */,
 				C46E0F53217DAFEA007F5452 /* AppDelegate.swift */,
+				BE7BEF91239CB91100977EE0 /* GoogleService-Info.plist */,
 				C46E0F5F217DAFEB007F5452 /* Info.plist */,
 			);
 			path = "Trojan Dining";
@@ -127,13 +153,14 @@
 		C46E0F65217DAFF7007F5452 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BEE57C3323A4EF9700F90FC8 /* TrojanDiningUser.swift */,
 				BE7BEF90239CA2FA00977EE0 /* Abstract */,
 				BE7BEF8D239C9AE500977EE0 /* Meal.swift */,
 				C4F9D2532187BD7E0081606A /* Food.swift */,
 				C455B28F21B53C6700309A7A /* Filter.swift */,
+				C45E3452218EB46300A8C28E /* URLBuilder.swift */,
 				C46E0F6E217DB97B007F5452 /* WebScraper.swift */,
 				C46E0F70217DB989007F5452 /* MenuBuilder.swift */,
-				C45E3452218EB46300A8C28E /* AddressBuilder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -161,15 +188,18 @@
 				C444FBE521B49B6A00E8C2F7 /* ViewController.swift */,
 				BE7BEF7D239C82BB00977EE0 /* ViewCollectionView.swift */,
 				BE7BEF8B239C974400977EE0 /* ViewInteraction.swift */,
+				BEEB6C7D239CC769007062D7 /* FoodDetailController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		C4E23E5E21868B30004439DA /* Animations */ = {
+		EE1AF5167FF691C16C8B1DE9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				71849656A04F38282D417D84 /* Pods-Trojan Dining.debug.xcconfig */,
+				AB07223A8BCC15F9144062B7 /* Pods-Trojan Dining.release.xcconfig */,
 			);
-			path = Animations;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,9 +209,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C46E0F62217DAFEB007F5452 /* Build configuration list for PBXNativeTarget "Trojan Dining" */;
 			buildPhases = (
+				450C8791F6964B5D8F8E9B3F /* [CP] Check Pods Manifest.lock */,
 				C46E0F4C217DAFEA007F5452 /* Sources */,
 				C46E0F4D217DAFEA007F5452 /* Frameworks */,
 				C46E0F4E217DAFEA007F5452 /* Resources */,
+				3D32306B060A984B5CAA4760 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -232,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C49F5EA2219F6D55009A915C /* FoodCell.xib in Resources */,
+				BE7BEF92239CB91100977EE0 /* GoogleService-Info.plist in Resources */,
 				C44DE8E6219805E500CFC981 /* FilterView.xib in Resources */,
 				C46E0F5E217DAFEB007F5452 /* LaunchScreen.storyboard in Resources */,
 				BE7BEF82239C869400977EE0 /* MealCell.xib in Resources */,
@@ -243,13 +276,56 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3D32306B060A984B5CAA4760 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Trojan Dining/Pods-Trojan Dining-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Trojan Dining/Pods-Trojan Dining-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Trojan Dining/Pods-Trojan Dining-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		450C8791F6964B5D8F8E9B3F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Trojan Dining-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C46E0F4C217DAFEA007F5452 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C44DE8E4219805CD00CFC981 /* FilterView.swift in Sources */,
-				C45E3453218EB46300A8C28E /* AddressBuilder.swift in Sources */,
+				C45E3453218EB46300A8C28E /* URLBuilder.swift in Sources */,
+				BEEB6C7E239CC769007062D7 /* FoodDetailController.swift in Sources */,
 				C455B29021B53C6700309A7A /* Filter.swift in Sources */,
 				C46E0F6B217DB0B2007F5452 /* FoodCell.swift in Sources */,
 				BE7BEF86239C88FC00977EE0 /* TableableData.swift in Sources */,
@@ -260,12 +336,14 @@
 				BE7BEF8C239C974400977EE0 /* ViewInteraction.swift in Sources */,
 				BE7BEF7E239C82BB00977EE0 /* ViewCollectionView.swift in Sources */,
 				BE7BEF8A239C8A1B00977EE0 /* CollectableData.swift in Sources */,
+				BEF67973239CDBAB00BBB88D /* StarRatingView.swift in Sources */,
 				C444FBE621B49B6A00E8C2F7 /* ViewController.swift in Sources */,
 				C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */,
 				BE7BEF84239C88BD00977EE0 /* TableableCell.swift in Sources */,
 				BE7BEF81239C869400977EE0 /* MealCell.swift in Sources */,
 				C46E0F54217DAFEA007F5452 /* AppDelegate.swift in Sources */,
 				C4F9D2542187BD7E0081606A /* Food.swift in Sources */,
+				BEE57C3423A4EF9700F90FC8 /* TrojanDiningUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,8 +487,10 @@
 		};
 		C46E0F63217DAFEB007F5452 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71849656A04F38282D417D84 /* Pods-Trojan Dining.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Trojan Dining/Trojan Dining.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 37X3EN3NY4;
@@ -430,8 +510,10 @@
 		};
 		C46E0F64217DAFEB007F5452 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB07223A8BCC15F9144062B7 /* Pods-Trojan Dining.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Trojan Dining/Trojan Dining.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 37X3EN3NY4;

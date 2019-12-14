@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pqm-uC-z2z">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pqm-uC-z2z">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -84,11 +84,89 @@
                         <outlet property="segmentedControl" destination="fTq-Fg-8oj" id="81h-3n-ctI"/>
                         <outlet property="segmentedControlWidth" destination="4dF-QZ-rko" id="oRg-nR-JKu"/>
                         <outlet property="titleLabelLeading" destination="GV8-9y-CdK" id="1SO-jT-Slj"/>
+                        <segue destination="QvO-Ed-aed" kind="popoverPresentation" identifier="FoodDetailSegue" popoverAnchorView="QF7-8v-Ypk" id="6sI-4o-XCW">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YH9-Bx-jtt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="344.80000000000001" y="-124.13793103448276"/>
+        </scene>
+        <!--Food Detail Controller-->
+        <scene sceneID="AF0-Tf-CtR">
+            <objects>
+                <viewController id="QvO-Ed-aed" customClass="FoodDetailController" customModule="Trojan_Dining" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fdC-pr-qsN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Dairy, Vegetarian  " lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.34999999999999998" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUK-QM-QdQ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="dhs-RD-89a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OLf-YN-ceW">
+                                <rect key="frame" x="0.0" y="50" width="375" height="674"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="characterWrap" numberOfLines="39" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wi-So-kHk">
+                                        <rect key="frame" x="-16" y="-16" width="407" height="690"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <mutableString key="text">PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER PEANUT BUTTER</mutableString>
+                                        <fontDescription key="fontDescription" name="Arial-ItalicMT" family="Arial" pointSize="17"/>
+                                        <color key="textColor" systemColor="quaternaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.17999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cWG-fF-08i" customClass="StarRatingView" customModule="Trojan_Dining" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="8" width="120" height="650"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="starCount">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="starSize">
+                                                <size key="value" width="120" height="120"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="2wi-So-kHk" firstAttribute="leading" secondItem="OLf-YN-ceW" secondAttribute="leading" constant="-16" id="Bus-eH-yNF"/>
+                                    <constraint firstItem="cWG-fF-08i" firstAttribute="top" secondItem="OLf-YN-ceW" secondAttribute="top" constant="8" id="Dc2-fE-1oU"/>
+                                    <constraint firstAttribute="bottom" secondItem="2wi-So-kHk" secondAttribute="bottom" id="E8h-Jo-9e8"/>
+                                    <constraint firstAttribute="trailing" secondItem="2wi-So-kHk" secondAttribute="trailing" constant="-16" id="I0N-2k-eZ6"/>
+                                    <constraint firstItem="2wi-So-kHk" firstAttribute="top" secondItem="OLf-YN-ceW" secondAttribute="top" constant="-16" id="QId-KO-bcW"/>
+                                    <constraint firstItem="cWG-fF-08i" firstAttribute="leading" secondItem="OLf-YN-ceW" secondAttribute="leading" constant="8" id="Whf-Nr-E9C"/>
+                                    <constraint firstAttribute="bottom" secondItem="cWG-fF-08i" secondAttribute="bottom" constant="16" id="mT8-l4-9AT"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="OLf-YN-ceW" firstAttribute="bottom" secondItem="nd7-eQ-CMq" secondAttribute="bottom" id="7Tl-n1-Qo8"/>
+                            <constraint firstItem="XUK-QM-QdQ" firstAttribute="top" secondItem="nd7-eQ-CMq" secondAttribute="top" id="9BZ-7p-tEO"/>
+                            <constraint firstItem="nd7-eQ-CMq" firstAttribute="trailing" secondItem="OLf-YN-ceW" secondAttribute="trailing" id="EbH-Tb-1Sf"/>
+                            <constraint firstItem="OLf-YN-ceW" firstAttribute="leading" secondItem="nd7-eQ-CMq" secondAttribute="leading" id="kxL-yl-Caj"/>
+                            <constraint firstItem="OLf-YN-ceW" firstAttribute="top" secondItem="XUK-QM-QdQ" secondAttribute="bottom" id="pbv-YV-8pz"/>
+                            <constraint firstItem="nd7-eQ-CMq" firstAttribute="trailing" secondItem="XUK-QM-QdQ" secondAttribute="trailing" id="r2f-lG-jWE"/>
+                            <constraint firstItem="XUK-QM-QdQ" firstAttribute="leading" secondItem="nd7-eQ-CMq" secondAttribute="leading" id="vah-5S-Ire"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nd7-eQ-CMq"/>
+                    </view>
+                    <connections>
+                        <outlet property="allergenSubtitle" destination="XUK-QM-QdQ" id="5ww-UP-IVP"/>
+                        <outlet property="foodTitle" destination="2wi-So-kHk" id="HM8-PM-d3p"/>
+                        <outlet property="starStackView" destination="cWG-fF-08i" id="y4S-VP-vem"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l74-lL-naU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1365.5999999999999" y="-124.13793103448276"/>
         </scene>
     </scenes>
 </document>

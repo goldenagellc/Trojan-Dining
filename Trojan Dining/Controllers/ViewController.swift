@@ -44,13 +44,13 @@ class ViewController: UIViewController, DataDuct {
 
         filterView.dataDuct = self
 
-        let scraperToday = WebScraper(forURL: AddressBuilder.url(for: .today)) {menu in
+        let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today)) {menu in
             DispatchQueue.main.async {self.menuToday = menu; self.reloadData()}
         }
-        let scraperTomorrow = WebScraper(forURL: AddressBuilder.url(for: .tomorrow)) {menu in
+        let scraperTomorrow = WebScraper(forURL: URLBuilder.url(for: .tomorrow)) {menu in
             DispatchQueue.main.async {self.menuTomorrow = menu; self.reloadData()}
         }
-        let scraperTheNextDay = WebScraper(forURL: AddressBuilder.url(for: .theNextDay)) {menu in
+        let scraperTheNextDay = WebScraper(forURL: URLBuilder.url(for: .theNextDay)) {menu in
             DispatchQueue.main.async {self.menuTheNextDay = menu; self.reloadData()}
         }
         scraperToday.resume()
@@ -92,6 +92,20 @@ class ViewController: UIViewController, DataDuct {
         let date = dateFormatter.date(from: menu[menuIndex].date)
         dateFormatter.dateFormat = "M/d"
         bigTitleText.text = menu[menuIndex].name + ", " + dateFormatter.string(from: date!)
+    }
+    
+    @IBAction func unwindToMain(_ unwindSegue: UIStoryboardSegue) {}
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
+        let toVC = segue.destination
+        
+        switch segue.identifier {
+        case "FoodDetailSegue":
+            (toVC as! FoodDetailController).food = sender as? Food
+        default: break
+        }
     }
 }
 
