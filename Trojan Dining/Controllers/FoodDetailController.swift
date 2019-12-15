@@ -19,15 +19,27 @@ class FoodDetailController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let food = food else {return}
 
-        guard let name = food?.name else {return}
+        let name = food.name
         let repeated = String(repeating: name.uppercased() + " ", count: 200)
         foodTitle.text = repeated
         
-        allergenSubtitle.text = "  Attributes: " + (food?.attributes.joined(separator: ", ") ?? "None") + "  "
-        allergenSubtitle.textColor = UIColor(white: 1 - (UIColor.label.cgColor.components?[0] ?? CGFloat(0)), alpha: 1.0)
+        allergenSubtitle.text = "  Attributes: " + food.attributes.joined(separator: ", ") + "  "
+        allergenSubtitle.textColor = .quaternaryLabel//UIColor(white: 1 - (UIColor.label.cgColor.components?[0] ?? CGFloat(0)), alpha: 1.0)
         
         starStackView.addStarButtonCallback(onStarButtonTap)
+        
+        // Populate starStackView with rating from database
+        TrojanDiningUser.shared.fetchUserRating(for: food) { userRating in
+            if userRating != nil {self.onFetchRating(userRating!)}
+            else {
+                TrojanDiningUser.shared.fetchAverageRating(for: food) { avgRating in
+                    self.onFetchRating(avgRating ?? 0)
+                }
+            }
+        }
     }
     
     private func onStarButtonTap(_ rating: Int) {
@@ -38,8 +50,11 @@ class FoodDetailController: UIViewController {
             controller.performRequests()
         }
         
-        // TODO call Firestore to update rating
+        guard let food = food else {return}
+        TrojanDiningUser.shared.addRatingToDatabase(rating, food: food)
     }
+    
+    private func onFetchRating(_ rating: Int) {starStackView.rating = rating}
 }
 
 extension FoodDetailController: ASAuthorizationControllerDelegate {

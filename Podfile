@@ -6,7 +6,11 @@ target 'Trojan Dining' do
   use_frameworks!
 
   # Pods for Trojan Dining
+  pod 'Firebase/Core'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+
+  pod 'FirebaseFirestoreSwift'
 
 end

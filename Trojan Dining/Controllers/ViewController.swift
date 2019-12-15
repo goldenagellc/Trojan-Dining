@@ -102,8 +102,7 @@ class ViewController: UIViewController, DataDuct {
         let toVC = segue.destination
         
         switch segue.identifier {
-        case "FoodDetailSegue":
-            (toVC as! FoodDetailController).food = sender as? Food
+        case "FoodDetailSegue": (toVC as! FoodDetailController).food = sender as? Food
         default: break
         }
     }

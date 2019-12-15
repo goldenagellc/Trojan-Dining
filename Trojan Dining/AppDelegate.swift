@@ -26,9 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
         if let firebaseUser = Auth.auth().currentUser {
-            print("FIRUser UID: \(firebaseUser.uid)")
+            TrojanDiningUser.shared.isSignedInWithFirebase = true
+            print("Firebase UID: \(firebaseUser.uid)")
             if let appleUserID = firebaseUser.displayName {
-                print("Apple UID: \(firebaseUser.displayName!)")
+                print("Apple UID: \(appleUserID)")
                 ASAuthorizationAppleIDProvider().getCredentialState(forUserID: appleUserID) { (credentialState, error) in
                     TrojanDiningUser.shared.isSignedInWithApple = credentialState
                 }

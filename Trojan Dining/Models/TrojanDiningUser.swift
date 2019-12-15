@@ -9,6 +9,7 @@
 import Foundation
 import CryptoKit
 import AuthenticationServices
+import Firebase
 import FirebaseAuth
 
 public class TrojanDiningUser {
@@ -18,7 +19,9 @@ public class TrojanDiningUser {
     }()
     
     public var isSignedInWithApple: ASAuthorizationAppleIDProvider.CredentialState = .notFound
+    public var isSignedInWithFirebase: Bool = false
     private var currentNonce: String? = nil
+    private var db: Firestore = Firestore.firestore()
     
     private init() {}
     
@@ -29,6 +32,112 @@ public class TrojanDiningUser {
         request.nonce = currentNonce!.sha256()
         request.requestedScopes = nil
         return request
+    }
+    
+    public func fetchUserRating(for food: Food, _ callback: @escaping (Int?) -> ()){
+        // Check for permissions
+        if !isSignedInWithFirebase {callback(nil); return}
+        guard let uid = Auth.auth().currentUser?.uid else {
+            isSignedInWithFirebase = false
+            callback(nil)
+            return
+        }
+        // Obtain food document
+        let foodDoc = db.collection("Foods").document(food.name)
+        // Fetch the user's rating of the food
+        foodDoc.collection(food.simpleHall()).document(uid).getDocument() { (docSnapshot, error) in
+            if error != nil {
+                print("Failed to read user rating: \(error!.localizedDescription)")
+                callback(nil)
+                return
+            }
+            guard let docSnapshot = docSnapshot else {
+                print("Failed to obtain docSnapshot while fetching user rating.")
+                callback(nil)
+                return
+            }
+            let rating = docSnapshot.data()?["Rating"] as? NSNumber
+            if rating == nil {callback(nil)}
+            else {callback(Int(truncating: rating!))}
+        }
+    }
+    
+    public func fetchAverageRating(for food: Food, _ callback: @escaping (Int?) -> ()) {
+        // Check for permissions
+        if !isSignedInWithFirebase {callback(nil); return}
+        guard let _ = Auth.auth().currentUser?.uid else {
+            isSignedInWithFirebase = false
+            callback(nil)
+            return
+        }
+        // Obtain food document
+        let foodDoc = db.collection("Foods").document(food.name)
+        // Fetch the average rating of the food
+        foodDoc.getDocument() { (docSnapshot, error) in
+            if error != nil {
+                print("Failed to read average rating: \(error!.localizedDescription)")
+                callback(nil)
+                return
+            }
+            guard let docSnapshot = docSnapshot else {
+                print("Failed to obtain docSnapshot while fetching average rating.")
+                callback(nil)
+                return
+            }
+            let rating = docSnapshot.data()?["Rating"] as? NSNumber
+            if rating == nil {callback(nil)}
+            else {callback(Int(truncating: rating!))}
+        }
+    }
+    
+    public func addRatingToDatabase(_ rating: Int, food: Food) {
+        // Check for permissions
+        if !isSignedInWithFirebase {return}
+        guard let uid = Auth.auth().currentUser?.uid else {
+            isSignedInWithFirebase = false
+            return
+        }
+        // Obtain food document
+        let foodDoc = db.collection("Foods").document(food.name)
+        // Update the user's rating of the food
+        foodDoc.collection(food.simpleHall()).document(uid).setData([
+            "Rating" : rating,
+            "Recency" : Timestamp(date: Date(timeIntervalSinceNow: 0.0))
+        ]) { (error) in
+            if error != nil {print("Failed to update rating: \(error!.localizedDescription)"); return}
+            // Now re-compute the average rating based on the user's new rating
+            self.averageRatingsInDatabase(for: food)
+        }
+    }
+    
+    private func averageRatingsInDatabase(for food: Food) {
+        // Check for permissions
+        if !isSignedInWithFirebase {return}
+        guard let _ = Auth.auth().currentUser?.uid else {
+            isSignedInWithFirebase = false
+            return
+        }
+        // Obtain food document
+        let foodDoc = db.collection("Foods").document(food.name)
+        // Update the average rating of the food
+        foodDoc.collection(food.simpleHall()).getDocuments() { (querySnapshot, error) in
+            if error != nil {print("Failed to fetch list of ratings: \(error!.localizedDescription)"); return}
+            guard let querySnapshot = querySnapshot else {
+                print("Failed to obtain querySnapshot while fetching list of ratings.")
+                return
+            }
+            // Convert list of ratings on Firebase to an array of Int's
+            var ratings: [Int] = []
+            for document in querySnapshot.documents {
+                guard let rating = document.data()["Rating"] as? NSNumber else {continue}
+                ratings.append(Int(truncating: rating))
+            }
+            // Compute average and save to Firebase
+            let average = ratings.count > 0 ? ratings.reduce(0, +)/ratings.count : 0
+            foodDoc.setData([
+                "Rating" : [food.simpleHall() : average]
+            ], merge: true)
+        }
     }
     
     public func signInWithApple(using appleIDCredential: ASAuthorizationAppleIDCredential) {
@@ -58,6 +167,7 @@ public class TrojanDiningUser {
             }
             // User is signed in to Firebase with Apple.
             self.isSignedInWithApple = .authorized
+            self.isSignedInWithFirebase = true
         }
     }
     
