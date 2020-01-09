@@ -23,6 +23,8 @@ public class TrojanDiningUser {
     private var currentNonce: String? = nil
     private var db: Firestore = Firestore.firestore()
     
+    public private(set) var watchlist: [String] = []
+    
     private init() {}
     
     public func signInWithAppleRequest() -> ASAuthorizationAppleIDRequest {
@@ -34,7 +36,62 @@ public class TrojanDiningUser {
         return request
     }
     
-    public func fetchUserRating(for food: Food, _ callback: @escaping (Int?) -> ()){
+    public func fetchUserWatchlist(_ callback: @escaping () -> ()) {
+        // Check for permissions
+        if !isSignedInWithFirebase {return}
+        guard let uid = Auth.auth().currentUser?.uid else {
+            isSignedInWithFirebase = false
+            return
+        }
+        // Obtain user document
+        let userDoc = db.collection("Users").document(uid)
+        // Fetch the user's watchlist
+        userDoc.collection("Watchlist").getDocuments { snapshot, error in
+            if let error = error {
+                print("Failed to fetch user's watchlist: \(error.localizedDescription)")
+                return
+            }
+            guard let snapshot = snapshot else {
+                print("Failed to fetch user's watchlist: snapshot was nil")
+                return
+            }
+            self.watchlist = snapshot.documents.map({$0.documentID})
+            callback()
+        }
+    }
+    
+    public func setUserWatchlist(_ newValue: [String]) {
+        self.watchlist = newValue
+        // Check for permissions
+        if !isSignedInWithFirebase {return}
+        guard let uid = Auth.auth().currentUser?.uid else {
+            isSignedInWithFirebase = false
+            return
+        }
+        // Obtain user document
+        let userDoc = db.collection("Users").document(uid)
+        // Upload the user's watchlist
+        userDoc.collection("Watchlist").getDocuments { snapshot, error in
+            if let error = error {
+                print("Failed to fetch user's watchlist: \(error.localizedDescription)")
+                return
+            }
+            guard let snapshot = snapshot else {
+                print("Failed to fetch user's watchlist: snapshot was nil")
+                return
+            }
+            snapshot.documents.forEach { document in
+                if !self.watchlist.contains(document.documentID) {
+                    userDoc.collection("Watchlist").document(document.documentID).delete()
+                }
+            }
+            for item in self.watchlist {
+                userDoc.collection("Watchlist").document(item).setData(["on":true])
+            }
+        }
+    }
+    
+    public func fetchUserRating(for food: Food, _ callback: @escaping (Int?) -> ()) {
         // Check for permissions
         if !isSignedInWithFirebase {callback(nil); return}
         guard let uid = Auth.auth().currentUser?.uid else {

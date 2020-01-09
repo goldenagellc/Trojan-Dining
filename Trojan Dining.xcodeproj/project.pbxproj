@@ -18,6 +18,10 @@
 		BE7BEF8C239C974400977EE0 /* ViewInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BEF8B239C974400977EE0 /* ViewInteraction.swift */; };
 		BE7BEF8E239C9AE500977EE0 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BEF8D239C9AE500977EE0 /* Meal.swift */; };
 		BE7BEF92239CB91100977EE0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE7BEF91239CB91100977EE0 /* GoogleService-Info.plist */; };
+		BEB5E39523C6FA2B006F3DFE /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5E39423C6FA2B006F3DFE /* UpgradeViewController.swift */; };
+		BEB5E39723C6FA49006F3DFE /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5E39623C6FA49006F3DFE /* NotificationViewController.swift */; };
+		BEB5E39A23C7039D006F3DFE /* WatchlistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5E39823C7039D006F3DFE /* WatchlistCell.swift */; };
+		BEB5E39B23C7039D006F3DFE /* WatchlistCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB5E39923C7039D006F3DFE /* WatchlistCell.xib */; };
 		BEE57C3423A4EF9700F90FC8 /* TrojanDiningUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE57C3323A4EF9700F90FC8 /* TrojanDiningUser.swift */; };
 		BEEB6C7E239CC769007062D7 /* FoodDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB6C7D239CC769007062D7 /* FoodDetailController.swift */; };
 		BEF67973239CDBAB00BBB88D /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF67972239CDBAB00BBB88D /* StarRatingView.swift */; };
@@ -53,6 +57,10 @@
 		BE7BEF8B239C974400977EE0 /* ViewInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInteraction.swift; sourceTree = "<group>"; };
 		BE7BEF8D239C9AE500977EE0 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		BE7BEF91239CB91100977EE0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BEB5E39423C6FA2B006F3DFE /* UpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeViewController.swift; sourceTree = "<group>"; };
+		BEB5E39623C6FA49006F3DFE /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		BEB5E39823C7039D006F3DFE /* WatchlistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistCell.swift; sourceTree = "<group>"; };
+		BEB5E39923C7039D006F3DFE /* WatchlistCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WatchlistCell.xib; sourceTree = "<group>"; };
 		BEE57C3223A4D73900F90FC8 /* Trojan Dining.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Trojan Dining.entitlements"; sourceTree = "<group>"; };
 		BEE57C3323A4EF9700F90FC8 /* TrojanDiningUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrojanDiningUser.swift; sourceTree = "<group>"; };
 		BEEB6C7D239CC769007062D7 /* FoodDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailController.swift; sourceTree = "<group>"; };
@@ -178,6 +186,8 @@
 				C44DE8E5219805E500CFC981 /* FilterView.xib */,
 				C455B28D21B51EB700309A7A /* FilterCollectionCell.swift */,
 				C455B28B21B51E9600309A7A /* FilterCollectionCell.xib */,
+				BEB5E39823C7039D006F3DFE /* WatchlistCell.swift */,
+				BEB5E39923C7039D006F3DFE /* WatchlistCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,6 +199,8 @@
 				BE7BEF7D239C82BB00977EE0 /* ViewCollectionView.swift */,
 				BE7BEF8B239C974400977EE0 /* ViewInteraction.swift */,
 				BEEB6C7D239CC769007062D7 /* FoodDetailController.swift */,
+				BEB5E39623C6FA49006F3DFE /* NotificationViewController.swift */,
+				BEB5E39423C6FA2B006F3DFE /* UpgradeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -263,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEB5E39B23C7039D006F3DFE /* WatchlistCell.xib in Resources */,
 				C49F5EA2219F6D55009A915C /* FoodCell.xib in Resources */,
 				BE7BEF92239CB91100977EE0 /* GoogleService-Info.plist in Resources */,
 				C44DE8E6219805E500CFC981 /* FilterView.xib in Resources */,
@@ -324,10 +337,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C44DE8E4219805CD00CFC981 /* FilterView.swift in Sources */,
+				BEB5E39A23C7039D006F3DFE /* WatchlistCell.swift in Sources */,
 				C45E3453218EB46300A8C28E /* URLBuilder.swift in Sources */,
 				BEEB6C7E239CC769007062D7 /* FoodDetailController.swift in Sources */,
+				BEB5E39523C6FA2B006F3DFE /* UpgradeViewController.swift in Sources */,
 				C455B29021B53C6700309A7A /* Filter.swift in Sources */,
 				C46E0F6B217DB0B2007F5452 /* FoodCell.swift in Sources */,
+				BEB5E39723C6FA49006F3DFE /* NotificationViewController.swift in Sources */,
 				BE7BEF86239C88FC00977EE0 /* TableableData.swift in Sources */,
 				BE7BEF88239C894900977EE0 /* CollectableCell.swift in Sources */,
 				C455B28E21B51EB700309A7A /* FilterCollectionCell.swift in Sources */,

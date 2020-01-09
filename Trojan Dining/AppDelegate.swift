@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 import AuthenticationServices
 import Firebase
 import FirebaseAuth
@@ -15,6 +16,7 @@ import FirebaseAuth
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let notificationCenter = UNUserNotificationCenter.current()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -35,6 +37,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
+        
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        notificationCenter.requestAuthorization(options: options) {
+            (didAllow, error) in
+            if !didAllow {
+                print("User has declined notifications")
+            }
+        }
+        
+//        notificationCenter.getNotificationSettings { (settings) in
+//          if settings.authorizationStatus != .authorized {
+//            // Notifications not allowed
+//          }
+//        }
         
         return true
     }
