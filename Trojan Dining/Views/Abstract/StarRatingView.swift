@@ -19,10 +19,7 @@ import UIKit
     
     private var starButtons = [UIButton]()
     var rating = 0 {
-        didSet {
-            for callback in starButtonCallbacks {callback(rating)}
-            updateButtonSelectionStates()
-        }
+        didSet {updateButtonSelectionStates()}
     }
     private var starButtonCallbacks: [(Int) -> ()] = []
     
@@ -81,6 +78,7 @@ import UIKit
         guard let index = starButtons.firstIndex(of: button) else {return}
         let selectedRating = index + 1
         rating = rating == selectedRating ? 0 : selectedRating
+        for callback in starButtonCallbacks {callback(rating)}
     }
 
     private func updateButtonSelectionStates() {

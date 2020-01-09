@@ -15,7 +15,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     //cell size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = collectionView.frame.width - 2*ViewController.TOTAL_INSET
-        segmentedControlWidth.constant = width
+//        segmentedControlWidth.constant = width
         return CGSize(width: width, height: collectionView.frame.height)
     }
 

@@ -17,7 +17,7 @@ class ViewController: UIViewController, DataDuct {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var titleLabelLeading: NSLayoutConstraint!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var segmentedControlWidth: NSLayoutConstraint!
+//    @IBOutlet weak var segmentedControlWidth: NSLayoutConstraint!
     @IBOutlet weak var filterView: FilterView!
     @IBOutlet weak var bigTitleText: UILabel!
     
