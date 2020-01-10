@@ -37,9 +37,6 @@ class NotificationViewController: UIViewController {
         super.viewWillDisappear(animated)
         let watchlistFull = watchlist.filter({$0 != ""})
         TrojanDiningUser.shared.setUserWatchlist(watchlistFull)
-        
-        let notification = UNMutableNotificationContent()
-        
     }
     
     /*
