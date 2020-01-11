@@ -24,6 +24,8 @@
 		BEB5E39B23C7039D006F3DFE /* WatchlistCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEB5E39923C7039D006F3DFE /* WatchlistCell.xib */; };
 		BEDE0DDE23C86B5C0012216A /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE0DDD23C86B5C0012216A /* NotificationService.swift */; };
 		BEDE0DE223C86B5C0012216A /* Notification Waylay.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BEDE0DDB23C86B5C0012216A /* Notification Waylay.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BEDE0DE823C9B12C0012216A /* MessagingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE0DE723C9B12C0012216A /* MessagingDelegate.swift */; };
+		BEDE0DEA23C9B16D0012216A /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE0DE923C9B16D0012216A /* NotificationDelegate.swift */; };
 		BEE57C3423A4EF9700F90FC8 /* TrojanDiningUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE57C3323A4EF9700F90FC8 /* TrojanDiningUser.swift */; };
 		BEEB6C7E239CC769007062D7 /* FoodDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB6C7D239CC769007062D7 /* FoodDetailController.swift */; };
 		BEF67973239CDBAB00BBB88D /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF67972239CDBAB00BBB88D /* StarRatingView.swift */; };
@@ -90,6 +92,8 @@
 		BEDE0DDB23C86B5C0012216A /* Notification Waylay.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Notification Waylay.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEDE0DDD23C86B5C0012216A /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		BEDE0DDF23C86B5C0012216A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BEDE0DE723C9B12C0012216A /* MessagingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingDelegate.swift; sourceTree = "<group>"; };
+		BEDE0DE923C9B16D0012216A /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
 		BEE57C3223A4D73900F90FC8 /* Trojan Dining.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Trojan Dining.entitlements"; sourceTree = "<group>"; };
 		BEE57C3323A4EF9700F90FC8 /* TrojanDiningUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrojanDiningUser.swift; sourceTree = "<group>"; };
 		BEEB6C7D239CC769007062D7 /* FoodDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailController.swift; sourceTree = "<group>"; };
@@ -199,6 +203,8 @@
 				C46E0F5A217DAFEB007F5452 /* Assets.xcassets */,
 				C46E0F5C217DAFEB007F5452 /* LaunchScreen.storyboard */,
 				C46E0F53217DAFEA007F5452 /* AppDelegate.swift */,
+				BEDE0DE723C9B12C0012216A /* MessagingDelegate.swift */,
+				BEDE0DE923C9B16D0012216A /* NotificationDelegate.swift */,
 				BE7BEF91239CB91100977EE0 /* GoogleService-Info.plist */,
 				C46E0F5F217DAFEB007F5452 /* Info.plist */,
 			);
@@ -428,6 +434,7 @@
 				BEB5E39523C6FA2B006F3DFE /* UpgradeViewController.swift in Sources */,
 				C455B29021B53C6700309A7A /* Filter.swift in Sources */,
 				C46E0F6B217DB0B2007F5452 /* FoodCell.swift in Sources */,
+				BEDE0DEA23C9B16D0012216A /* NotificationDelegate.swift in Sources */,
 				BEB5E39723C6FA49006F3DFE /* NotificationViewController.swift in Sources */,
 				BE7BEF86239C88FC00977EE0 /* TableableData.swift in Sources */,
 				BE7BEF88239C894900977EE0 /* CollectableCell.swift in Sources */,
@@ -442,6 +449,7 @@
 				C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */,
 				BE7BEF84239C88BD00977EE0 /* TableableCell.swift in Sources */,
 				BE7BEF81239C869400977EE0 /* MealCell.swift in Sources */,
+				BEDE0DE823C9B12C0012216A /* MessagingDelegate.swift in Sources */,
 				C46E0F54217DAFEA007F5452 /* AppDelegate.swift in Sources */,
 				C4F9D2542187BD7E0081606A /* Food.swift in Sources */,
 				BEE57C3423A4EF9700F90FC8 /* TrojanDiningUser.swift in Sources */,

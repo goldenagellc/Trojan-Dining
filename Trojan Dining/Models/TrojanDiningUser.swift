@@ -37,26 +37,39 @@ public class TrojanDiningUser {
     }
     
     public func fetchUserWatchlist(_ callback: @escaping () -> ()) {
-        // Check for permissions
-        if !isSignedInWithFirebase {return}
-        guard let uid = Auth.auth().currentUser?.uid else {
-            isSignedInWithFirebase = false
-            return
-        }
-        // Obtain user document
-        let userDoc = db.collection("Users").document(uid)
-        // Fetch the user's watchlist
-        userDoc.collection("Watchlist").getDocuments { snapshot, error in
-            if let error = error {
-                print("Failed to fetch user's watchlist: \(error.localizedDescription)")
-                return
-            }
-            guard let snapshot = snapshot else {
-                print("Failed to fetch user's watchlist: snapshot was nil")
-                return
-            }
-            self.watchlist = snapshot.documents.map({$0.documentID})
+        // Check if the watchlist is saved locally
+        if let watchlist = UserDefaults.standard.array(forKey: "Watchlist") as? [String] {
+            self.watchlist = watchlist
             callback()
+        }
+        // If not, try to fetch it from Firebase
+        else {
+            // Check for permissions
+            if !isSignedInWithFirebase {callback(); return}
+            guard let uid = Auth.auth().currentUser?.uid else {
+                isSignedInWithFirebase = false
+                callback()
+                return
+            }
+            // Obtain user document
+            let userDoc = db.collection("Users").document(uid)
+            // Fetch the user's watchlist
+            userDoc.collection("Watchlist").getDocuments { snapshot, error in
+                if let error = error {
+                    print("Failed to fetch user's watchlist: \(error.localizedDescription)")
+                    callback()
+                    return
+                }
+                guard let snapshot = snapshot else {
+                    print("Failed to fetch user's watchlist: snapshot was nil")
+                    callback()
+                    return
+                }
+                self.watchlist = snapshot.documents.map({$0.documentID})
+                // Save the watchlist locally to avoid extra calls to the database
+                self.saveWatchlistLocally()
+                callback()
+            }
         }
     }
     
@@ -89,6 +102,12 @@ public class TrojanDiningUser {
                 userDoc.collection("Watchlist").document(item).setData(["on":true])
             }
         }
+        // Also save the watchlist locally
+        saveWatchlistLocally()
+    }
+    
+    private func saveWatchlistLocally() {
+        UserDefaults.standard.set(watchlist, forKey: "Watchlist")
     }
     
     public func fetchUserRating(for food: Food, _ callback: @escaping (Int?) -> ()) {

@@ -20,45 +20,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // FIREBASE SETUP -------------------------------------------
         FirebaseApp.configure()
         
-//        let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-//            print(auth.currentUser)
-//            print(user?.uid)
-//        }
-        
+        // user account
         if let firebaseUser = Auth.auth().currentUser {
             TrojanDiningUser.shared.isSignedInWithFirebase = true
-            print("Firebase UID: \(firebaseUser.uid)")
+            print("Log @AppDelegate: Firebase UID = \(firebaseUser.uid)")
             if let appleUserID = firebaseUser.displayName {
-                print("Apple UID: \(appleUserID)")
+                print("Log @AppDelegate: Apple UID = \(appleUserID)")
                 ASAuthorizationAppleIDProvider().getCredentialState(forUserID: appleUserID) { (credentialState, error) in
                     TrojanDiningUser.shared.isSignedInWithApple = credentialState
                 }
             }
         }
         
-        UNUserNotificationCenter.current().delegate = self
-        
-        registerForPushNotifications()
-        
+        // messaging
         Messaging.messaging().delegate = self
-        
-        InstanceID.instanceID().instanceID { (result, error) in
-          if let error = error {
-            print("Error fetching remote instance ID: \(error)")
-          } else if let result = result {
-            print("Remote instance ID token: \(result.token)")
-          }
+        Messaging.messaging().subscribe(toTopic: "NewMeals") { error in
+            if let error = error {
+                print("Error @AppDelegate: Failed to subscribe to NewMeals topic \(error.localizedDescription)")
+                return
+            }
+            print("Log @AppDelegate: Successfully subscribed to NewMeals topic")
         }
-    
+        // ----------------------------------------------------------
         
-//        notificationCenter.getNotificationSettings { (settings) in
-//          if settings.authorizationStatus != .authorized {
-//            // Notifications not allowed
-//          }
-//        }
-        
+        // APPLE PUSH NOTIFICATION SETUP ----------------------------
+        UNUserNotificationCenter.current().delegate = self
+        Self.requestAuthorizationToSendNotifications()
+        // ----------------------------------------------------------
         return true
     }
 
@@ -83,57 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
 
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("Hey it worked 2.0")
-    }
-    
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print("Registration successful with APN")
-    }
-    
-    // MARK: Convenience
-    func registerForPushNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
-            print("Permission granted: \(granted)")
-            
-            guard granted else {return}
-            self?.getNotificationSettings()
-        }
-    }
-    
-    func getNotificationSettings() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            print("Notification settings: \(settings)")
-            
-            guard settings.authorizationStatus == .authorized else { return }
-            DispatchQueue.main.async {
-                UIApplication.shared.registerForRemoteNotifications()
-            }
-        }
-    }
-    
-}
 
-extension AppDelegate: MessagingDelegate {
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-      print("Firebase registration token: \(fcmToken)")
-
-      let dataDict:[String: String] = ["token": fcmToken]
-      NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-      // TODO: If necessary send token to application server.
-      // Note: This callback is fired at each app startup and whenever a new token is generated.
-    }
-    
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print("Hey it worked")
-        
-    }
-
-}
