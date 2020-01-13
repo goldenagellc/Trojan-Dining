@@ -5,6 +5,35 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
+// Web scraping libraries
+const axios = require('axios');
+
+// My code
+const URLBuilder = require('./URLBuilder');
+const WebScraper = require('./WebScraper');
+
+// let url = URLBuilder.url(URLBuilder.Days.TODAY);
+// console.log(url);
+//
+// let scraper = new WebScraper();
+//
+// axios.get(url)
+//     .then(response => {
+//
+//         scraper.scrape(response.data);
+//         let menu = scraper.menuBuilder.menu;
+//
+//         console.log(menu);
+//         console.log(menu[0].dateText());
+//         console.log(menu[0].shortName());
+//         console.log(menu[0].halls[2].decodedName());
+//
+//     })
+//     .catch(error => {
+//         console.log(error);
+//     });
+
+
 // Take the text parameter passed to this HTTP endpoint and insert it into the
 // Realtime Database under the path /messages/:pushId/original
 // exports.addMessage = functions.https.onRequest(async (req, res) => {
@@ -36,6 +65,91 @@ admin.initializeApp();
 // //         console.log('This should run every day at 7:00 AM Pacific Time');
 // //         return null;
 // //     }))
+
+exports.scheduledFunctionCrontab = functions.pubsub.schedule('1 0 * * *')
+    .timeZone('America/Los_Angeles')
+    .onRun((context => {
+
+        let url = URLBuilder.url(URLBuilder.Days.TODAY);
+        console.log("Menu URL: ".concat(url));
+
+        let scraper = new WebScraper();
+
+        return new Promise((resolve, reject) => {
+            axios.get(url)
+                .then(response => {
+                    let promises = [];
+
+                    // Scrape the raw HTML text to build menu data structure
+                    scraper.scrape(response.data);
+                    let menu = scraper.menuBuilder.menu;
+                    console.log("Successfully scraped menu!");
+                    console.log(menu);
+
+                    // Save that menu to Firestore
+                    let menuRef = admin.firestore().collection("Menu");
+                    // example path: /Menu/
+                    for (var i = 0; i < menu.length; i++) {
+                        let meal = menu[i];
+
+                        let dateRef = menuRef.doc(meal.dateText());
+                        // example path: /Menu/January 12, 2020/
+                        let mealRef = dateRef.collection(meal.shortName());
+                        // example path: /Menu/January 12, 2020/Breakfast/
+
+                        // let date = new Date(meal.dateText());
+                        // let timestamp = new admin.firestore.Timestamp(date.getUTCSeconds(), 0);
+
+                        for (var j = 0; j < meal.halls.length; j++) {
+                            let hall = meal.halls[j];
+
+                            let hallRef = mealRef.doc(hall.decodedName());
+                            // example path: /Menu/January 12, 2020/Breakfast/Everybody's Kitchen/
+
+                            let batch = admin.firestore().batch();
+
+                            for (var k = 0; k < hall.sects.length; k++) {
+                                let sect = hall.sects[k];
+
+                                let sectRef = hallRef.collection(sect.shortName().concat(" FOODS"));
+                                // example path: /Menu/January 12, 2020/Breakfast/Everybody's Kitchen/Hot Line FOODS/
+
+                                for (var l = 0; l < sect.foods.length; l++) {
+                                    let food = sect.foods[l];
+
+                                    batch.set(sectRef.doc(), {
+                                        name: food.name,
+                                        section: sect.name,
+                                        hall: hall.decodedName(),
+                                        attributes: food.allergens
+                                    });
+                                    // example path: /Menu/January 12, 2020/Breakfast/Everybody's Kitchen/Hot Line FOODS/AutoGenFoodDocID/
+                                }
+                            }
+
+                            promises.push(batch.commit());
+                        }
+                    }
+                    // eslint-disable-next-line promise/no-nesting
+                    Promise.all(promises)
+                        .then(response => {
+                            resolve();
+                            return null;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            reject(error);
+                            return null;
+                        });
+                    return null;
+                })
+                .catch(error => {
+                    console.log(error);
+                    reject(error);
+                    return null;
+                });
+        })
+    }));
 
 exports.scheduledFunctionCrontab = functions.pubsub.schedule('0 7 * * *')
     .timeZone('America/Los_Angeles')
@@ -79,4 +193,4 @@ exports.scheduledFunctionCrontab = functions.pubsub.schedule('0 7 * * *')
                 // Notification Delivery: failed
             });
         return null;
-    }))
+    }));
