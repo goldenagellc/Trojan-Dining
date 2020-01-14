@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import Firebase
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
@@ -20,58 +21,70 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         if let contentAvailable = aps["content-available"] as? Int, contentAvailable == 1 {
             // The server says to fetch data
-            let start = Date()
-            let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today)) { menu in
-                // Timing to debug
-                let end = Date()
-                print(end.timeIntervalSince(start))
-                
-                TrojanDiningUser.shared.fetchUserWatchlist {
-                    let watchlist = TrojanDiningUser.shared.watchlist
-                    
-                    menu.forEach { meal in
-                        meal.foods.forEach { foodsForAHall in
-                            foodsForAHall.forEach { foodsForASection in
-                                foodsForASection.forEach { food in
-                                    for i in 0..<watchlist.count {
-                                        if food.name.lowercased().contains(watchlist[i].lowercased()) {
-                                            // User signed up to be notified about this food
-                                            // SCHEDULING LOCAL NOTIFICATION -----------------------------
-                                            let content = UNMutableNotificationContent()
-                                            content.title = (food.name.last == "s") ? "\(food.name) are being served!" : "\(food.name) is being served!"
-                                            content.body = "Look in the '\(food.section)' section at \(food.hall)"
-                                            
-                                            let timeToNotify: Date
-                                            switch meal.name {
-                                            case "Breakfast": timeToNotify = Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())!
-                                            case "Brunch": timeToNotify = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date())!
-                                            case "Lunch": timeToNotify = Calendar.current.date(bySettingHour: 11, minute: 0, second: 0, of: Date())!
-                                            case "Dinner": timeToNotify = Calendar.current.date(bySettingHour: 17, minute: 0, second: 0, of: Date())!
-                                            default: timeToNotify = Date()
-                                            }
-                                            
-                                            let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: timeToNotify)
-                                            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                                            
-                                            let request = UNNotificationRequest(identifier: "\(food.hall)\(food.name)", content: content, trigger: trigger)
-                                            UNUserNotificationCenter.current().add(request) { error in
-                                                if let error = error {
-                                                    print("Error @AppDelegate: Failed to schedule local notification for \(food.name) - \(error.localizedDescription)")
-                                                    return
-                                                }
-                                                print("Log @AppDelegate: Successfully scheduled local notification for \(food.name)")
-                                            }
-                                            break
-                                        }
+//            let today = Date()
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "MMMM d, yyyy"
+//            let todayString = formatter.string(from: today)
+//
+//            let menu = Firestore.firestore().collection("Menu").document(todayString)
+//            let meals = [
+//                menu.collection("Breakfast"),
+//                menu.collection("Brunch"),
+//                menu.collection("Lunch"),
+//                menu.collection("Dinner")
+//            ]
+//            meals.forEach { meal in
+//                let halls = [
+//                    meal.document("Everybody's Kitchen"),
+//                    meal.document("Parkside Restaurant & Grill"),
+//                    meal.document("USC Village Dining Hall")
+//                ]
+//                halls.forEach { hall in
+//                    hall.co
+//                }
+//            }
+            
+            TrojanDiningUser.shared.fetchUserWatchlist {
+                DispatchQueue.main.async {
+                    let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
+                        
+                        // TODO: there's probably a better way to manage existing notifications
+                        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                        
+                        watchlistHits?.forEach { hall, mealFoodDict in
+                            mealFoodDict.forEach { meal, foods in
+                                // SCHEDULING LOCAL NOTIFICATION -----------------------------
+                                let content = UNMutableNotificationContent()
+                                content.title = (foods.count > 1) ? "Favorite foods at \(hall)!" : "Favorite food at \(hall)!"
+                                content.body = foods.joined(separator: ", ")
+                                
+                                let timeToNotify: Date
+                                switch meal {
+                                case "Breakfast": timeToNotify = Calendar.current.date(bySettingHour: 7, minute: 0, second: 0, of: Date())!
+                                case "Brunch": timeToNotify = Calendar.current.date(bySettingHour: 10, minute: 0, second: 0, of: Date())!
+                                case "Lunch": timeToNotify = Calendar.current.date(bySettingHour: 11, minute: 0, second: 0, of: Date())!
+                                case "Dinner": timeToNotify = Calendar.current.date(bySettingHour: 16, minute: 0, second: 0, of: Date())!
+                                default: timeToNotify = Date()
+                                }
+
+                                let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: timeToNotify)
+                                let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                                
+                                let request = UNNotificationRequest(identifier: "\(hall)\(meal)", content: content, trigger: trigger)
+                                UNUserNotificationCenter.current().add(request) { error in
+                                    if let error = error {
+                                        print("Error @AppDelegate: Failed to schedule local notification for \(hall)\(meal) - \(error.localizedDescription)")
+                                        return
                                     }
+                                    print("Log @AppDelegate: Successfully scheduled local notification for \(hall)\(meal)")
                                 }
                             }
                         }
+                        completionHandler(.newData)
                     }
-                    completionHandler(.newData)
+                    scraperToday.resume()
                 }
             }
-            scraperToday.resume()
         }
     }
     

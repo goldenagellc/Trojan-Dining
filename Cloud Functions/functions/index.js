@@ -66,7 +66,7 @@ const WebScraper = require('./WebScraper');
 // //         return null;
 // //     }))
 
-exports.scheduledFunctionCrontab = functions.pubsub.schedule('1 0 * * *')
+exports.hourlyMenuScraping = functions.pubsub.schedule('1 0 * * *')
     .timeZone('America/Los_Angeles')
     .onRun((context => {
 
@@ -108,10 +108,14 @@ exports.scheduledFunctionCrontab = functions.pubsub.schedule('1 0 * * *')
 
                             let batch = admin.firestore().batch();
 
+                            batch.set(hallRef, {
+                                sections: hall.sects.map(x => x.shortName())
+                            });
+
                             for (var k = 0; k < hall.sects.length; k++) {
                                 let sect = hall.sects[k];
 
-                                let sectRef = hallRef.collection(sect.shortName().concat(" FOODS"));
+                                let sectRef = hallRef.collection(sect.shortName());
                                 // example path: /Menu/January 12, 2020/Breakfast/Everybody's Kitchen/Hot Line FOODS/
 
                                 for (var l = 0; l < sect.foods.length; l++) {
@@ -151,7 +155,7 @@ exports.scheduledFunctionCrontab = functions.pubsub.schedule('1 0 * * *')
         })
     }));
 
-exports.scheduledFunctionCrontab = functions.pubsub.schedule('0 7 * * *')
+exports.dailyPushNotification = functions.pubsub.schedule('0 6 * * *')
     .timeZone('America/Los_Angeles')
     .onRun((context => {
 

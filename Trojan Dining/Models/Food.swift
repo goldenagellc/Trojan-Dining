@@ -38,16 +38,25 @@ public final class Food: TableableData {
         self.attributes = attributes
     }
     
-    public func simpleHall() -> String {
+    public func hallShortName() -> String {
         switch hall {
         case "USC Village Dining Hall": return "Village"
-        case "Parkside Restaurant &amp; Grill": return "Parkside"
-        case "Everybody&#039;s Kitchen": return "EVK"
+        case "Parkside Restaurant & Grill": return "Parkside"
+        case "Everybody's Kitchen": return "EVK"
         default: fatalError("\(hall) wasn't found on Firebase")
         }
     }
     
-    public static func complexHall(_ hall: String) -> String {
+    public func hallLongName() -> String {
+        switch hall.lowercased() {
+        case "village": return "USC Village Dining Hall"
+        case "parkside": return "Parkside Restaurant & Grill"
+        case "evk": return "Everybody's Kitchen"
+        default: fatalError("\(hall) is unknown")
+        }
+    }
+    
+    public static func hallHTMLEncoded(_ hall: String) -> String {
         switch hall.lowercased() {
         case "village": return "USC Village Dining Hall"
         case "parkside": return "Parkside Restaurant &amp; Grill"

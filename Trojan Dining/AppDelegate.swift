@@ -50,6 +50,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // APPLE PUSH NOTIFICATION SETUP ----------------------------
         UNUserNotificationCenter.current().delegate = self
         Self.requestAuthorizationToSendNotifications()
+        // log pending notifications for debugging purposes
+        UNUserNotificationCenter.current().getPendingNotificationRequests() { requests in
+            print("Log @AppDelegate: Begin listing pending notifications")
+            requests.forEach { request in
+                print(request)
+            }
+            print("Log @AppDelegate: Done listing pending notifications")
+        }
         // ----------------------------------------------------------
         return true
     }

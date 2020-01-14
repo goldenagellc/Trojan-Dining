@@ -53,15 +53,15 @@ public final class Meal: DataDuct, CollectableData {
                     foods[foods.endIndex - 1][foods[foods.endIndex - 1].endIndex - 1].append(food)
         }}}
         
-        let iVillage = halls.firstIndex(of: Food.complexHall("Village"))!
-        let iEVK = halls.firstIndex(of: Food.complexHall("EVK"))!
-        let iParkside = halls.firstIndex(of: Food.complexHall("Parkside"))!
+        let iVillage = halls.firstIndex(of: Food.hallHTMLEncoded("Village"))!
+        let iEVK = halls.firstIndex(of: Food.hallHTMLEncoded("EVK"))!
+        let iParkside = halls.firstIndex(of: Food.hallHTMLEncoded("Parkside"))!
         
         let orderedHalls = [halls[iVillage], halls[iEVK], halls[iParkside]]
         let orderedSections = [sections[iVillage], sections[iEVK], sections[iParkside]]
         let orderedFoods = [foods[iVillage], foods[iEVK], foods[iParkside]]
 
-        self.init(name: htmlMeal.name_short, date: htmlMeal.date, halls: orderedHalls, sections: orderedSections, foods: orderedFoods)
+        self.init(name: htmlMeal.shortName, date: htmlMeal.dateText, halls: orderedHalls, sections: orderedSections, foods: orderedFoods)
     }
 
     public func apply(_ filter: Filter) {
