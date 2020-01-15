@@ -66,7 +66,7 @@ const WebScraper = require('./WebScraper');
 // //         return null;
 // //     }))
 
-exports.hourlyMenuScraping = functions.pubsub.schedule('1 0 * * *')
+exports.dailyMenuScraping = functions.pubsub.schedule('1 0 * * *')
     .timeZone('America/Los_Angeles')
     .onRun((context => {
 
@@ -155,7 +155,7 @@ exports.hourlyMenuScraping = functions.pubsub.schedule('1 0 * * *')
         })
     }));
 
-exports.dailyPushNotification = functions.pubsub.schedule('0 6 * * *')
+exports.dailyPushNotification = functions.pubsub.schedule('0 5 * * *')
     .timeZone('America/Los_Angeles')
     .onRun((context => {
 

@@ -13,13 +13,16 @@ import Firebase
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("Log @AppDelegate: Did receive remote notification")
         
         guard let aps = userInfo["aps"] as? [String : AnyObject] else {
+            print("Error @AppDelegate: Could not retrieve APS dictionary from remote notification")
             completionHandler(.failed)
             return
         }
         
         if let contentAvailable = aps["content-available"] as? Int, contentAvailable == 1 {
+            print("Log @AppDelegate: Server says to fetch content")
             // The server says to fetch data
             TrojanDiningUser.shared.fetchUserWatchlist {
                 DispatchQueue.main.async {
@@ -33,6 +36,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 AppDelegate.scheduleLocalNotification(meal: meal, hall: hall, foods: foods)
                             }
                         }
+                        print("Log @AppDelegate: Successfully fetched content")
+                        TrojanDiningUser.shared.updateDoc(fields: ["last_updated_notifications" : Timestamp()])
                         completionHandler(.newData)
                     }
                     scraperToday.resume()

@@ -36,6 +36,18 @@ public class TrojanDiningUser {
         return request
     }
     
+    public func updateDoc(fields: [String : Any]) {
+        // Check for permissions
+        if !isSignedInWithFirebase {return}
+        guard let uid = Auth.auth().currentUser?.uid else {
+            isSignedInWithFirebase = false
+            return
+        }
+        // Obtain user document
+        let userDoc = db.collection("Users").document(uid)
+        userDoc.setData(fields, merge: true)
+    }
+    
     public func fetchUserWatchlist(_ callback: @escaping () -> ()) {
         // Check if the watchlist is saved locally
         if let watchlist = UserDefaults.standard.array(forKey: "Watchlist") as? [String] {
