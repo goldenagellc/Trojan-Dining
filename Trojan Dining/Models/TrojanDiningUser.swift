@@ -121,7 +121,7 @@ public class TrojanDiningUser {
         // Obtain food document
         let foodDoc = db.collection("Foods").document(food.name)
         // Fetch the user's rating of the food
-        foodDoc.collection(food.hallShortName()).document(uid).getDocument() { (docSnapshot, error) in
+        foodDoc.collection(Food.hallShortName(food.hall)).document(uid).getDocument() { (docSnapshot, error) in
             if error != nil {
                 print("Failed to read user rating: \(error!.localizedDescription)")
                 callback(nil)
@@ -176,7 +176,7 @@ public class TrojanDiningUser {
         // Obtain food document
         let foodDoc = db.collection("Foods").document(food.name)
         // Update the user's rating of the food
-        foodDoc.collection(food.hallShortName()).document(uid).setData([
+        foodDoc.collection(Food.hallShortName(food.hall)).document(uid).setData([
             "Rating" : rating,
             "Recency" : Timestamp(date: Date(timeIntervalSinceNow: 0.0))
         ]) { (error) in
@@ -196,7 +196,7 @@ public class TrojanDiningUser {
         // Obtain food document
         let foodDoc = db.collection("Foods").document(food.name)
         // Update the average rating of the food
-        foodDoc.collection(food.hallShortName()).getDocuments() { (querySnapshot, error) in
+        foodDoc.collection(Food.hallShortName(food.hall)).getDocuments() { (querySnapshot, error) in
             if error != nil {print("Failed to fetch list of ratings: \(error!.localizedDescription)"); return}
             guard let querySnapshot = querySnapshot else {
                 print("Failed to obtain querySnapshot while fetching list of ratings.")
@@ -211,7 +211,7 @@ public class TrojanDiningUser {
             // Compute average and save to Firebase
             let average = ratings.count > 0 ? ratings.reduce(0, +)/ratings.count : 0
             foodDoc.setData([
-                "Rating" : [food.hallShortName() : average]
+                "Rating" : [Food.hallShortName(food.hall) : average]
             ], merge: true)
         }
     }

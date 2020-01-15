@@ -38,7 +38,7 @@ public final class Food: TableableData {
         self.attributes = attributes
     }
     
-    public func hallShortName() -> String {
+    public static func hallShortName(_ hall: String) -> String {
         switch hall {
         case "USC Village Dining Hall": return "Village"
         case "Parkside Restaurant & Grill": return "Parkside"
@@ -47,7 +47,7 @@ public final class Food: TableableData {
         }
     }
     
-    public func hallLongName() -> String {
+    public static func hallLongName(_ hall: String) -> String {
         switch hall.lowercased() {
         case "village": return "USC Village Dining Hall"
         case "parkside": return "Parkside Restaurant & Grill"
@@ -56,14 +56,14 @@ public final class Food: TableableData {
         }
     }
     
-    public static func hallHTMLEncoded(_ hall: String) -> String {
-        switch hall.lowercased() {
-        case "village": return "USC Village Dining Hall"
-        case "parkside": return "Parkside Restaurant &amp; Grill"
-        case "evk": return "Everybody&#039;s Kitchen"
-        default: fatalError("\(hall) is unknown")
-        }
-    }
+//    public static func hallHTMLEncoded(_ hall: String) -> String {
+//        switch hall.lowercased() {
+//        case "village": return "USC Village Dining Hall"
+//        case "parkside": return "Parkside Restaurant &amp; Grill"
+//        case "evk": return "Everybody&#039;s Kitchen"
+//        default: fatalError("\(hall) is unknown")
+//        }
+//    }
 
     public func hasAny(unacceptableAttributes attributes: [String]) -> Bool {
         for attribute in attributes {

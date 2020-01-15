@@ -50,14 +50,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // APPLE PUSH NOTIFICATION SETUP ----------------------------
         UNUserNotificationCenter.current().delegate = self
         Self.requestAuthorizationToSendNotifications()
+        #if DEBUG
         // log pending notifications for debugging purposes
         UNUserNotificationCenter.current().getPendingNotificationRequests() { requests in
             print("Log @AppDelegate: Begin listing pending notifications")
             requests.forEach { request in
-                print(request)
+                print("--> ID: \(request.identifier)\n----> Body: \(request.content.body)")
             }
             print("Log @AppDelegate: Done listing pending notifications")
         }
+        // schedule notifications for debugging purposes
+        TrojanDiningUser.shared.fetchUserWatchlist {
+            DispatchQueue.main.async {
+                let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
+
+                    // TODO: there's probably a better way to manage existing notifications
+                    UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+
+                    watchlistHits?.forEach { hall, mealFoodDict in
+                        mealFoodDict.forEach { meal, foods in
+                            AppDelegate.scheduleLocalNotification(meal: meal, hall: hall, foods: foods)
+                        }
+                    }
+                }
+                scraperToday.resume()
+            }
+        }
+        #endif
         // ----------------------------------------------------------
         return true
     }

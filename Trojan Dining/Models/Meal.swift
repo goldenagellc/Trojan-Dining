@@ -40,22 +40,23 @@ public final class Meal: DataDuct, CollectableData {
         var halls: [String] = []
         var sections: [[String]] = []
         var foods: [[[Food]]] = []
-
-        for htmlHall in htmlMeal.halls {
-            halls.append(htmlHall.name)
+        
+        for i in 0..<htmlMeal.halls.count {
+            var htmlHall = htmlMeal.halls[i]
+            halls.append(htmlHall.decodedName)
             sections.append([])
             foods.append([])
             for htmlSection in htmlHall.sections {
                 sections[sections.endIndex - 1].append(htmlSection.name)
                 foods[foods.endIndex - 1].append([])
                 for htmlFood in htmlSection.foods {
-                    let food = Food(name: htmlFood.name, hall: htmlHall.name, section: htmlSection.name, attributes: htmlFood.allergens)
+                    let food = Food(name: htmlFood.name, hall: htmlHall.decodedName, section: htmlSection.name, attributes: htmlFood.allergens)
                     foods[foods.endIndex - 1][foods[foods.endIndex - 1].endIndex - 1].append(food)
         }}}
         
-        let iVillage = halls.firstIndex(of: Food.hallHTMLEncoded("Village"))!
-        let iEVK = halls.firstIndex(of: Food.hallHTMLEncoded("EVK"))!
-        let iParkside = halls.firstIndex(of: Food.hallHTMLEncoded("Parkside"))!
+        let iVillage = halls.firstIndex(of: Food.hallLongName("Village"))!
+        let iEVK = halls.firstIndex(of: Food.hallLongName("EVK"))!
+        let iParkside = halls.firstIndex(of: Food.hallLongName("Parkside"))!
         
         let orderedHalls = [halls[iVillage], halls[iEVK], halls[iParkside]]
         let orderedSections = [sections[iVillage], sections[iEVK], sections[iParkside]]
