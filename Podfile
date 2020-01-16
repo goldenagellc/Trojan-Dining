@@ -10,6 +10,7 @@ target 'Trojan Dining' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Messaging'
 
   pod 'FirebaseFirestoreSwift'
 

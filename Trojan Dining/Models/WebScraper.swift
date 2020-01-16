@@ -9,15 +9,17 @@
 import Foundation
 
 class WebScraper {
+    public typealias Callback = ([Meal], [String : [String : [String]]]?) -> Void
+    
     private let url: URL
-    private let callback: ([Meal]) -> Void
+    private let callback: Callback
     private let menuBuilder: MenuBuilder
     private var task: URLSessionDataTask? = nil
     
-    public init(forURL url: String, callback: @escaping ([Meal]) -> Void) {
+    public init(forURL url: String, checkingWatchlist: Bool = false, callback: @escaping Callback) {
         self.url = URL(string: url)!
         self.callback = callback
-        self.menuBuilder = MenuBuilder()
+        self.menuBuilder = MenuBuilder(shouldCheckWatchlist: checkingWatchlist)
         
         task = URLSession.shared.dataTask(with: self.url) { data, response, error in
             // error handling part 1 TODO
@@ -65,9 +67,9 @@ class WebScraper {
     
     private func propagateMenuChanges() {
         var menu: [Meal] = []
-        for htmlMeal in menuBuilder.mealHierarchy() {menu.append(Meal(fromHTMLMeal: htmlMeal))}
+        for htmlMeal in menuBuilder.menu {menu.append(Meal(fromHTMLMeal: htmlMeal))}
 
-        callback(menu)
+        callback(menu, menuBuilder.watchlistHits)
     }
     
     public func resume() {task!.resume()}

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 import AuthenticationServices
 import Firebase
 import FirebaseAuth
@@ -15,27 +16,69 @@ import FirebaseAuth
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let notificationCenter = UNUserNotificationCenter.current()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // FIREBASE SETUP -------------------------------------------
         FirebaseApp.configure()
         
-//        let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-//            print(auth.currentUser)
-//            print(user?.uid)
-//        }
-        
+        // user account
         if let firebaseUser = Auth.auth().currentUser {
             TrojanDiningUser.shared.isSignedInWithFirebase = true
-            print("Firebase UID: \(firebaseUser.uid)")
+            print("Log @AppDelegate: Firebase UID = \(firebaseUser.uid)")
             if let appleUserID = firebaseUser.displayName {
-                print("Apple UID: \(appleUserID)")
+                print("Log @AppDelegate: Apple UID = \(appleUserID)")
                 ASAuthorizationAppleIDProvider().getCredentialState(forUserID: appleUserID) { (credentialState, error) in
                     TrojanDiningUser.shared.isSignedInWithApple = credentialState
                 }
             }
         }
         
+        // messaging
+        Messaging.messaging().delegate = self
+        Messaging.messaging().subscribe(toTopic: "NewMeals") { error in
+            if let error = error {
+                print("Error @AppDelegate: Failed to subscribe to NewMeals topic \(error.localizedDescription)")
+                return
+            }
+            print("Log @AppDelegate: Successfully subscribed to NewMeals topic")
+        }
+        // ----------------------------------------------------------
+        
+        // APPLE PUSH NOTIFICATION SETUP ----------------------------
+        UNUserNotificationCenter.current().delegate = self
+        Self.requestAuthorizationToSendNotifications()
+        #if DEBUG
+        // log pending notifications for debugging purposes
+        UNUserNotificationCenter.current().getPendingNotificationRequests() { requests in
+            print("Log @AppDelegate: Begin listing pending notifications")
+            requests.forEach { request in
+                print("--> ID: \(request.identifier)\n----> Body: \(request.content.body)")
+            }
+            print("Log @AppDelegate: Done listing pending notifications")
+        }
+        // schedule notifications for debugging purposes
+//        TrojanDiningUser.shared.fetchUserWatchlist {
+//            DispatchQueue.main.async {
+//                let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
+//
+//                    // TODO: there's probably a better way to manage existing notifications
+//                    UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+//                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//
+//                    watchlistHits?.forEach { hall, mealFoodDict in
+//                        mealFoodDict.forEach { meal, foods in
+//                            AppDelegate.scheduleLocalNotification(meal: meal, hall: hall, foods: foods)
+//                        }
+//                    }
+//                }
+//                scraperToday.resume()
+//            }
+//        }
+        #endif
+        // ----------------------------------------------------------
         return true
     }
 
@@ -60,6 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
+
+
+

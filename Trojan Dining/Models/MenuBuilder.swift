@@ -10,7 +10,11 @@ import UIKit
 
 public class MenuBuilder {
     
-    private var menu: [HTMLMeal] = []
+    public private(set) var menu: [HTMLMeal] = []
+    
+    private var shouldCheckWatchlist: Bool = false
+    //                                     [Hall   : [Meal   : [Food  ]]]
+    public private(set) var watchlistHits: [String : [String : [String]]]? = nil
     
     var currentMeal: HTMLMeal?
     var currentHall: HTMLHall?
@@ -22,7 +26,10 @@ public class MenuBuilder {
     var readingSect: Bool = false
     var readingFood: Bool = false
     
-    public init() {}
+    public init(shouldCheckWatchlist: Bool = false) {
+        self.shouldCheckWatchlist = shouldCheckWatchlist
+        if self.shouldCheckWatchlist {watchlistHits = [:]}
+    }
     
     public func processNewText(_ text: String) {
         // NOTE: this method relies on currentMeal, currentHall, currentSect, and currentFood being set to nil upon successful population
@@ -63,8 +70,6 @@ public class MenuBuilder {
         }
     }
     
-    public func mealHierarchy() -> [HTMLMeal] {return menu}
-    
     public func mealIsNil() -> Bool {return currentMeal == nil}
     public func hallIsNil() -> Bool {return currentHall == nil}
     public func sectIsNil() -> Bool {return currentSect == nil}
@@ -77,9 +82,21 @@ public class MenuBuilder {
     
     public func saveMeal() {if let meal = currentMeal, meal.halls.count == 3 {menu.append(meal)}}
     private func saveHall() {if let hall = currentHall {currentMeal!.halls.append(hall)}}
-    private func saveSect() {if let sect = currentSect {
-        currentHall?.sections.append(sect)}}//TODO this broke when there were 4 meals (thanksgiving)
-    private func saveFood() {if let food = currentFood {currentSect!.foods.append(food)}}
+    private func saveSect() {if let sect = currentSect {currentHall?.sections.append(sect)}}//TODO this broke when there were 4 meals (thanksgiving)
+    private func saveFood() {
+        if let food = currentFood {
+            currentSect!.foods.append(food)
+            if shouldCheckWatchlist {
+                TrojanDiningUser.shared.watchlist.forEach { watchedTerm in
+                    if food.name.lowercased().contains(watchedTerm.lowercased()) {
+                        var current = watchlistHits![currentHall!.decodedName] ?? [:]
+                        current[currentMeal!.shortName] = (current[currentMeal!.name] ?? []) + [food.name]
+                        watchlistHits![currentHall!.decodedName] = current
+                    }
+                }
+            }
+        }
+    }
     
     private func resetMeal() {currentMeal = nil; readingMeal = true;}
     private func resetHall() {currentHall = nil; readingHall = false;}
@@ -102,23 +119,15 @@ extension MenuBuilder {
             self.halls = halls
         }
         
-        // MARK: - Convenience Methods using Scraped Properties
-        private var _name_short: String? = nil
-        public var name_short: String {return self._name_short ?? self.split_name().0}
+        // MARK: - Convenience methods using scraped properties
+        public lazy var shortName: String = {
+            return String(name.split(separator: " ")[0])
+        }()
         
-        private var _date: String? = nil
-        public var date: String {return self._date ?? self.split_name().1}
-        
-        private func split_name() -> (String, String) {
-            let index_1st_space = name.firstIndex(of: " ") ?? name.endIndex
-            let index_1st_dash = name.firstIndex(of: "-") ?? index_1st_space
-            let index_4th_space = name.index(index_1st_dash, offsetBy: 2)
-            
-            self._name_short = String(self.name[..<index_1st_space])
-            self._date = String(self.name[index_4th_space...])
-            
-            return (self._name_short!, self._date!)
-        }
+        public lazy var dateText: String = {
+            let date = name.split(separator: "-")[1]
+            return String(date.suffix(date.count - 1))
+        }()
     }
     
     public struct HTMLHall {
@@ -127,6 +136,24 @@ extension MenuBuilder {
         
         static let startTag: String = "<h3 class=\"menu-venue-title\">"
         static let endTag: String = "</div>"
+        
+        // MARK: - Convenience methods using scraped properties
+        static let decodingOptions: [NSAttributedString.DocumentReadingOptionKey : Any] = [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ]
+        public lazy var decodedName: String = {
+            guard let encoded = name.data(using: .utf8) else {
+                return name
+            }
+            do {
+                let decoded = try NSAttributedString(data: encoded, options: HTMLHall.decodingOptions, documentAttributes: nil)
+                return decoded.string
+            }catch {
+                print("Failed to html-decode hall name: \(error)")
+                return name
+            }
+        }()
     }
     
     public struct HTMLSection {

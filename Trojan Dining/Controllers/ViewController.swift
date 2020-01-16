@@ -44,13 +44,13 @@ class ViewController: UIViewController, DataDuct {
 
         filterView.dataDuct = self
 
-        let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today)) {menu in
+        let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today)) { menu, _ in
             DispatchQueue.main.async {self.menuToday = menu; self.reloadData()}
         }
-        let scraperTomorrow = WebScraper(forURL: URLBuilder.url(for: .tomorrow)) {menu in
+        let scraperTomorrow = WebScraper(forURL: URLBuilder.url(for: .tomorrow)) { menu, _ in
             DispatchQueue.main.async {self.menuTomorrow = menu; self.reloadData()}
         }
-        let scraperTheNextDay = WebScraper(forURL: URLBuilder.url(for: .theNextDay)) {menu in
+        let scraperTheNextDay = WebScraper(forURL: URLBuilder.url(for: .theNextDay)) { menu, _ in
             DispatchQueue.main.async {self.menuTheNextDay = menu; self.reloadData()}
         }
         scraperToday.resume()
