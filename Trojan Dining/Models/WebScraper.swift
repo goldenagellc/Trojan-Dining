@@ -9,12 +9,14 @@
 import Foundation
 
 class WebScraper {
+    public typealias Callback = ([Meal], [String : [String : [String]]]?) -> Void
+    
     private let url: URL
-    private let callback: ([Meal], [String : [String : [String]]]?) -> Void
+    private let callback: Callback
     private let menuBuilder: MenuBuilder
     private var task: URLSessionDataTask? = nil
     
-    public init(forURL url: String, checkingWatchlist: Bool = false, callback: @escaping ([Meal], [String : [String : [String]]]?) -> Void) {
+    public init(forURL url: String, checkingWatchlist: Bool = false, callback: @escaping Callback) {
         self.url = URL(string: url)!
         self.callback = callback
         self.menuBuilder = MenuBuilder(shouldCheckWatchlist: checkingWatchlist)

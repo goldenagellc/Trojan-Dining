@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 class UpgradeViewController: UIViewController {
 
@@ -14,14 +15,31 @@ class UpgradeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(Self.handlePurchaseNotification), name: .MarketPurchaseNotification, object: nil)
     }
     
     @IBAction func subscribeNow(_ sender: UIButton) {
+        Market.shared.requestProducts { success, products in
+            if success {
+                guard let products = products else {return}
+                for product in products {
+                    if product.productIdentifier == TrojanDiningProducts.MonthlyPro {
+                        Market.shared.buy(product: product)
+                        break
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func signIn(_ sender: UIButton) {
     }
     
     @IBAction func restorePurchases(_ sender: UIButton) {
+        Market.shared.restorePurchases()
+    }
+    
+    @objc func handlePurchaseNotification(_ notification: Notification) {
+        dismiss(animated: true, completion: nil)
     }
 }

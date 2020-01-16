@@ -29,8 +29,21 @@ class NotificationViewController: UIViewController {
     }
     
     @IBAction func onPlusButtonTapped(_ sender: UIButton) {
-        watchlist.append("")
-        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+//        TrojanDiningUser.shared.hasUpgraded { [weak self] hasUpgraded in
+//            if hasUpgraded {
+//                self?.watchlist.append("")
+//                self?.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+//            }else {
+//                self?.performSegue(withIdentifier: "UpgradeSegue", sender: self)
+//            }
+//        }
+        
+        if Market.shared.isProductPurchased(TrojanDiningProducts.MonthlyPro) {
+            watchlist.append("")
+            tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }else {
+            performSegue(withIdentifier: "UpgradeSegue", sender: self)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -38,19 +51,6 @@ class NotificationViewController: UIViewController {
         let watchlistFull = watchlist.filter({$0 != ""})
         TrojanDiningUser.shared.setUserWatchlist(watchlistFull)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    
-
 }
 
 extension NotificationViewController: UITextFieldDelegate {
