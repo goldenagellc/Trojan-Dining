@@ -155,7 +155,7 @@ exports.dailyMenuScraping = functions.pubsub.schedule('1 0 * * *')
         })
     }));
 
-exports.dailyPushNotification = functions.pubsub.schedule('0 5 * * *')
+exports.dailyPushNotification = functions.pubsub.schedule('15,45 1,2,3,4,5 * * *')
     .timeZone('America/Los_Angeles')
     .onRun((context => {
 
