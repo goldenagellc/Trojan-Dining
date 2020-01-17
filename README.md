@@ -11,3 +11,5 @@ Features:
 - easily swipe between meals  
 - see menus multiple days in advance  
   
+Pro Features:  
+- get notified when your favorite foods are being served  
