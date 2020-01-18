@@ -11,6 +11,7 @@ import UserNotifications
 import AuthenticationServices
 import Firebase
 import FirebaseAuth
+import BackgroundTasks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -59,26 +60,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             print("Log @AppDelegate: Done listing pending notifications")
         }
-        // schedule notifications for debugging purposes
-//        TrojanDiningUser.shared.fetchUserWatchlist {
-//            DispatchQueue.main.async {
-//                let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
-//
-//                    // TODO: there's probably a better way to manage existing notifications
-//                    UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-//                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-//
-//                    watchlistHits?.forEach { hall, mealFoodDict in
-//                        mealFoodDict.forEach { meal, foods in
-//                            AppDelegate.scheduleLocalNotification(meal: meal, hall: hall, foods: foods)
-//                        }
-//                    }
-//                }
-//                scraperToday.resume()
-//            }
-//        }
         #endif
         // ----------------------------------------------------------
+        
+        // BACKGROUND FETCH SETUP -----------------------------------
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "info.haydenshively.trojan-dining.schedule-notifications", using: nil) { task in
+            
+            task.expirationHandler = {
+                // Do nothing
+            }
+            
+            TrojanDiningUser.shared.fetchUserWatchlist {
+                let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
+                    
+                    // TODO: there's probably a better way to manage existing notifications
+                    UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                    
+                    watchlistHits?.forEach { hall, mealFoodDict in
+                        mealFoodDict.forEach { meal, foods in
+                            AppDelegate.scheduleLocalNotification(meal: meal, hall: hall, foods: foods)
+                        }
+                    }
+                    print("Log @AppDelegate: Successfully fetched content")
+                    TrojanDiningUser.shared.updateDoc(fields: ["last_updated_notifications" : Timestamp()])
+                    task.setTaskCompleted(success: true)
+                }
+                scraperToday.resume()
+            }
+        }
         return true
     }
 
@@ -90,6 +99,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        do {
+            BGTaskScheduler.shared.cancelAllTaskRequests()
+            let request = BGAppRefreshTaskRequest(identifier: "info.haydenshively.trojan-dining.schedule-notifications")
+            request.earliestBeginDate = Calendar.current.startOfDay(for: Date()).addingTimeInterval(TimeInterval(24*60*60 + 60))
+            try BGTaskScheduler.shared.submit(request)
+        }catch {
+            print(error.localizedDescription)
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

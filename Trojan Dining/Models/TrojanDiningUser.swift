@@ -36,32 +36,44 @@ public class TrojanDiningUser {
         return request
     }
     
-    public func updateDoc(fields: [String : Any]) {
+    /*
+     If user is signed in, merge the specified fields into their user document.
+     Aborts and returns true if sign in is necessary; false otherwise.
+     */
+    public func updateDoc(fields: [String : Any]) -> Bool {
         // Check for permissions
-        if !isSignedInWithFirebase {return}
+        if !isSignedInWithFirebase {return true}
         guard let uid = Auth.auth().currentUser?.uid else {
             isSignedInWithFirebase = false
-            return
+            return true
         }
         // Obtain user document
         let userDoc = db.collection("Users").document(uid)
         userDoc.setData(fields, merge: true)
+        return false
     }
     
-    public func fetchUserWatchlist(_ callback: @escaping () -> ()) {
+    /*
+     Attempts to retrieve user's watchlist. Will fetch from device storage if available,
+     otherwise pulls from Firebase. Callback is called when function finishes, even if
+     watchlist has not been retrieved. Returns true if user sign in is required, false if
+     user is signed in, and nil if watchlist was retrieved from device storage.
+     */
+    public func fetchUserWatchlist(_ callback: @escaping () -> ()) -> Bool? {
         // Check if the watchlist is saved locally
         if let watchlist = UserDefaults.standard.array(forKey: "Watchlist") as? [String] {
             self.watchlist = watchlist
             callback()
+            return nil
         }
         // If not, try to fetch it from Firebase
         else {
             // Check for permissions
-            if !isSignedInWithFirebase {callback(); return}
+            if !isSignedInWithFirebase {callback(); return true}
             guard let uid = Auth.auth().currentUser?.uid else {
                 isSignedInWithFirebase = false
                 callback()
-                return
+                return true
             }
             // Obtain user document
             let userDoc = db.collection("Users").document(uid)
@@ -82,16 +94,17 @@ public class TrojanDiningUser {
                 self.saveWatchlistLocally()
                 callback()
             }
+            return false
         }
     }
     
-    public func setUserWatchlist(_ newValue: [String]) {
+    public func setUserWatchlist(_ newValue: [String]) -> Bool {
         self.watchlist = newValue
         // Check for permissions
-        if !isSignedInWithFirebase {return}
+        if !isSignedInWithFirebase {return true}
         guard let uid = Auth.auth().currentUser?.uid else {
             isSignedInWithFirebase = false
-            return
+            return true
         }
         // Obtain user document
         let userDoc = db.collection("Users").document(uid)
@@ -116,6 +129,7 @@ public class TrojanDiningUser {
         }
         // Also save the watchlist locally
         saveWatchlistLocally()
+        return false
     }
     
     private func saveWatchlistLocally() {
@@ -254,6 +268,7 @@ public class TrojanDiningUser {
                 return
             }
             // User is signed in to Firebase with Apple.
+            print("Log @TrojanDiningUser: successfully signed in with Apple and with Firebase")
             self.isSignedInWithApple = .authorized
             self.isSignedInWithFirebase = true
         }

@@ -101,8 +101,10 @@ extension Market: SKPaymentTransactionObserver {
                 restore(transaction: transaction)
                 break
             case .deferred:
+                print("Purchase deferred")
                 break
             case .purchasing:
+                print("Purchasing")
                 break
             @unknown default:
                 break
@@ -138,6 +140,7 @@ extension Market: SKPaymentTransactionObserver {
         
         productsPurchased.insert(identifier)
         UserDefaults.standard.set(true, forKey: identifier)
+        TrojanDiningUser.shared.updateDoc(fields: ["monthly_pro" : true])
         NotificationCenter.default.post(name: .MarketPurchaseNotification, object: identifier)
     }
 }

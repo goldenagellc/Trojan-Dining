@@ -25,23 +25,21 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             print("Log @AppDelegate: Server says to fetch content")
             // The server says to fetch data
             TrojanDiningUser.shared.fetchUserWatchlist {
-                DispatchQueue.main.async {
-                    let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
-                        
-                        // TODO: there's probably a better way to manage existing notifications
-                        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-                        
-                        watchlistHits?.forEach { hall, mealFoodDict in
-                            mealFoodDict.forEach { meal, foods in
-                                AppDelegate.scheduleLocalNotification(meal: meal, hall: hall, foods: foods)
-                            }
+                let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
+                    
+                    // TODO: there's probably a better way to manage existing notifications
+                    UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                    
+                    watchlistHits?.forEach { hall, mealFoodDict in
+                        mealFoodDict.forEach { meal, foods in
+                            AppDelegate.scheduleLocalNotification(meal: meal, hall: hall, foods: foods)
                         }
-                        print("Log @AppDelegate: Successfully fetched content")
-                        TrojanDiningUser.shared.updateDoc(fields: ["last_updated_notifications" : Timestamp()])
-                        completionHandler(.newData)
                     }
-                    scraperToday.resume()
+                    print("Log @AppDelegate: Successfully fetched content")
+                    TrojanDiningUser.shared.updateDoc(fields: ["last_updated_notifications" : Timestamp()])
+                    completionHandler(.newData)
                 }
+                scraperToday.resume()
             }
         }
     }
