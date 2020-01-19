@@ -88,6 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 scraperToday.resume()
             }
         }
+        // ----------------------------------------------------------
         return true
     }
 
@@ -104,6 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let request = BGAppRefreshTaskRequest(identifier: "info.haydenshively.trojan-dining.schedule-notifications")
             request.earliestBeginDate = Calendar.current.startOfDay(for: Date()).addingTimeInterval(TimeInterval(24*60*60 + 60))
             try BGTaskScheduler.shared.submit(request)
+            print("Log @AppDelegate: Successfully scheduled background task")
         }catch {
             print(error.localizedDescription)
         }

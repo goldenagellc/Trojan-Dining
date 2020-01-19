@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		5E9765759C43EC7762EE4DB8 /* Pods_Trojan_Dining.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1207B618EA10D0B206ED315F /* Pods_Trojan_Dining.framework */; };
+		BE0B090E23D3C65A002B041D /* FsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B090D23D3C65A002B041D /* FsCollection.swift */; };
+		BE0B091023D3C662002B041D /* FsDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B090F23D3C662002B041D /* FsDocument.swift */; };
+		BE0B091223D3E25F002B041D /* FsRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B091123D3E25F002B041D /* FsRoot.swift */; };
+		BE0B091723D4384C002B041D /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B091623D4384C002B041D /* Map.swift */; };
+		BE0B091B23D43D3C002B041D /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B091A23D43D3C002B041D /* Users.swift */; };
+		BE0B091D23D43D6A002B041D /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B091C23D43D6A002B041D /* Watchlist.swift */; };
+		BE0B091F23D43D8D002B041D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B091E23D43D8D002B041D /* User.swift */; };
+		BE0B092123D43DA7002B041D /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B092023D43DA7002B041D /* Bool.swift */; };
+		BE0B092323D45977002B041D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B092223D45977002B041D /* Extensions.swift */; };
 		BE7BEF7E239C82BB00977EE0 /* ViewCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BEF7D239C82BB00977EE0 /* ViewCollectionView.swift */; };
 		BE7BEF81239C869400977EE0 /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BEF7F239C869400977EE0 /* MealCell.swift */; };
 		BE7BEF82239C869400977EE0 /* MealCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE7BEF80239C869400977EE0 /* MealCell.xib */; };
@@ -77,6 +86,15 @@
 		1207B618EA10D0B206ED315F /* Pods_Trojan_Dining.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trojan_Dining.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71849656A04F38282D417D84 /* Pods-Trojan Dining.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trojan Dining.debug.xcconfig"; path = "Target Support Files/Pods-Trojan Dining/Pods-Trojan Dining.debug.xcconfig"; sourceTree = "<group>"; };
 		AB07223A8BCC15F9144062B7 /* Pods-Trojan Dining.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trojan Dining.release.xcconfig"; path = "Target Support Files/Pods-Trojan Dining/Pods-Trojan Dining.release.xcconfig"; sourceTree = "<group>"; };
+		BE0B090D23D3C65A002B041D /* FsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FsCollection.swift; sourceTree = "<group>"; };
+		BE0B090F23D3C662002B041D /* FsDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FsDocument.swift; sourceTree = "<group>"; };
+		BE0B091123D3E25F002B041D /* FsRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FsRoot.swift; sourceTree = "<group>"; };
+		BE0B091623D4384C002B041D /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		BE0B091A23D43D3C002B041D /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		BE0B091C23D43D6A002B041D /* Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist.swift; sourceTree = "<group>"; };
+		BE0B091E23D43D8D002B041D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BE0B092023D43DA7002B041D /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
+		BE0B092223D45977002B041D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BE7BEF7D239C82BB00977EE0 /* ViewCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCollectionView.swift; sourceTree = "<group>"; };
 		BE7BEF7F239C869400977EE0 /* MealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCell.swift; sourceTree = "<group>"; };
 		BE7BEF80239C869400977EE0 /* MealCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealCell.xib; sourceTree = "<group>"; };
@@ -149,6 +167,38 @@
 				1207B618EA10D0B206ED315F /* Pods_Trojan_Dining.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE0B090C23D3C630002B041D /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				BE0B091623D4384C002B041D /* Map.swift */,
+				BE0B091123D3E25F002B041D /* FsRoot.swift */,
+				BE0B090D23D3C65A002B041D /* FsCollection.swift */,
+				BE0B090F23D3C662002B041D /* FsDocument.swift */,
+				BE0B091823D43CA4002B041D /* FsCollections */,
+				BE0B091923D43CB5002B041D /* FsDocuments */,
+				BE0B092223D45977002B041D /* Extensions.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
+		BE0B091823D43CA4002B041D /* FsCollections */ = {
+			isa = PBXGroup;
+			children = (
+				BE0B091A23D43D3C002B041D /* Users.swift */,
+				BE0B091C23D43D6A002B041D /* Watchlist.swift */,
+			);
+			path = FsCollections;
+			sourceTree = "<group>";
+		};
+		BE0B091923D43CB5002B041D /* FsDocuments */ = {
+			isa = PBXGroup;
+			children = (
+				BE0B091E23D43D8D002B041D /* User.swift */,
+				BE0B092023D43DA7002B041D /* Bool.swift */,
+			);
+			path = FsDocuments;
 			sourceTree = "<group>";
 		};
 		BE7BEF8F239CA2E100977EE0 /* Abstract */ = {
@@ -229,6 +279,7 @@
 		C46E0F65217DAFF7007F5452 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BE0B090C23D3C630002B041D /* Firestore */,
 				BEE57C3323A4EF9700F90FC8 /* TrojanDiningUser.swift */,
 				BE7BEF90239CA2FA00977EE0 /* Abstract */,
 				BE7BEF8D239C9AE500977EE0 /* Meal.swift */,
@@ -444,8 +495,11 @@
 			files = (
 				C44DE8E4219805CD00CFC981 /* FilterView.swift in Sources */,
 				BEB5E39A23C7039D006F3DFE /* WatchlistCell.swift in Sources */,
+				BE0B091723D4384C002B041D /* Map.swift in Sources */,
 				C45E3453218EB46300A8C28E /* URLBuilder.swift in Sources */,
 				BEEB6C7E239CC769007062D7 /* FoodDetailController.swift in Sources */,
+				BE0B092123D43DA7002B041D /* Bool.swift in Sources */,
+				BE0B091023D3C662002B041D /* FsDocument.swift in Sources */,
 				BEB5E39523C6FA2B006F3DFE /* UpgradeViewController.swift in Sources */,
 				C455B29021B53C6700309A7A /* Filter.swift in Sources */,
 				C46E0F6B217DB0B2007F5452 /* FoodCell.swift in Sources */,
@@ -453,22 +507,28 @@
 				BEB5E39723C6FA49006F3DFE /* NotificationViewController.swift in Sources */,
 				BE7BEF86239C88FC00977EE0 /* TableableData.swift in Sources */,
 				BE7BEF88239C894900977EE0 /* CollectableCell.swift in Sources */,
+				BE0B091F23D43D8D002B041D /* User.swift in Sources */,
 				C455B28E21B51EB700309A7A /* FilterCollectionCell.swift in Sources */,
 				C46E0F71217DB989007F5452 /* MenuBuilder.swift in Sources */,
 				BE7BEF8E239C9AE500977EE0 /* Meal.swift in Sources */,
 				BE7BEF8C239C974400977EE0 /* ViewInteraction.swift in Sources */,
+				BE0B092323D45977002B041D /* Extensions.swift in Sources */,
+				BE0B091B23D43D3C002B041D /* Users.swift in Sources */,
 				BE7BEF7E239C82BB00977EE0 /* ViewCollectionView.swift in Sources */,
 				BE7BEF8A239C8A1B00977EE0 /* CollectableData.swift in Sources */,
 				BE91936023D0042200B0DEA3 /* Market.swift in Sources */,
 				BEF67973239CDBAB00BBB88D /* StarRatingView.swift in Sources */,
+				BE0B090E23D3C65A002B041D /* FsCollection.swift in Sources */,
 				C444FBE621B49B6A00E8C2F7 /* ViewController.swift in Sources */,
 				C46E0F6F217DB97B007F5452 /* WebScraper.swift in Sources */,
 				BE7BEF84239C88BD00977EE0 /* TableableCell.swift in Sources */,
 				BE7BEF81239C869400977EE0 /* MealCell.swift in Sources */,
 				BEDE0DE823C9B12C0012216A /* MessagingDelegate.swift in Sources */,
 				C46E0F54217DAFEA007F5452 /* AppDelegate.swift in Sources */,
+				BE0B091D23D43D6A002B041D /* Watchlist.swift in Sources */,
 				C4F9D2542187BD7E0081606A /* Food.swift in Sources */,
 				BEE57C3423A4EF9700F90FC8 /* TrojanDiningUser.swift in Sources */,
+				BE0B091223D3E25F002B041D /* FsRoot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
