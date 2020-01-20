@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // FIREBASE SETUP -------------------------------------------
         FirebaseApp.configure()
+        FS_TYPE_MAP()
         
         // user account
         if let firebaseUser = Auth.auth().currentUser {
@@ -70,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Do nothing
             }
             
-            TrojanDiningUser.shared.fetchUserWatchlist {
+            TrojanDiningUser.shared.fetch { (watchlist: FsC_Watchlist) in
                 let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
                     
                     // TODO: there's probably a better way to manage existing notifications
@@ -82,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                     }
                     print("Log @AppDelegate: Successfully fetched content")
-                    TrojanDiningUser.shared.updateDoc(fields: ["last_updated_notifications" : Timestamp()])
+                    TrojanDiningUser.shared.set(lastScheduledNotifications: Date())
                     task.setTaskCompleted(success: true)
                 }
                 scraperToday.resume()

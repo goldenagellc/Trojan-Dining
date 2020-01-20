@@ -17,15 +17,17 @@ public class TrojanDiningUser {
     public private(set) static var shared: TrojanDiningUser = {
         return TrojanDiningUser()
     }()
+    private init() {}
     
     public var isSignedInWithApple: ASAuthorizationAppleIDProvider.CredentialState = .notFound
     public var isSignedInWithFirebase: Bool = false
     private var currentNonce: String? = nil
-    private var db: Firestore = Firestore.firestore()
+
+    public private(set) var fs_user: FsD_User? = nil
+    public private(set) var fs_watchlist: FsC_Watchlist? = nil
+    public var watchlist: [String] {return fs_watchlist?.children.filter({($0 as! FsD_Bool).bool}).map({$0.uid}) ?? []}
     
-    public private(set) var watchlist: [String] = []
     
-    private init() {}
     
     public func signInWithAppleRequest() -> ASAuthorizationAppleIDRequest {
         currentNonce = String.randomNonce()
@@ -37,103 +39,91 @@ public class TrojanDiningUser {
     }
     
     /*
-     If user is signed in, merge the specified fields into their user document.
-     Aborts and returns true if sign in is necessary; false otherwise.
-     */
-    public func updateDoc(fields: [String : Any]) -> Bool {
-        // Check for permissions
-        if !isSignedInWithFirebase {return true}
-        guard let uid = Auth.auth().currentUser?.uid else {
-            isSignedInWithFirebase = false
-            return true
-        }
-        // Obtain user document
-        let userDoc = db.collection("Users").document(uid)
-        userDoc.setData(fields, merge: true)
-        return false
-    }
-    
-    /*
      Attempts to retrieve user's watchlist. Will fetch from device storage if available,
      otherwise pulls from Firebase. Callback is called when function finishes, even if
      watchlist has not been retrieved. Returns true if user sign in is required, false if
      user is signed in, and nil if watchlist was retrieved from device storage.
      */
-    public func fetchUserWatchlist(_ callback: @escaping () -> ()) -> Bool? {
-        // Check if the watchlist is saved locally
-        if let watchlist = UserDefaults.standard.array(forKey: "Watchlist") as? [String] {
-            self.watchlist = watchlist
-            callback()
-            return nil
+    
+    public func fetch(_ callback: @escaping (FsD_User) -> ()) {
+        guard let uid = self.uid else {
+            print("Error @TrojanDiningUser.fetch: uid was nil, most likely due to lack of sign in")
+            return
         }
-        // If not, try to fetch it from Firebase
-        else {
-            // Check for permissions
-            if !isSignedInWithFirebase {callback(); return true}
-            guard let uid = Auth.auth().currentUser?.uid else {
-                isSignedInWithFirebase = false
-                callback()
-                return true
-            }
-            // Obtain user document
-            let userDoc = db.collection("Users").document(uid)
-            // Fetch the user's watchlist
-            userDoc.collection("Watchlist").getDocuments { snapshot, error in
-                if let error = error {
-                    print("Failed to fetch user's watchlist: \(error.localizedDescription)")
-                    callback()
-                    return
-                }
-                guard let snapshot = snapshot else {
-                    print("Failed to fetch user's watchlist: snapshot was nil")
-                    callback()
-                    return
-                }
-                self.watchlist = snapshot.documents.map({$0.documentID})
-                // Save the watchlist locally to avoid extra calls to the database
-                self.saveWatchlistLocally()
-                callback()
-            }
-            return false
+        // the location of the user's profile in Firestore
+        let ref = FsRoot.collection("Users").document(uid)
+        // fetch and convert to Swift type
+        ref.convert { (converted: FsD_User) in
+            callback(converted)
         }
     }
     
-    public func setUserWatchlist(_ newValue: [String]) -> Bool {
-        self.watchlist = newValue
-        // Check for permissions
-        if !isSignedInWithFirebase {return true}
-        guard let uid = Auth.auth().currentUser?.uid else {
-            isSignedInWithFirebase = false
-            return true
+    public func fetch(_ callback: @escaping (FsC_Watchlist) -> ()) {
+        guard let uid = self.uid else {
+            print("Error @TrojanDiningUser.fetch: uid was nil, most likely due to lack of sign in")
+            return
         }
-        // Obtain user document
-        let userDoc = db.collection("Users").document(uid)
-        // Upload the user's watchlist
-        userDoc.collection("Watchlist").getDocuments { snapshot, error in
-            if let error = error {
-                print("Failed to fetch user's watchlist: \(error.localizedDescription)")
-                return
-            }
-            guard let snapshot = snapshot else {
-                print("Failed to fetch user's watchlist: snapshot was nil")
-                return
-            }
-            snapshot.documents.forEach { document in
-                if !self.watchlist.contains(document.documentID) {
-                    userDoc.collection("Watchlist").document(document.documentID).delete()
-                }
-            }
-            for item in self.watchlist {
-                userDoc.collection("Watchlist").document(item).setData(["on":true])
-            }
+        // the location of the user's watchlist in Firestore
+        let ref = FsRoot.collection("Users").document(uid).collection("Watchlist")
+        // fetch and convert to Swift type
+        ref.convert { (converted: FsC_Watchlist) in
+            callback(converted)
         }
-        // Also save the watchlist locally
-        saveWatchlistLocally()
-        return false
     }
     
-    private func saveWatchlistLocally() {
+    public func pull() {
+        fetch { (user: FsD_User) in self.fs_user = user}
+        fetch { (watchlist: FsC_Watchlist) in self.fs_watchlist = watchlist}
+    }
+    
+    private func commit(_ completion: @escaping (WriteBatch) -> ()) {
+        guard let uid = self.uid else {
+            print("Error @TrojanDiningUser.fetch: uid was nil, most likely due to lack of sign in")
+            return
+        }
+        // the location of the user's profile in Firestore
+        let ref = FsRoot.collection("Users").document(uid)
+        // create batch and write to it
+        let batch = FsRoot.batch()
+        fs_user?.upload(to: ref, using: .merge, in: batch)
+        fs_watchlist?.upload(to: ref.collection("Watchlist"), using: .merge, in: batch) {
+            completion(batch)
+        }
+    }
+    
+    public func push() {
+        commit({$0.commit()})
+    }
+    
+    public var uid: String? {return Auth.auth().currentUser?.uid}
+    
+    public func set(watchlist: [String]) {
+        let documents = watchlist.map({FsD_Bool(uid: $0, bool: true)})
+        fs_watchlist = FsC_Watchlist()
+        fs_watchlist!.children = documents
+        push()
+    }
+    
+    public func set(monthlyPro: Bool) {
+        if fs_user != nil {
+            fs_user!.monthly_pro = monthlyPro
+            push()
+        }
+    }
+    
+    public func set(lastScheduledNotifications: Date) {
+        if fs_user != nil {
+            fs_user!.lastScheduledNotifications = lastScheduledNotifications
+            push()
+        }
+    }
+    
+    private func saveWatchlistLocally(watchlist: [String]) {
         UserDefaults.standard.set(watchlist, forKey: "Watchlist")
+    }
+    
+    private func loadWatchlistLocally() -> [String]? {
+        return UserDefaults.standard.array(forKey: "Watchlist") as? [String]
     }
     
     public func fetchUserRating(for food: Food, _ callback: @escaping (Int?) -> ()) {
@@ -145,7 +135,7 @@ public class TrojanDiningUser {
             return
         }
         // Obtain food document
-        let foodDoc = db.collection("Foods").document(food.name)
+        let foodDoc = FsRoot.collection("Foods").document(food.name)
         // Fetch the user's rating of the food
         foodDoc.collection(Food.hallShortName(food.hall)).document(uid).getDocument() { (docSnapshot, error) in
             if error != nil {
@@ -173,7 +163,7 @@ public class TrojanDiningUser {
             return
         }
         // Obtain food document
-        let foodDoc = db.collection("Foods").document(food.name)
+        let foodDoc = FsRoot.collection("Foods").document(food.name)
         // Fetch the average rating of the food
         foodDoc.getDocument() { (docSnapshot, error) in
             if error != nil {
@@ -200,7 +190,7 @@ public class TrojanDiningUser {
             return
         }
         // Obtain food document
-        let foodDoc = db.collection("Foods").document(food.name)
+        let foodDoc = FsRoot.collection("Foods").document(food.name)
         // Update the user's rating of the food
         foodDoc.collection(Food.hallShortName(food.hall)).document(uid).setData([
             "Rating" : rating,
@@ -220,7 +210,7 @@ public class TrojanDiningUser {
             return
         }
         // Obtain food document
-        let foodDoc = db.collection("Foods").document(food.name)
+        let foodDoc = FsRoot.collection("Foods").document(food.name)
         // Update the average rating of the food
         foodDoc.collection(Food.hallShortName(food.hall)).getDocuments() { (querySnapshot, error) in
             if error != nil {print("Failed to fetch list of ratings: \(error!.localizedDescription)"); return}
@@ -325,3 +315,7 @@ extension String {
         return hashString
     }
 }
+
+//public func continuously(_ closure: @escaping () -> (), until: @escaping () -> Bool) {
+//    
+//}

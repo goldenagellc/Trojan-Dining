@@ -24,7 +24,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         if let contentAvailable = aps["content-available"] as? Int, contentAvailable == 1 {
             print("Log @AppDelegate: Server says to fetch content")
             // The server says to fetch data
-            TrojanDiningUser.shared.fetchUserWatchlist {
+            TrojanDiningUser.shared.fetch { (watchlist: FsC_Watchlist) in
                 let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
                     
                     // TODO: there's probably a better way to manage existing notifications
@@ -36,7 +36,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                         }
                     }
                     print("Log @AppDelegate: Successfully fetched content")
-                    TrojanDiningUser.shared.updateDoc(fields: ["last_updated_notifications" : Timestamp()])
+                    TrojanDiningUser.shared.set(lastScheduledNotifications: Date())
                     completionHandler(.newData)
                 }
                 scraperToday.resume()

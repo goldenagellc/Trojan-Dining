@@ -10,13 +10,13 @@ import Foundation
 import Firebase
 
 extension CollectionReference {
-    public func convert(callback: @escaping (FsCollection) -> ()) {
+    public func convert<FsC: FsCollection>(_ callback: @escaping (FsC) -> ()) {
         FsRoot.shared.convert(self, callback: callback)
     }
 }
 
 extension DocumentReference {
-    public func convert(callback: @escaping (FsDocument) -> ()) {
+    public func convert<FsD: FsDocument>(_ callback: @escaping (FsD) -> ()) {
         FsRoot.shared.convert(self, callback: callback)
     }
 }

@@ -19,7 +19,7 @@ public final class FsRoot {
     private var fsCollections: [Path : FsCollection.Type] = [:]
     private var fsDocuments: [Path : FsDocument.Type] = [:]
     
-    public func convert(_ collection: CollectionReference, callback: @escaping (FsCollection) -> ()) {
+    public func convert<FsC: FsCollection>(_ collection: CollectionReference, callback: @escaping (FsC) -> ()) {
         guard let key = Self.find(path: collection.path, in: fsCollections) else {
             print("Error @FsRoot.convert: no FsCollection.Type is registered for path \(collection.path)")
             return
@@ -33,14 +33,18 @@ public final class FsRoot {
                 return
             }
             guard let documents = snapshot?.documents else {
-                print("Error @fsRoot.convert: failed to get documents for \(collection.path) - snapshot was nil")
+                print("Error @FsRoot.convert: failed to get documents for \(collection.path) - snapshot was nil")
                 return
             }
-            callback(fsCollection.init(documents: documents))
+            guard let converted = fsCollection.init(documents: documents) as? FsC else {
+                print("Error @FsRoot.convert: failed to cast collection at \(collection.path) to \(FsC.self)")
+                return
+            }
+            callback(converted)
         }
     }
     
-    public func convert(_ document: DocumentReference, callback: @escaping (FsDocument) -> ()) {
+    public func convert<FsD: FsDocument>(_ document: DocumentReference, callback: @escaping (FsD) -> ()) {
         guard let key = Self.find(path: document.path, in: fsDocuments) else {
             print("Error @FsRoot.convert: no FsDocument.Type is registered for path \(document.path)")
             return
@@ -54,10 +58,14 @@ public final class FsRoot {
                 return
             }
             guard let snapshot = snapshot else {
-                print("Error @fsRoot.convert: failed to get document at \(document.path) - snapshot was nil")
+                print("Error @FsRoot.convert: failed to get document at \(document.path) - snapshot was nil")
                 return
             }
-            callback(fsDocument.init(uid: snapshot.documentID, json: snapshot.data() ?? [:]))
+            guard let converted = fsDocument.init(uid: snapshot.documentID, json: snapshot.data() ?? [:]) as? FsD else {
+                print("Error @FsRoot.convert: failed to cast document at \(document.path) to \(FsD.self)")
+                return
+            }
+            callback(converted)
         }
     }
     
@@ -101,6 +109,9 @@ public final class FsRoot {
             var matches = true
             
             let cutouts = key.split(separator: "/")
+            if cutouts.count != pinTumblers.count {
+                continue
+            }
             for (pin, cutout) in zip(pinTumblers, cutouts) {
                 matches = cutout == "{Any}" || cutout == pin
                 if !matches {break}
@@ -119,6 +130,10 @@ public final class FsRoot {
     
     public static func document(_ documentPath: Path) -> DocumentReference {
         return fs.document(documentPath)
+    }
+    
+    public static func batch() -> WriteBatch {
+        return fs.batch()
     }
     
     // MARK: - additional members

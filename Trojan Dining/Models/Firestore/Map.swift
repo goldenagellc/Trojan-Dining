@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 
 /*
- The following closure should be called when initializing the app.
+ The following closure is called when initializing FsRoot.
  -- The "{Any}" wildcard will match against any string. When paths are
  -- identical except for the resolution of this wildcard
  -- (e.g. "/Users/{Any}" vs "/Users/A12B34C5"), behaviour is ambiguous.
@@ -36,22 +36,4 @@ let FS_TYPE_MAP: () -> () = {
     // -- Usually, using the childTypes property of an FsCollection is the better way to go
     FsRoot.shared.register(documentType: FsD_User.self, with: "/Users/{Any}")
     FsRoot.shared.register(documentType: FsD_Bool.self, with: "/Users/{Any}/Watchlist/{Any}")
-}
-
-
-class Test {
-    init() {
-        FsRoot.collection("Users").document(Auth.auth().currentUser!.uid).convert { fsDoc in
-            let user = fsDoc as! FsD_User
-            print(user.uid)
-            print(user.lastScheduledNotifications)
-        }
-        
-        FsRoot.collection("Users").document(Auth.auth().currentUser!.uid).collection("Watchlist").convert { fsColl in
-            let watchlist = fsColl as! FsC_Watchlist
-            watchlist.children.forEach { child in
-                print(child.uid)
-            }
-        }
-    }
 }

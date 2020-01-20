@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class NotificationViewController: UIViewController {
 
@@ -21,35 +22,34 @@ class NotificationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         engageTableView()
-        
-        TrojanDiningUser.shared.fetchUserWatchlist {
-            self.watchlist += TrojanDiningUser.shared.watchlist
-            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-        }
     }
     
     @IBAction func onPlusButtonTapped(_ sender: UIButton) {
-//        TrojanDiningUser.shared.hasUpgraded { [weak self] hasUpgraded in
-//            if hasUpgraded {
-//                self?.watchlist.append("")
-//                self?.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-//            }else {
-//                self?.performSegue(withIdentifier: "UpgradeSegue", sender: self)
-//            }
-//        }
-        
         if Market.shared.isProductPurchased(TrojanDiningProducts.MonthlyPro) {
             watchlist.append("")
             tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }else if TrojanDiningUser.shared.isSignedInWithApple != .authorized {
+            let controller = ASAuthorizationController(authorizationRequests: [TrojanDiningUser.shared.signInWithAppleRequest()])
+            controller.delegate = self
+            controller.presentationContextProvider = self
+            controller.performRequests()
         }else {
             performSegue(withIdentifier: "UpgradeSegue", sender: self)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        TrojanDiningUser.shared.fetch { (watchlist: FsC_Watchlist) in
+            self.watchlist += TrojanDiningUser.shared.watchlist
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let watchlistFull = watchlist.filter({$0 != ""})
-        TrojanDiningUser.shared.setUserWatchlist(watchlistFull)
+        TrojanDiningUser.shared.set(watchlist: watchlistFull)
     }
 }
 
@@ -135,5 +135,24 @@ extension NotificationViewController {
         if let _ = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             tableView.contentInset = UIEdgeInsets.zero
         }
+    }
+}
+
+extension NotificationViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            TrojanDiningUser.shared.signInWithApple(using: appleIDCredential)
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        //TODO handle errors
+        print("NotificationViewController: 'Sign in with Apple' flow failed.")
+    }
+}
+
+extension NotificationViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
 }
