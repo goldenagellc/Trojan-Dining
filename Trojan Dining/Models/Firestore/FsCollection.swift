@@ -14,9 +14,13 @@ public enum FsCollectionUploadMode {
 }
 
 public protocol FsCollection: class {
-    static var childTypes: [String : FsDocument.Type] { get }
+    // all children must be of type Child
+    associatedtype Child: FsDocument
+    // childTypes allows children to be subclasses of Child
+    // different initializers get called depending on the "type" field on Firestore
+    static var childTypes: [String : Child.Type] { get }
     
-    var children: [FsDocument] { get set }
+    var children: [Child] { get set }
     
     init()
     
@@ -80,8 +84,3 @@ extension FsCollection {
         }
     }
 }
-
-
-
-
-

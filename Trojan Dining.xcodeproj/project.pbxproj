@@ -11,7 +11,6 @@
 		BE0B090E23D3C65A002B041D /* FsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B090D23D3C65A002B041D /* FsCollection.swift */; };
 		BE0B091023D3C662002B041D /* FsDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B090F23D3C662002B041D /* FsDocument.swift */; };
 		BE0B091223D3E25F002B041D /* FsRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B091123D3E25F002B041D /* FsRoot.swift */; };
-		BE0B091723D4384C002B041D /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B091623D4384C002B041D /* Map.swift */; };
 		BE0B091B23D43D3C002B041D /* FsC_Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B091A23D43D3C002B041D /* FsC_Users.swift */; };
 		BE0B091D23D43D6A002B041D /* FsC_Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B091C23D43D6A002B041D /* FsC_Watchlist.swift */; };
 		BE0B091F23D43D8D002B041D /* FsD_User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B091E23D43D8D002B041D /* FsD_User.swift */; };
@@ -89,7 +88,6 @@
 		BE0B090D23D3C65A002B041D /* FsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FsCollection.swift; sourceTree = "<group>"; };
 		BE0B090F23D3C662002B041D /* FsDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FsDocument.swift; sourceTree = "<group>"; };
 		BE0B091123D3E25F002B041D /* FsRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FsRoot.swift; sourceTree = "<group>"; };
-		BE0B091623D4384C002B041D /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		BE0B091A23D43D3C002B041D /* FsC_Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FsC_Users.swift; sourceTree = "<group>"; };
 		BE0B091C23D43D6A002B041D /* FsC_Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FsC_Watchlist.swift; sourceTree = "<group>"; };
 		BE0B091E23D43D8D002B041D /* FsD_User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FsD_User.swift; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 		BE0B090C23D3C630002B041D /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
-				BE0B091623D4384C002B041D /* Map.swift */,
 				BE0B091123D3E25F002B041D /* FsRoot.swift */,
 				BE0B090D23D3C65A002B041D /* FsCollection.swift */,
 				BE0B090F23D3C662002B041D /* FsDocument.swift */,
@@ -495,7 +492,6 @@
 			files = (
 				C44DE8E4219805CD00CFC981 /* FilterView.swift in Sources */,
 				BEB5E39A23C7039D006F3DFE /* WatchlistCell.swift in Sources */,
-				BE0B091723D4384C002B041D /* Map.swift in Sources */,
 				C45E3453218EB46300A8C28E /* URLBuilder.swift in Sources */,
 				BEEB6C7E239CC769007062D7 /* FoodDetailController.swift in Sources */,
 				BE0B092123D43DA7002B041D /* FsD_Bool.swift in Sources */,

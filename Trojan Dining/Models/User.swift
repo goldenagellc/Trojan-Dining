@@ -25,7 +25,7 @@ public class TrojanDiningUser {
 
     public private(set) var fs_user: FsD_User? = nil
     public private(set) var fs_watchlist: FsC_Watchlist? = nil
-    public var watchlist: [String] {return fs_watchlist?.children.filter({($0 as! FsD_Bool).bool}).map({$0.uid}) ?? []}
+    public var watchlist: [String] {return fs_watchlist?.children.filter({$0.bool}).map({$0.uid}) ?? []}
     
     
     
@@ -37,13 +37,6 @@ public class TrojanDiningUser {
         request.requestedScopes = nil
         return request
     }
-    
-    /*
-     Attempts to retrieve user's watchlist. Will fetch from device storage if available,
-     otherwise pulls from Firebase. Callback is called when function finishes, even if
-     watchlist has not been retrieved. Returns true if user sign in is required, false if
-     user is signed in, and nil if watchlist was retrieved from device storage.
-     */
     
     public func fetch(_ callback: @escaping (FsD_User) -> ()) {
         guard let uid = self.uid else {
@@ -86,7 +79,7 @@ public class TrojanDiningUser {
         // create batch and write to it
         let batch = FsRoot.batch()
         fs_user?.upload(to: ref, using: .merge, in: batch)
-        fs_watchlist?.upload(to: ref.collection("Watchlist"), using: .merge, in: batch) {
+        fs_watchlist?.upload(to: ref.collection("Watchlist"), using: .set, in: batch) {
             completion(batch)
         }
     }
@@ -102,6 +95,7 @@ public class TrojanDiningUser {
         fs_watchlist = FsC_Watchlist()
         fs_watchlist!.children = documents
         push()
+        saveWatchlistLocally(watchlist: watchlist)
     }
     
     public func set(monthlyPro: Bool) {
@@ -122,8 +116,8 @@ public class TrojanDiningUser {
         UserDefaults.standard.set(watchlist, forKey: "Watchlist")
     }
     
-    private func loadWatchlistLocally() -> [String]? {
-        return UserDefaults.standard.array(forKey: "Watchlist") as? [String]
+    public func loadWatchlistLocally() -> [String] {
+        return UserDefaults.standard.array(forKey: "Watchlist") as? [String] ?? []
     }
     
     public func fetchUserRating(for food: Food, _ callback: @escaping (Int?) -> ()) {
@@ -315,7 +309,3 @@ extension String {
         return hashString
     }
 }
-
-//public func continuously(_ closure: @escaping () -> (), until: @escaping () -> Bool) {
-//    
-//}

@@ -24,6 +24,6 @@ public struct FsD_Bool: FsDocument {
     }
     
     public func json() -> [String : Any] {
-        return ["bool" : bool]
+        return ["type" : "Bool", "bool" : bool]
     }
 }

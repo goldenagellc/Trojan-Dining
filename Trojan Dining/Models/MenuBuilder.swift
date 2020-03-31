@@ -87,7 +87,8 @@ public class MenuBuilder {
         if let food = currentFood {
             currentSect!.foods.append(food)
             if shouldCheckWatchlist {
-                TrojanDiningUser.shared.watchlist.forEach { watchedTerm in
+                // TODO better way to load this than pulling from storage every single time
+                TrojanDiningUser.shared.loadWatchlistLocally().forEach { watchedTerm in
                     if food.name.lowercased().contains(watchedTerm.lowercased()) {
                         var current = watchlistHits![currentHall!.decodedName] ?? [:]
                         current[currentMeal!.shortName] = (current[currentMeal!.name] ?? []) + [food.name]

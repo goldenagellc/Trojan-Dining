@@ -9,11 +9,12 @@
 import Foundation
 
 public final class FsC_Watchlist: FsCollection {
-    public static let childTypes: [String : FsDocument.Type] = [
+    
+    public static let childTypes: [String : FsD_Bool.Type] = [
         "Bool" : FsD_Bool.self
     ]
     
-    public var children: [FsDocument] = []
+    public var children: [FsD_Bool] = []
     
     public init() {}
 }

@@ -9,11 +9,12 @@
 import Foundation
 
 public final class FsC_Users: FsCollection {
-    public static let childTypes: [String : FsDocument.Type] = [
+    
+    public static let childTypes: [String : FsD_User.Type] = [
         "User" : FsD_User.self
     ]
     
-    public var children: [FsDocument] = []
+    public var children: [FsD_User] = []
     
     public init() {}
 }

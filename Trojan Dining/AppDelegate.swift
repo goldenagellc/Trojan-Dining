@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // FIREBASE SETUP -------------------------------------------
         FirebaseApp.configure()
-        FS_TYPE_MAP()
         
         // user account
         if let firebaseUser = Auth.auth().currentUser {
@@ -71,23 +70,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Do nothing
             }
             
-            TrojanDiningUser.shared.fetch { (watchlist: FsC_Watchlist) in
-                let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
-                    
-                    // TODO: there's probably a better way to manage existing notifications
-                    UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-                    
-                    watchlistHits?.forEach { hall, mealFoodDict in
-                        mealFoodDict.forEach { meal, foods in
-                            AppDelegate.scheduleLocalNotification(meal: meal, hall: hall, foods: foods)
-                        }
+            let scraperToday = WebScraper(forURL: URLBuilder.url(for: .today), checkingWatchlist: true) { menu, watchlistHits in
+                // TODO: there's probably a better way to manage existing notifications
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                
+                watchlistHits?.forEach { hall, mealFoodDict in
+                    mealFoodDict.forEach { meal, foods in
+                        AppDelegate.scheduleLocalNotification(meal: meal, hall: hall, foods: foods)
                     }
-                    print("Log @AppDelegate: Successfully fetched content")
-                    TrojanDiningUser.shared.set(lastScheduledNotifications: Date())
-                    task.setTaskCompleted(success: true)
                 }
-                scraperToday.resume()
+                print("Log @AppDelegate: Successfully fetched content")
+                TrojanDiningUser.shared.set(lastScheduledNotifications: Date())
+                task.setTaskCompleted(success: true)
             }
+            scraperToday.resume()
         }
         // ----------------------------------------------------------
         return true

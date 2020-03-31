@@ -22,6 +22,11 @@ class NotificationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         engageTableView()
+        
+        TrojanDiningUser.shared.fetch { (watchlist: FsC_Watchlist) in
+            self.watchlist += watchlist.children.filter({$0.bool}).map({$0.uid})
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }
     }
     
     @IBAction func onPlusButtonTapped(_ sender: UIButton) {
@@ -35,14 +40,6 @@ class NotificationViewController: UIViewController {
             controller.performRequests()
         }else {
             performSegue(withIdentifier: "UpgradeSegue", sender: self)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        TrojanDiningUser.shared.fetch { (watchlist: FsC_Watchlist) in
-            self.watchlist += TrojanDiningUser.shared.watchlist
-            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
         }
     }
     

@@ -28,6 +28,7 @@ public struct FsD_User: FsDocument {
     
     public func json() -> [String : Any] {
         var dict: [String : Any] = [:]
+        dict["type"] = "User"
         dict["monthly_pro"] = monthly_pro
         if lastScheduledNotifications != nil {dict["last_scheduled_notifications"] = Timestamp(date: lastScheduledNotifications!)}
         return dict
