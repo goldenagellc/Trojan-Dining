@@ -51,7 +51,10 @@ class MenuBuilder {
             case MenuBuilder.HTMLFood.startTag: if (this.readingSect) this.readingFood = true; break;
             case MenuBuilder.HTMLFood.endTag: if (this.readingFood) {this.saveFood(); this.resetFood();} break;
             case MenuBuilder.HTMLSect.endTag: if (this.readingSect) {this.saveSect(); this.resetSect();} break;
-            case MenuBuilder.HTMLHall.endTag: if (this.readingHall) {this.saveHall(); this.resetHall();} break;
+            case MenuBuilder.HTMLHall.endTag:
+                if (this.readingSect) {this.saveSect(); this.resetSect();}
+                if (this.readingHall) {this.saveHall(); this.resetHall();}
+                break;
         }
     }
 
