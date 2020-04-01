@@ -55,9 +55,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     // MARK: - convenience functions
     static func requestAuthorizationToSendNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if error != nil || !granted {
-                print("Error @AppDelegate: Failed to get authorization to send notifications \(error!)")
-                return
+            if error != nil {
+                print("Error @AppDelegate: Failed to get authorization to send notifications: \(error!)")
+            }else if !granted {
+                print("Error @AppDelegate: Failed to get authorization to send notifications: User denied")
             }
             print("Log @AppDelegate: Successfully got authorization to send notifications")
             Self.attemptToRegisterForRemoteNotifications()
