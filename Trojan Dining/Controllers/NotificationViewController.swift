@@ -29,6 +29,11 @@ class NotificationViewController: UIViewController {
         }
     }
     
+    @IBAction func onLegalButtonTapped(_ sender: UIButton) {
+        let url = URL(string: "https://www.goldenagetechnologies.llc/legal/trojan-dining")!
+        UIApplication.shared.open(url)
+    }
+    
     @IBAction func onPlusButtonTapped(_ sender: UIButton) {
         if Market.shared.isProductPurchased(TrojanDiningProducts.MonthlyPro) {
             watchlist.append("")
