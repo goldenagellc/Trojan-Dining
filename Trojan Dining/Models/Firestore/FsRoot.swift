@@ -12,11 +12,6 @@ import Firebase
 public final class FsRoot {
     private static let fs = Firestore.firestore()
     
-//    public private(set) static var shared: FsRoot = {
-//        return FsRoot()
-//    }()
-//    private init() {}
-    
     public static func collection(_ collectionPath: String) -> CollectionReference {
         return fs.collection(collectionPath)
     }

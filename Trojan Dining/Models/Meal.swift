@@ -21,7 +21,7 @@ public final class Meal: DataDuct, CollectableData {
     public let sections: [[String]]
     public let foods: [[[Food]]]
     public private(set) lazy var isServed: Bool = {[unowned self] in
-        return (foods[0].count > 0) && withinHours(for: self)
+        return (foods.reduce(0, {$0 + $1.reduce(0, {$0 + $1.count})}) > 0) && withinHours(for: self)
     }()
 
     public private(set) var filteredFoods: [[[Food]]]

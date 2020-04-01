@@ -65,7 +65,9 @@ public class MenuBuilder {
         case HTMLFood.startTag: if readingSect {readingFood = true}
         case HTMLFood.endTag: if readingFood {saveFood(); resetFood();}
         case HTMLSection.endTag: if readingSect {saveSect(); resetSect();}
-        case HTMLHall.endTag: if readingHall {saveHall(); resetHall();}
+        case HTMLHall.endTag:
+            if readingSect {saveSect(); resetSect();}// Solves issue that occurs when Section has no Foods
+            if readingHall {saveHall(); resetHall();}
         default: break
         }
     }
