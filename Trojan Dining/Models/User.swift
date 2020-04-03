@@ -65,8 +65,8 @@ public class TrojanDiningUser {
     }
     
     public func pull() {
-        fetch { (user: FsD_User) in self.fs_user = user}
-        fetch { (watchlist: FsC_Watchlist) in self.fs_watchlist = watchlist}
+        fetch { [weak self] (user: FsD_User) in self?.fs_user = user}
+        fetch { [weak self] (watchlist: FsC_Watchlist) in self?.fs_watchlist = watchlist}
     }
     
     private func commit(_ completion: @escaping (WriteBatch) -> ()) {

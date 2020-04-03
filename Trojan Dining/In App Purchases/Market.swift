@@ -53,7 +53,12 @@ extension Market {
     }
     
     public func isProductPurchased(_ product: ProductIdentifier) -> Bool {
-        return productsPurchased.contains(product)
+        if productsPurchased.contains(product) {
+            TrojanDiningUser.shared.set(monthlyPro: true)
+            return true
+        }
+        TrojanDiningUser.shared.set(monthlyPro: false)
+        return false
     }
     
     public class func canMakePayments() -> Bool {

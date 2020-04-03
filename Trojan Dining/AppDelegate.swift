@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // user account
         if let firebaseUser = Auth.auth().currentUser {
             TrojanDiningUser.shared.isSignedInWithFirebase = true
+            TrojanDiningUser.shared.pull()
             print("Log @AppDelegate: Firebase UID = \(firebaseUser.uid)")
             if let appleUserID = firebaseUser.displayName {
                 print("Log @AppDelegate: Apple UID = \(appleUserID)")
